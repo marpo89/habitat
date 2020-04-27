@@ -1,0 +1,34 @@
+package org.habitatnicaragua.micasa.dao;
+
+import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
+import org.springframework.stereotype.Repository;
+
+import java.util.List;
+
+import org.habitatnicaragua.micasa.modelo.CatMaestro;
+
+@Repository
+public interface CatMaestroDao extends JpaRepository<CatMaestro, Long>, JpaSpecificationExecutor<CatMaestro> {		
+	
+	@Query(value="select distinct this.tipoCatalogo from CatMaestro this where this.activo=true")
+	List<String> buscarTiposCatalogos();
+	
+	@Query(value="select this from CatMaestro this where this.activo = true and this.tipoCatalogo = :tipoCatalogo ORDER BY this.nombre")
+	List<CatMaestro> listarCatalogosPorTipo(@Param("tipoCatalogo") String tipoCatalogo);
+	
+	@Query(value="select this from CatMaestro this where this.activo = true and this.tipoCatalogo = :tipoCatalogo")
+	List<CatMaestro> listarCatalogosPorTipo(@Param("tipoCatalogo") String tipoCatalogo, Sort orden);
+	
+	@Query(value="select this from CatMaestro this where this.activo = true and this.tipoCatalogo = :tipoCatalogo AND this.nombre = :nombre")
+	CatMaestro buscarCatalogoPorTipoNombre(@Param("tipoCatalogo") String tipoCatalogo, @Param("nombre") String nombre);
+	
+	@Query(value="select this.descripcion from CatMaestro this where this.tipoCatalogo='PARAMETRO_APP' AND this.nombre=:nombreParametro")
+	String buscarValorParametro(@Param("nombreParametro") String nombreParametro);
+}
+
+
+

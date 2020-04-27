@@ -1,0 +1,90 @@
+package org.habitatnicaragua.micasa.seguridad;
+
+import javax.inject.Inject;
+
+import org.habitatnicaragua.micasa.modelo.Rol;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.core.Ordered;
+import org.springframework.core.annotation.Order;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
+
+/**
+ * https://docs.spring.io/spring-security/site/docs/4.1.1.RELEASE/guides/html5/form-javaconfig.html
+ * @author denis
+ *
+ */
+@Configuration
+@EnableWebSecurity
+@EnableGlobalMethodSecurity(prePostEnabled=true)
+public class ConfigSeguridad extends WebSecurityConfigurerAdapter {
+	public final PasswordEncoder passwordEncoder  = new BCryptPasswordEncoder();
+	
+	@Inject
+	private DetalleUsuarioServicio detalleUsuarioServicio;
+	
+	@Inject
+	private LoginOkHandler loginOkHandler;
+	
+	@Inject
+	private LoginErrorHandler loginErrorHandler;
+	
+	@Override
+	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+		auth.userDetailsService(detalleUsuarioServicio)
+			.passwordEncoder(passwordEncoder);
+	}
+
+	@Override
+	@Order(Ordered.HIGHEST_PRECEDENCE)
+	protected void configure(HttpSecurity http) throws Exception {
+		// http://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/util/AntPathMatcher.html
+		
+		loginErrorHandler.setDefaultFailureUrl("/login.xhtml?error=true");
+		
+		http
+			.headers()
+				.frameOptions().sameOrigin()
+				.cacheControl().disable()
+			.and()
+				.csrf().disable()
+			.authorizeRequests()
+				
+				.antMatchers("/plantillas/**").denyAll()
+				.antMatchers("/admin/**").hasAnyRole(Rol.ADMIN.name())
+				
+				.antMatchers("/.well-known/**").permitAll()
+				
+				.antMatchers("/proyecto/index.xhtml").permitAll()
+				.antMatchers("/proyecto/asistencia.xhtml").permitAll()
+				.antMatchers("/proyecto/**").authenticated()
+
+				.antMatchers("/gestion/**").authenticated()
+				
+				.antMatchers("/usuario/miPerfil.xhtml").authenticated()
+				
+				.anyRequest().permitAll()
+				
+			.and()
+				.formLogin()
+				.loginPage("/login.xhtml").permitAll()
+				.successHandler(loginOkHandler)
+				.failureHandler(loginErrorHandler)
+			.and()
+				.logout()
+				.clearAuthentication(true)
+                .invalidateHttpSession(true)
+				.logoutSuccessUrl("/inicio")
+			.and()
+				.rememberMe()
+					.key("NBHuFl2JUzf658710lll6yWjVRBtynCBr8dFN6yAL0dFT")
+					.rememberMeParameter("rememberme");
+		
+		http.sessionManagement().sessionFixation().newSession().maximumSessions(-1);
+	}
+}

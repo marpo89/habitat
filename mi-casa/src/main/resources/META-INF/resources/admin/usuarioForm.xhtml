@@ -1,0 +1,349 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:b="http://bootsfaces.net/ui"
+	xmlns:p="http://primefaces.org/ui"
+	template="../plantillas/admin-lte.xhtml">
+	
+	<ui:define name="uiTituloVista">#{usuariosVista.tituloPagina}</ui:define>
+	
+	<ui:define name="uiBreadCrumb">
+		<ol class="breadcrumb">
+			<li><a href="#{request.contextPath}/index.xhtml">Inicio</a></li>
+			<li><a href="#{usuariosVista.enlaceListado}">Usuarios</a></li>			
+			<li class="active">#{usuariosVista.infoRegistroActual}</li>
+		</ol>
+	</ui:define>
+	
+	<ui:define name="uiContenido">
+		
+		<b:modal id="confirmacionEliminar" title="Eliminar Registro" styleClass="modal-danger fade">
+			<p>&#191;Eliminar el rol seleccionado?</p>
+			<f:facet name="footer">
+				<b:button value="Cancelar" look="danger" styleClass="pull-left" dismiss="modal" />
+				<b:commandButton value="Eliminar" look="danger" ajax="true" dismiss="modal"  
+					actionListener="#{usuariosVista.eliminarRegistroSegRolUsuario}" oncomplete="tablaRolesUsuario.ajax.reload();$('#frm-confirmacionEliminar').modal('hide');"/>
+			</f:facet>
+		</b:modal>
+		
+		<b:modal id="confirmacionEliminarDireccion" title="Eliminar Registro" styleClass="modal-danger fade">
+			<p>&#191;Eliminar la direcci&#243;n seleccionada?</p>
+			<f:facet name="footer">
+				<b:button value="Cancelar" look="danger" styleClass="pull-left" dismiss="modal" />
+				<b:commandButton value="Eliminar" look="danger" ajax="true" dismiss="modal"  
+					actionListener="#{usuariosVista.eliminarRegistroPerDireccion}" oncomplete="tablaDireccionUsuario.ajax.reload();$('#frm-confirmacionEliminarDireccion').modal('hide');"/>
+			</f:facet>
+		</b:modal>
+		
+		
+		<h:panelGroup style="display: none;">
+			<h:inputHidden value="#{usuariosVista.idPerUsuario}" id="idPerUsuario" label="" />
+			<h:inputHidden value="#{usuariosVista.idRolUsuario}" id="idRolUsuario" label="" />
+			<h:inputHidden value="#{usuariosVista.idPerDireccion}" id="idPerDireccion" label="" />
+		</h:panelGroup>
+		
+		<div class="row formulario-datos">
+			<!-- left column -->
+        	<div class="col-md-4">
+        		
+        		<div class="box box-primary">
+        			<b:image value="#{usuariosVista.rutaAvatar}" id="avatar" styleClass="img-responsive center-block" />
+        			
+					<b:formGroup>
+						<label>Cambiar imagen</label>
+
+						<p:fileUpload label="" 
+								skinSimple="true" mode="advanced" auto="true" dragDropSupport="false"
+								sizeLimit="#{plantillaUIVista.sizeLimitAvatar}" allowTypes="/(\.|\/)(jpe?g|png)$/" accept=".jpg,.jpeg,.png"
+								fileUploadListener="#{usuariosVista.subirArchivoAvatar}" update="frm-avatar"/>
+						<b:label text="[400 x 400 px]" severity="warning"/>							
+					</b:formGroup>
+        		</div>
+        		
+				<div class="box box-primary">
+					<div class="box-header with-border">
+						<h3 class="box-title">Usuario</h3>
+        			</div>
+        		
+        			<div class="box-body">
+        			
+        				<b:formGroup>
+       						<label>Correo</label>
+							<b:inputText placeholder="Correo del usuario" value="#{usuariosVista.segUsuario.correo}" mask="email" label="" render-label="false"/>
+       					</b:formGroup>       			
+       					
+       					<b:formGroup>
+       						<label>Nombre completo</label>
+       						<b:inputText placeholder="Nombre completo" autocomplete="off" value="#{usuariosVista.segUsuario.nombres}" label="" render-label="false"/>
+       					</b:formGroup>	
+       					
+       					<b:formGroup>
+       						<label>Sexo</label>
+       						<b:selectOneMenu value="#{usuariosVista.segUsuario.sexo}" label="">
+       							<f:selectItem itemLabel="" itemValue="" />
+       							<f:selectItem itemLabel="Masculino" itemValue="M" />
+                                <f:selectItem itemLabel="Femenino" itemValue="F" />       							
+       						</b:selectOneMenu>
+       					</b:formGroup> 
+       					
+       					<b:formGroup>
+       						<label>Fecha de nacimiento</label>
+       						<b:dateTimePicker value="#{usuariosVista.segUsuario.fechaNacString}"
+								format="DD/MM/YYYY" locale="es" label="" render-label="false">
+								<f:converter converterId="bootFacesDateTimePickerConverter" />
+							</b:dateTimePicker>
+       					</b:formGroup>
+       					   			
+          			</div>
+      			</div>
+			</div>	
+			
+			<div class="col-md-4">
+        
+				<div class="box box-primary">
+					<div class="box-header with-border">
+						<h3 class="box-title">Datos de contacto</h3>
+        			</div>
+        		
+        			<div class="box-body">	
+        				<b:formGroup>
+       						<label>Persona de contacto</label>
+       						<b:inputText placeholder="Persona de contacto" autocomplete="off" value="#{usuariosVista.segUsuario.contacto}" label="" render-label="false"/>
+       					</b:formGroup>	
+       					
+        				<b:formGroup>
+       						<label>Direcci&#243;n principal</label>
+							<b:inputTextarea maxlength="500" placeholder="Direcci&#243;n del usuario" value="#{usuariosVista.segUsuario.direccionFisica}" label="" render-label="false"/>
+       					</b:formGroup>
+       					
+       					<b:formGroup>
+       						<label>Tel&#233;fono</label>
+							<b:inputText placeholder="Tel&#233;fono del usuario" value="#{usuariosVista.segUsuario.telefonos}" label="" render-label="false"/>
+       					</b:formGroup>
+       					
+       					<b:formGroup>
+       						<label>Sitio Web</label>
+							<b:inputText placeholder="URL de Sitio Web Propio" value="#{usuariosVista.segUsuario.sitioWeb}" label="" render-label="false"/>
+       					</b:formGroup>
+       					
+       					<b:formGroup>
+       						<label>Facebook</label>
+							<b:inputText placeholder="URL de Facebook" value="#{usuariosVista.segUsuario.facebook}" label="" render-label="false"/>
+       					</b:formGroup>
+       					
+       					<b:formGroup>
+       						<label>Twitter</label>
+							<b:inputText placeholder="URL de Twitter" value="#{usuariosVista.segUsuario.twitter}" label="" render-label="false"/>
+       					</b:formGroup>
+       					
+       					<b:formGroup>
+       						<label>Whatsapp</label>
+							<b:inputText placeholder="N&#250;mero Whatsapp" value="#{usuariosVista.segUsuario.whatsapp}" label="" render-label="false"/>
+       					</b:formGroup>
+        			
+        			
+        			</div>
+      			</div>
+			</div>
+			
+			
+			<div class="col-md-4">        
+				<div class="box box-primary">
+					<div class="box-header with-border">
+						<h3 class="box-title">Seguridad</h3>
+        			</div>
+        		
+        			<div class="box-body">
+        			
+       					<b:formGroup>
+       						<label>Nueva contrase&#241;a</label>
+       						<b:inputSecret id="pass1" value="#{usuariosVista.clave}" label="" render-label="false" autocomplete="off"/>
+       					</b:formGroup>
+       					
+       					<b:formGroup>
+       						<label>Repetir contrase&#241;a</label>
+       						<b:inputSecret id="pass2" value="#{usuariosVista.clave2}" label="" render-label="false" autocomplete="off" />
+       					</b:formGroup>
+        				
+       					<b:formGroup>
+       						<label>Activo</label>
+       						<b:switch off-text="No" on-text="Si" value="#{usuariosVista.segUsuario.activo}" label="" render-label="false"/>
+       					</b:formGroup>
+        			
+        				<b:formGroup rendered="#{!usuariosVista.modoEditarMaestro}">
+       						<label>Plantilla de roles</label>
+       						<b:selectOneMenu value="#{usuariosVista.rol}" label="">
+       							<f:selectItem itemLabel="" itemValue="" />
+       							<f:selectItems value="#{usuariosVista.roles}" var="roles" itemLabel="#{roles.rol}" itemValue="#{roles}" />
+       						</b:selectOneMenu>
+       					</b:formGroup>
+       					
+        			</div>
+      			</div>
+			</div>		
+			
+			
+		</div>
+		
+		<div class="row">
+			<div class="col-md-12">
+				<div class="box-footer">
+                <button type="button" class="btn btn-danger" onclick="irA('#{usuariosVista.enlaceListado}');">Cancelar</button>
+                
+                <b:commandButton value="Guardar" icon="save" look="primary" ajax="true" styleClass="pull-right"
+					actionListener="#{usuariosVista.guardarRegistro}" onerror="" onsuccess="irA('#{request.contextPath}/admin/usuarios.xhtml');"/>
+			
+              </div>
+              
+			</div>
+		</div>
+		
+		<div class="row">
+			<div class="col-md-12">&#160;</div>
+		</div>
+		
+		
+  		<b:row rendered="#{usuariosVista.modoEditarMaestro}"> 
+			<div class="col-xs-12"> 
+				<b:tabView>
+					<b:tab title="Roles del usuario">
+						<b:buttonToolbar>
+								<b:buttonGroup>
+									<b:button icon-awesome="fa-file" title="Nuevo Registro" value="Nuevo" 
+										onclick="desmarcarRegistroSeleccionado('#frm-idRolUsuario');irA('#{request.contextPath}/admin/usuarioRolesForm.xhtml?', 'idPerUsuario');"/>
+										
+								   	<b:button icon-awesome="fa-trash" title="Eliminar Seleccionado" value="Eliminar" 
+								   		onclick="mostrarConfirmacionEliminar('#frm-confirmacionEliminar','#frm-idRolUsuario',tablaRolesUsuario)" />
+								    </b:buttonGroup>
+						</b:buttonToolbar>
+						<table id="rolesUsuario" class="display responsive table table-bordered table-striped"></table>
+					
+					</b:tab>
+					<b:tab title="Direcciones">
+						<b:buttonToolbar>
+								<b:buttonGroup>
+									<b:button icon-awesome="fa-file" title="Nuevo Registro" value="Nuevo" 
+										onclick="desmarcarRegistroSeleccionado('#frm-idRolUsuario');irA('#{request.contextPath}/admin/usuarioDireccionForm.xhtml?', 'idPerUsuario');"/>
+									
+									<b:button icon-awesome="fa-edit" title="Editar Seleccionado" value="Editar"
+									onclick="if(marcarRegistroSeleccionado('#frm-idPerDireccion', tablaDireccionUsuario)) {irA('#{request.contextPath}/admin/usuarioDireccionForm.xhtml?', 'idPerUsuario', 'idPerDireccion');}" />
+							    	
+								   	<b:button icon-awesome="fa-trash" title="Eliminar Seleccionado" value="Eliminar" 
+								   		onclick="mostrarConfirmacionEliminar('#frm-confirmacionEliminarDireccion','#frm-idPerDireccion',tablaDireccionUsuario)" />
+								    </b:buttonGroup>
+						</b:buttonToolbar>
+						<table id="usuarioDireccion" class="display responsive table table-bordered table-striped"></table>
+					</b:tab>
+				</b:tabView>
+	         </div>
+         </b:row>
+			
+			<script type="text/javascript">
+			//<![CDATA[
+				$(document).ready(function() {
+					initTabs();
+				});
+			//]]>
+			</script>
+			
+			<script type="text/javascript">
+			//<![CDATA[
+			var tablaRolesUsuario;
+			$(document).ready(function() {
+				
+				tablaRolesUsuario = $('#rolesUsuario').DataTable( {
+				    "language": {
+			            "url": "#{request.contextPath}/js/DataTables/Spanish.json"
+			        },
+			        "searching": false,
+			        "processing": true,
+			        "serverSide": true,
+			        "ajax": {
+			            url: "#{request.contextPath}/admin/usuarioRoles.json?idPerUsuario=" + $("#frm-idPerUsuario").val(),
+			            type: "POST"
+			        },
+			        "responsive": true,
+			        "pageLength": 100,
+			        "autoWidth": false,
+			        "order": [[ 1, 'asc' ]],
+			        "columnDefs": [ {
+			            "orderable": false,
+			            "className": 'select-checkbox',
+			            "targets":   0
+			        } ],
+			        "select": {
+			            "style": 'single',
+			        },
+			        "rowId": "identificador",
+			        "columns": [
+			        	{ 
+							"title": "", "defaultContent": ""
+						},
+						{ 
+			            	"title": "Rol",
+			            	"data": "rol"							
+						}
+			        ]
+			    } );
+			} );
+			//]]>
+			</script>
+			
+			<script type="text/javascript">
+			//<![CDATA[
+			var tablaDireccionUsuario;
+			$(document).ready(function() {
+				
+				tablaDireccionUsuario = $('#usuarioDireccion').DataTable( {
+				    "language": {
+			            "url": "#{request.contextPath}/js/DataTables/Spanish.json"
+			        },
+			        "searching": false,
+			        "processing": true,
+			        "serverSide": true,
+			        "ajax": {
+			            url: "#{request.contextPath}/admin/usuarioDireccion.json?idPerUsuario=" + $("#frm-idPerUsuario").val(),
+			            type: "POST"
+			        },
+			        "responsive": true,
+			        "pageLength": 100,
+			        "autoWidth": false,
+			        "order": [[ 1, 'asc' ]],
+			        "columnDefs": [ {
+			            "orderable": false,
+			            "className": 'select-checkbox',
+			            "targets":   0
+			        } ],
+			        "select": {
+			            "style": 'single',
+			        },
+			        "rowId": "identificador",
+			        "columns": [
+			        	{ 
+							"title": "", "defaultContent": ""
+						},
+						{ 
+			            	"title": "Nombre",
+			            	"data": "nombre"							
+						},
+						{ 
+			            	"title": "Localidad",
+			            	"data": "idLocalidad.nombre",
+			            	"defaultContent": ""
+						},
+						{ 
+			            	"title": "Dirección",
+			            	"data": "direccion"							
+						}
+			        ]
+			    } );
+			} );
+			//]]>
+			</script>
+			
+	
+	</ui:define>
+
+</ui:composition>

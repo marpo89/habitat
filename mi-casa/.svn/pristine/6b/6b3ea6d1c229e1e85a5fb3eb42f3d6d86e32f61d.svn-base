@@ -1,0 +1,79 @@
+package org.habitatnicaragua.micasa.controlador.usuario;
+
+import javax.annotation.PostConstruct;
+import javax.faces.bean.ViewScoped;
+import javax.inject.Inject;
+import javax.inject.Named;
+
+import org.habitatnicaragua.micasa.controlador.comun.ControladorBaseUno;
+import org.habitatnicaragua.micasa.modelo.PerCalificacion;
+import org.habitatnicaragua.micasa.modelo.PerUsuario;
+import org.habitatnicaragua.micasa.servicio.ServicioPerfil;
+import org.habitatnicaragua.micasa.servicio.ServicioSeguridad;
+import org.habitatnicaragua.micasa.util.ExcepcionUno;
+
+import lombok.Getter;
+import lombok.Setter;
+
+@Named("perCalificacionVista")
+@ViewScoped
+@Getter
+@Setter
+public class PerCalificacionVista extends ControladorBaseUno {
+	private static final long serialVersionUID = 1L;
+
+	@Inject
+	private ServicioPerfil servicioPerfil;
+	
+	@Inject
+	private ServicioSeguridad servicioSeguridad;
+
+	private String uuIdUsuario = null;
+	private PerUsuario proveedor = null;
+	private PerCalificacion perCalificacion = null;
+	private Long calificacionPromedio = null;	
+	
+	@PostConstruct
+	public void init() {
+        uuIdUsuario = getStringRequestParameter("u");
+        perCalificacion = new PerCalificacion();
+		proveedor = servicioSeguridad.buscarPerUsuarioActivoPorUuid(uuIdUsuario);		
+		perCalificacion.setProveedor(proveedor);
+		calificacionPromedio = getPromedioCalificacion();
+	}
+	
+	public void guardarCalificacion() {	
+		
+		if (perCalificacion == null) {
+			throw ExcepcionUno.objetoNull();
+		}	
+
+		servicioPerfil.guardarPerCalificacion(perCalificacion);	
+		
+		perCalificacion = new PerCalificacion();
+		perCalificacion.setProveedor(proveedor);
+		calificacionPromedio = getPromedioCalificacion();
+	}
+	
+	public String getEnlaceUsuario() {
+		return getHttpServletRequest().getContextPath() + "/usuario/usuarioDetallesForm.xhtml?u=" + uuIdUsuario;
+	}
+	
+	public Long getPromedioCalificacion() {
+		if(proveedor!=null) {
+			return servicioPerfil.buscarPromedioCalificacionPorUsuario(proveedor.getIdUsuario());
+		}
+		return 0L;
+	}
+	
+	public void eliminarCalificacion() {
+		Long idCalificacion = this.getLongRequestParameter("idCalificacion");
+		if (idCalificacion == null) {
+			throw ExcepcionUno.objetoNull();
+		}
+
+		servicioPerfil.eliminarPerCalificacion(idCalificacion);
+		
+	}
+	
+}

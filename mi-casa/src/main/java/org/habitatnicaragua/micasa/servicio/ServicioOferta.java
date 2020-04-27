@@ -1,0 +1,78 @@
+package org.habitatnicaragua.micasa.servicio;
+
+import java.io.InputStream;
+
+import org.habitatnicaragua.micasa.modelo.OftOferta;
+import org.habitatnicaragua.micasa.modelo.OftCupon;
+import org.habitatnicaragua.micasa.modelo.PerUsuario;
+import org.habitatnicaragua.micasa.modelo.VwOferta;
+import org.habitatnicaragua.micasa.util.ExcepcionUno;
+import org.primefaces.model.UploadedFile;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.security.access.prepost.PreAuthorize;
+
+public interface ServicioOferta {
+	
+	/** Inicio: OftOferta **/	
+	@PreAuthorize("hasAnyRole('ADMIN', 'USUARIO') OR isAnonymous()")
+	OftOferta buscarOftOfertaPorId(Long idOferta);
+	
+	@PreAuthorize("hasAnyRole('ADMIN', 'FINANCIAMIENTO', 'MATERIAL', 'USUARIO')")
+	Page<OftOferta> listarOftOferta(Pageable pagina, String filtro);
+	
+	@PreAuthorize("hasAnyRole('ADMIN', 'FINANCIAMIENTO', 'MATERIAL')")
+	void eliminarOftOferta(Long idOferta) throws ExcepcionUno;
+	
+	@PreAuthorize("hasAnyRole('ADMIN', 'FINANCIAMIENTO', 'MATERIAL')")
+	OftOferta guardarOftOferta(OftOferta oftOferta, UploadedFile archivo1, UploadedFile archivo2, UploadedFile archivo3) throws ExcepcionUno;
+	
+	@PreAuthorize("hasAnyRole('ADMIN', 'USUARIO') OR isAnonymous()")
+	InputStream obtenerInputStreamArchivoLocalOferta(OftOferta oftOferta, int numero);
+	
+	@PreAuthorize("hasAnyRole('ADMIN', 'FINANCIAMIENTO', 'MATERIAL')")
+	OftOferta removerArchivosOftOferta(OftOferta oftOferta, boolean removerArchivo1, boolean removerArchivo2, boolean removerArchivo3);
+	
+	boolean isOfertaEditable(OftOferta oftOferta);
+	/** Fin: OftOferta **/
+	
+	
+	/** Inicio: OftUsarOferta **/	
+	@PreAuthorize("hasAnyRole('ADMIN')")
+	OftCupon buscarOftUsarOfertaPorId(Long idUsarOferta);
+	
+	@PreAuthorize("hasAnyRole('ADMIN')")
+	Page<OftCupon> listarOftUsarOferta(Pageable pagina, String filtro);
+	
+	@PreAuthorize("hasAnyRole('ADMIN')")
+	void eliminarOftUsarOferta(Long idUsarOferta) throws ExcepcionUno;
+	
+	@PreAuthorize("hasAnyRole('ADMIN', 'USUARIO') OR isAnonymous()")
+	OftCupon buscarCuponPorUsuarioOferta(Long idOferta, PerUsuario perUsuario);
+	
+	@PreAuthorize("hasAnyRole('ADMIN', 'USUARIO')")
+	void borrarCuponOferta(Long idOferta, PerUsuario perUsuario) throws ExcepcionUno;
+
+	@PreAuthorize("hasAnyRole('ADMIN', 'USUARIO')")
+	OftCupon generarCuponOferta(Long idOferta, PerUsuario perUsuario) throws ExcepcionUno;
+	
+	@PreAuthorize("hasAnyRole('ADMIN', 'MATERIAL', 'FINANCIAMIENTO', 'DISTRIBUIDOR')")
+	OftCupon validarOferta(String codigoCupon);
+	
+	@PreAuthorize("hasAnyRole('ADMIN', 'MATERIAL', 'FINANCIAMIENTO', 'DISTRIBUIDOR')")
+	OftCupon utilizarOferta(OftCupon oftCupon);
+	
+	/** Fin: OftUsarOferta **/
+
+	/** Inicio: VwOferta **/
+	
+	@PreAuthorize("hasAnyRole('ADMIN', 'USUARIO') OR isAnonymous()")
+	VwOferta buscarDetalleOfertaPorId(Long idOferta);
+	
+	@PreAuthorize("hasAnyRole('ADMIN', 'USUARIO') OR isAnonymous()")
+	Page<VwOferta> listarOfertaActiva (Pageable pagina, String filtro, String idProveedor);
+	
+	/** Fin: VwOferta **/
+	
+	
+}

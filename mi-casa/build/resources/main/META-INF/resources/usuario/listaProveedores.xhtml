@@ -1,0 +1,182 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:b="http://bootsfaces.net/ui"
+	template="../plantillas/admin-lte.xhtml">
+
+	<ui:define name="uiTituloVista">#{listaProveedoresVista.tituloPagina}</ui:define>
+
+	<ui:define name="uiBreadCrumb">
+		<ol class="breadcrumb">
+			<li><a href="#{request.contextPath}/index.xhtml">Inicio</a></li>
+		</ol>
+	</ui:define>
+
+	<ui:define name="uiContenido">
+
+		<h:panelGroup style="display: none;">
+			<h:inputHidden value="#{listaProveedoresVista.rol}" id="rol" label="" />
+		</h:panelGroup>
+		
+		<div class="row lista-datos">
+			<div class="col-xs-12">
+				<div class="box box-primary">
+					<div class="box-body">
+						<table id="proveedores" class="display responsive table table-bordered table-striped"></table>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<script type="text/javascript">
+	//<![CDATA[
+	var tablaMaestro;
+	$(document).ready(function() {
+		
+		tablaMaestro = $('#proveedores').DataTable( {
+		    "language": {
+	            "url": "#{request.contextPath}/js/DataTables/Spanish.json"
+	        },
+	        "pageLength": 100,
+	        "processing": true,
+	        "serverSide": true,
+	        "ajax": {
+	            url: "#{request.contextPath}/usuario/proveedores.json?rol=" +$("#frm-rol").val(),
+	            type: "POST"
+	        },
+	        "responsive": true,
+	        "autoWidth": false,
+	        "order": [[ 1, 'desc' ]],
+	        "columnDefs": [ 
+	        	{ 
+	        		"width": "20%", 
+	        		"orderable": true,
+	        		"targets": 0,
+				},
+				{ 
+	        		"orderable": true,
+	        		"targets": 1
+				}
+	        ],
+	        "rowId": "identificador",
+
+			"columns" : [	
+							{
+								"title" : "",
+								"data" : "nombres",
+								"render" : function( data, type, row, meta) {
+									var contenido = "<table><tr><td colspan=3><b>" + row.nombres + "</b></td></tr>";
+									
+									contenido += "<tr>";
+									contenido += "<td class='text-center'><a href='#{request.contextPath}/usuario/muro.xhtml?u="+row.idUsuario+"' title ='Muro'><i class='fa fa-rss'></i><b> Muro</b></a></td>";
+									contenido += "<td class='text-center'><a href='#{request.contextPath}/usuario/usuarioDetallesForm.xhtml?u="+row.idUsuario+"' title ='Perfil'><i class='fa fa-user-circle'></i><b> Perfil</b></a></td>";
+									
+									if(row.cantOfertas>0){
+										contenido += "<td class='text-center'><a href='#{request.contextPath}/ofertas/index.xhtml?p="+row.idUsuario+"' title =''><i class='fa fa-shopping-cart'></i><b> Ofertas</b></a></td>";
+									}
+									
+									contenido += "</tr><tr><td colspan=3>";
+									contenido += "<p><a href='#{request.contextPath}/usuario/usuarioDetallesForm.xhtml?u="+row.idUsuario+"' title='Ir al perfil'><img id = 'logo' src='#{request.contextPath}"
+											+ row.rutaAvatar
+											+ "' alt='' width='200px'/></a></p>";
+									contenido += "</td></tr></table>";
+											
+									return contenido;
+								}
+							},
+							
+							{ 
+								"title": "",
+								"data": "puntaje", 
+								"render": function ( data, type, row, meta ) {
+									
+									var calificacion;
+									switch(row.puntaje){
+										case '0':
+											calificacion = "<span class='fa fa-star-o'></span> "
+															+"<span class='fa fa-star-o'></span> "
+															+"<span class='fa fa-star-o'></span> "
+															+"<span class='fa fa-star-o'></span> "
+															+"<span class='fa fa-star-o'></span>";
+															break;
+										case '1':
+											calificacion = "<span class='fa fa-star checked'></span> "
+															+"<span class='fa fa-star-o'></span> "
+															+"<span class='fa fa-star-o'></span> "
+															+"<span class='fa fa-star-o'></span> "
+															+"<span class='fa fa-star-o'></span>";
+															break;
+										case '2':
+											calificacion = "<span class='fa fa-star checked'></span> "
+															+"<span class='fa fa-star checked'></span> "
+															+"<span class='fa fa-star-o'></span> "
+															+"<span class='fa fa-star-o'></span> "
+															+"<span class='fa fa-star-o'></span>";
+															break;
+										case '3':
+											calificacion = "<span class='fa fa-star checked'></span> "
+															+"<span class='fa fa-star checked'></span> "
+															+"<span class='fa fa-star checked'></span> "
+															+"<span class='fa fa-star-o'></span> "
+															+"<span class='fa fa-star-o'></span>";
+															break;
+										case '4':
+											calificacion = "<span class='fa fa-star checked'></span> "
+															+"<span class='fa fa-star checked'></span> "
+															+"<span class='fa fa-star checked'></span> "
+															+"<span class='fa fa-star checked'></span> "
+															+"<span class='fa fa-star-o'></span>";
+															break;
+										case '5':
+											calificacion = "<span class='fa fa-star checked'></span> "
+															+"<span class='fa fa-star checked'></span> "
+															+"<span class='fa fa-star checked'></span> "
+															+"<span class='fa fa-star checked'></span> "
+															+"<span class='fa fa-star checked'></span>";
+															break;
+										default:
+											calificacion = " No disponible";
+										}
+									
+									var informacion = "<p>Calificaci&#243;n: "+calificacion+"</p>";
+									informacion += "<p><a href='"+row.idUsuario+"' title ='Email'><i class='fa fa-address-card-o'></i></a> "+row.correo+ "</p>";
+									
+									if(row.telefonos!='') {
+										informacion += "<p><a href='"+row.telefonos+"' title ='Tel&#233;fono'><i class='fa fa-phone-square'></i></a> "+row.telefonos+ "</p>";										
+									}
+									
+									if(row.direccionFisica!='') {
+										informacion += "<p><a href='"+row.direccionFisica+"' title ='Direcci&#243;n'><i class='fa fa-map-marker'></i></a> "+row.direccionFisica+ "</p>";										
+									}
+									
+									informacion += "<p>";
+									if(row.facebook!=''||row.twitter!=''||row.whatsapp!=''||row.sitioWeb!='') {
+										informacion += "<small>Encuentrenos en:</small></p><p>";
+									}
+									if(row.facebook!='') {
+										informacion += "<a href='"+row.facebook+"' title ='"+row.facebook+"'><i class='fa fa-facebook-official fa-lg'></i></a> ";
+									}
+									if(row.twitter!='') {
+										informacion += "<a href='"+row.twitter+"' title ='"+row.twitter+"'><i class='fa fa-twitter-square fa-lg'></i></a> ";
+									}
+									if(row.whatsapp!='') {
+										informacion += "<a href='"+row.whatsapp+"' title ='"+row.whatsapp+"'><i class='fa fa-whatsapp fa-lg'></i></a> ";
+									}
+									if(row.sitioWeb!='') {
+										informacion += "<a target='_blank' href='"+row.sitioWeb+"' title ='"+row.sitioWeb+"'><i class='fa fa-globe fa-lg'></i></a>";
+									}
+									
+									return informacion;
+								}
+							}
+					]
+				});
+			});
+			//]]>
+		</script>
+	</ui:define>
+
+
+</ui:composition>

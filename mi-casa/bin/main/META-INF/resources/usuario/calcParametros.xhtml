@@ -1,0 +1,81 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:b="http://bootsfaces.net/ui"
+	template="../plantillas/admin-lte.xhtml">
+	
+	<ui:define name="uiTituloVista">#{calculadoraVista.tituloPagina}</ui:define>
+	
+	<ui:define name="uiBreadCrumb">
+		<ol class="breadcrumb">
+			<li><a href="#{request.contextPath}/index.xhtml">Inicio</a></li>
+			<li><a href="#{calculadoraVista.enlaceListado}">Calculadora</a></li>
+			<li class="active">#{calculadoraVista.infoRegistroActual}</li>
+			<li class="active">#{calculadoraVista.infoParametroActual}</li>
+		</ol>
+	</ui:define>
+	
+	<ui:define name="uiContenido">
+
+		<h:panelGroup style="display: none;">
+			<h:inputHidden value="#{calculadoraVista.idParametro}" id="idParametro" label="" />
+		</h:panelGroup>
+		
+		<div class="row formulario-datos">
+			<!-- left column -->
+        	<div class="col-md-6">
+        
+				<div class="box box-primary">
+					<div class="box-header with-border">
+						<h3 class="box-title">Parámetros</h3>
+        			</div>
+        		
+        			<div class="box-body">
+        				<b:formGroup>
+       						<label>Nombre Parámetro</label>
+       						<b:selectOneMenu value="#{calculadoraVista.calcParametros.nombreParametro}" label="">
+       							<f:selectItems value="#{calculadoraVista.listaParametros}" var="nombreParametro" itemLabel="#{nombreParametro.nombre}" itemValue="#{nombreParametro}" />
+       						</b:selectOneMenu>
+       					</b:formGroup>  
+       					
+       					<b:formGroup>
+       						<label>Valor</label>
+       						<b:inputText placeholder="Valor" value="#{calculadoraVista.calcParametros.valor}" label="" render-label="false"/>
+       					</b:formGroup>
+       					
+       					<b:formGroup>
+       						<label>Tipo de Cálculo</label>
+       						<!-- <b:inputText placeholder="Tipo de Cálculo" value="#{calculadoraVista.calcParametros.tipoCalculo}" label="" render-label="false"/> -->
+       						<b:switch off-text="Monto" on-text="Porcentaje" value="#{calculadoraVista.calcParametros.tipoCalculo}" label="" render-label="false" />
+       						<small id="pruebaHelpInline" class="text-muted">Cálculo por porcentaje o monto</small>
+       					</b:formGroup>
+       					     					
+       					<b:formGroup>
+       						<label>Aplicar a Cuota</label>
+       						<b:switch off-text="No" on-text="Si" value="#{calculadoraVista.calcParametros.aplicaCuota}" label="" render-label="false"/>
+       						
+       						
+       					</b:formGroup>
+          			</div>
+      			</div>
+			</div>
+			
+		</div>
+		
+		<div class="row">
+			<div class="col-md-12">
+				<div class="box-footer">
+                <button type="button" class="btn btn-danger" onclick="irA('#{calculadoraVista.enlaceCalculadora}');">Cancelar</button>
+                 <b:commandButton value="Guardar" icon="" look="primary" ajax="true" styleClass="pull-right"
+					actionListener="#{calculadoraVista.guardarParametro}" onerror="" onsuccess="irA('#{calculadoraVista.enlaceCalculadora}');"/> 			
+              </div>
+              <!-- /.box-footer -->
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-12">&#160;</div>
+		</div>
+	</ui:define>
+</ui:composition>

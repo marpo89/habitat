@@ -1,0 +1,39 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:b="http://bootsfaces.net/ui"
+	template="../plantillas/admin-lte.xhtml">
+
+	<ui:define name="uiTituloVista">#{paginaVista.tituloPagina}</ui:define>
+	
+	<ui:define name="uiBreadCrumb">
+		<ol class="breadcrumb">
+			<li><a href="#{request.contextPath}/index.xhtml">Inicio</a></li>
+		</ol>
+	</ui:define>
+	
+	<ui:define name="uiContenido">
+		<div class="row">
+        	<div class="col-md-12">
+        		<h:outputText value="#{paginaVista.nodo.contenido}" escape="false"/>
+        	</div>
+        	
+        </div>
+		
+		<b:row style-class="row">
+			<div class="col-md-12">
+				<div class="box-footer">
+					<b:button rendered="#{paginaVista.archivoPrevio!=null}" look="default" iconAwesome="fa-arrow-left"
+						value="#{paginaVista.archivoPrevio.titulo}" href="#{paginaVista.archivoPrevio.enlaceWeb}"/>
+					
+					<b:button rendered="#{paginaVista.archivoSiguiente!=null}" look="default" 
+						iconAwesome="fa-arrow-right" iconAlign="right" styleClass="pull-right"
+						value="#{paginaVista.archivoSiguiente.titulo}" href="#{paginaVista.archivoSiguiente.enlaceWeb}" />
+              </div>
+			</div>
+		</b:row>
+		
+	</ui:define>
+</ui:composition>

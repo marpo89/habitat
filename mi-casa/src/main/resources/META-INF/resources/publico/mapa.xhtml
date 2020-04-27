@@ -1,0 +1,101 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:b="http://bootsfaces.net/ui"
+	template="../plantillas/admin-lte.xhtml">
+
+	<ui:define name="uiHead">
+		<!--  https://leafletjs.com/download.html  -->
+		<link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.4/dist/leaflet.css" 
+			integrity="sha512-puBpdR0798OZvTTbP4A8Ix/l+A4dHDD0DGqYW6RQ+9jxkRFclaxxQb/SJAWZfWAkuyeQUytO7+7N4QKrDh+drA==" crossorigin=""/>
+		<script src="https://unpkg.com/leaflet@1.3.4/dist/leaflet.js"
+			integrity="sha512-nMMmRyTVoLYqjP9hrbed9S+FzjZHW5gY1TWCHA5ckwXZBadntCNs8kEqAWdrb9O7rxbCaA4lKTIWjDXZxflOcA==" crossorigin="" />
+	</ui:define>
+  
+	<ui:define name="uiTituloVista">#{mapaVista.tituloPagina}</ui:define>
+	
+	<ui:define name="uiBreadCrumb">
+		<ol class="breadcrumb">
+			<li><a href="#{request.contextPath}/index.xhtml">Inicio</a></li>
+		</ol>
+	</ui:define>
+	
+	<ui:define name="uiContenido">
+
+		<b:row rendered="#{mapaVista.visible}">
+			<div class="col-md-12">
+				<div class="box box-primary">
+					<div id='map' style="height: 80vh; width: 100%;"></div>
+				</div>
+			</div>
+			
+			<script type="text/javascript">
+			//<![CDATA[
+				var map;
+				
+				function initmap() {
+					var habilitadoAgregar = #{mapaVista.habilitadoAgregar};
+					var mapaEstaVacio = true;
+					
+					// set up the map
+					map = new L.Map('map');
+				
+					// create the tile layer with correct attribution
+					var osmUrl='https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
+					var osmAttrib='Map data <a href="https://openstreetmap.org">OpenStreetMap</a>';
+					var osm = new L.TileLayer(osmUrl, {attribution: osmAttrib});		
+				
+					map.addLayer(osm);
+					
+					var posting = $.post( "#{request.contextPath}/usuario/" + $('#frm-uuidUsuario').val() + "/direccionesMapa.json",null, "json");
+		
+					posting.done(function( listaMarcadores ) {
+						var latLngs = [];
+						$(listaMarcadores).each(function( i, marcador ) {
+							latLngs.push([marcador.latitud, marcador.longitud]);
+							var marker = L.marker([marcador.latitud, marcador.longitud], {title: marcador.titulo}).addTo(map);
+							
+							marker.bindPopup("<b>" + marcador.titulo + "</b><br/>" + marcador.descripcion);
+							mapaEstaVacio = false;
+						});
+						
+						if(mapaEstaVacio){
+							map.setView([12.122187, -86.264343], 13);
+						} else {
+							map.fitBounds(latLngs);
+						}
+					});
+					
+					if(habilitadoAgregar){
+						map.on('contextmenu', function(e) {
+						    L.popup().setLatLng(e.latlng)
+			  				.setContent('<a href="#{request.contextPath}/usuario/miPerfil.xhtml?lat=' + e.latlng.lat + '&lng=' + e.latlng.lng + '">Agregar dirección aquí.</a>')
+			  				.addTo(map)
+			  				.openOn(map);
+						});
+					}
+				}
+				
+				$(document).ready(function(){initmap();});
+			//]]>
+			</script>
+		</b:row>
+		
+		<h:panelGroup rendered="#{!mapaVista.visible}">
+			<script type="text/javascript">
+			//<![CDATA[
+				window.location.href = "/publico/404.xhtml";
+			//]]>
+			</script>
+		</h:panelGroup>
+		
+		<h:panelGroup style="display: none;">
+			<h:inputHidden value="#{mapaVista.perProveedor.idUsuario}" id="uuidUsuario" label="" />
+		</h:panelGroup>
+		
+
+	</ui:define>
+
+</ui:composition>

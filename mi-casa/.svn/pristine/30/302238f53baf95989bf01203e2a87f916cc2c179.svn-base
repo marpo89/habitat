@@ -1,0 +1,96 @@
+package org.habitatnicaragua.micasa.controlador.publico;
+
+import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.habitatnicaragua.micasa.controlador.comun.ContextoUno;
+import org.habitatnicaragua.micasa.modelo.PerUsuario;
+import org.habitatnicaragua.micasa.modelo.PryProyecto;
+import org.habitatnicaragua.micasa.modelo.Rol;
+import org.habitatnicaragua.micasa.modelo.dto.ActividadRecienteProyectoDTO;
+import org.habitatnicaragua.micasa.servicio.ServicioPerfil;
+import org.habitatnicaragua.micasa.servicio.ServicioProyecto;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort.Direction;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+
+@Controller("inicio")
+@RequestMapping("/")
+public class Inicio extends ContextoUno {
+	private static final long serialVersionUID = 1L;
+
+	@Inject
+	private ServicioPerfil servicioPerfil;
+	
+	@Inject
+	private ServicioProyecto servicioProyecto;
+	
+	@RequestMapping(value="/infoMiProyecto", method= {RequestMethod.POST, RequestMethod.GET})
+	public void infoMiProyecto(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) {
+		boolean seFue = irMiProyectoEnCurso(httpServletRequest, httpServletResponse);
+		
+		if(!seFue) {
+			irA(httpServletResponse, httpServletRequest.getContextPath() + "/index.xhtml");
+		}
+	}
+	
+	@RequestMapping(value="/inicio", method= {RequestMethod.POST, RequestMethod.GET})
+	public void iniciar(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) {
+		
+		if(servicioPerfil.isUsuarioActualMiembroRol(Rol.ADMIN)) {
+			irA(httpServletResponse, httpServletRequest.getContextPath() + "/admin/loginListado.xhtml");
+		    return;
+		}
+		
+		if(servicioPerfil.isUsuarioActualMiembroRol(Rol.ADMIN_TECNICO) ||
+				servicioPerfil.isUsuarioActualMiembroRol(Rol.TECNICO)) {
+			irA(httpServletResponse, httpServletRequest.getContextPath() + "/gestion/proyectos.xhtml");
+		    return;
+		}
+		
+		if(servicioPerfil.isUsuarioActualMiembroRol(Rol.DISTRIBUIDOR)) {
+			irA(httpServletResponse, httpServletRequest.getContextPath() + "/gestion/validarOfertas.xhtml");
+		    return;
+		}
+		
+		boolean seFue = irMiProyectoEnCurso(httpServletRequest, httpServletResponse);
+		
+		if(!seFue) {
+			irA(httpServletResponse, httpServletRequest.getContextPath() + "/index.xhtml");
+		}
+	}
+	
+	private boolean irMiProyectoEnCurso(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) {
+		PerUsuario usuarioActual = servicioPerfil.getUsuarioActual();
+		
+		if(usuarioActual!=null && usuarioActual.isNivel1()) {
+			
+			ActividadRecienteProyectoDTO arp = servicioProyecto.buscarActividadRecienteProyectoPorUsuarioActual();
+			if(arp!=null && arp.getProyecto()!=null) {
+				String url = httpServletRequest.getContextPath() + "/proyecto/miProyectoForm.xhtml?idProyecto=" + arp.getProyecto().getIdProyecto();
+				if(ActividadRecienteProyectoDTO.ARCHIVO.equals(arp.getTipoActividadReciente())) {
+					url += "#archivos";
+				} else if(ActividadRecienteProyectoDTO.COMENTARIO.equals(arp.getTipoActividadReciente())) {
+					url += "#comentarios";
+				}
+				irA(httpServletResponse, url);
+			    return true;
+			}
+			
+			
+			Pageable pagina = new PageRequest(0, 2, Direction.DESC, "idProyecto");
+			Page<PryProyecto> proyectosUsuario = servicioProyecto.listarMisPryProyectosUsuario(pagina, null);
+			if(proyectosUsuario!=null && proyectosUsuario.getSize()>0) {
+				String url = httpServletRequest.getContextPath() + "/proyecto/misProyectos.xhtml";
+				irA(httpServletResponse, url);
+			}
+		}
+		
+		return false;
+	}
+}

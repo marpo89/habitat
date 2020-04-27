@@ -1,0 +1,103 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:b="http://bootsfaces.net/ui"
+	template="../plantillas/admin-lte.xhtml">
+	
+	<ui:define name="uiTituloVista">Mis proyectos</ui:define>
+	
+	<ui:define name="uiBreadCrumb">
+		<ol class="breadcrumb">
+			<li><a href="#{request.contextPath}/index.xhtml">Inicio</a></li>
+			<li><a href="#{request.contextPath}/proyecto/index.xhtml">Mi proyecto</a></li>
+			<li class="active">Mis proyectos</li>
+		</ol>
+	</ui:define>
+	
+	<ui:define name="uiContenido">
+		
+		<b:modal id="confirmacionEliminar" title="Finalizar proyecto" styleClass="modal-danger fade">
+			<p>&#191;Finalizar el proyecto seleccionado?.</p>
+			<f:facet name="footer">
+				<b:button value="Cancelar" look="danger" styleClass="pull-left" dismiss="modal" />
+				<b:commandButton value="Finalizar" look="danger" ajax="true" dismiss="modal"  
+					actionListener="#{misProyectosVista.eliminarRegistro}" oncomplete="tablaMaestro.ajax.reload();$('#frm-confirmacionEliminar').modal('hide');"/>
+			</f:facet>
+		</b:modal>
+		
+		<h:panelGroup style="display: none;">
+			<h:inputHidden value="#{misProyectosVista.idProyecto}" id="idProyecto" label="" />
+		</h:panelGroup>
+		
+		<div class="row lista-datos">
+			<div class="col-xs-12">
+				<div class="box box-primary">
+					<!-- /.box-header -->
+					<div class="box-body">
+							<b:buttonToolbar>
+								<b:buttonGroup>
+									<b:button icon-awesome="fa-file" title="Nuevo Proyecto" value="Nuevo" 
+										onclick="desmarcarRegistroSeleccionado('#frm-idProyecto');irA('#{request.contextPath}/proyecto/miProyectoForm.xhtml');"/>
+									
+									<b:button icon-awesome="fa-edit" title="Detalle de Proyecto" value="Entrar"
+										onclick="if(marcarRegistroSeleccionado('#frm-idProyecto', tablaMaestro)) {irA('#{request.contextPath}/proyecto/miProyectoForm.xhtml?', 'idProyecto');}" />
+							    	
+							    	<b:button icon-awesome="fa-trash" title="Finalizar Proyecto" value="Eliminar" 
+							    		onclick="mostrarConfirmacionEliminar('#frm-confirmacionEliminar','#frm-idProyecto',tablaMaestro)" />
+								</b:buttonGroup>
+							</b:buttonToolbar>
+						
+							<table id="proyectos" class="display responsive table table-bordered table-striped"></table>
+							
+						</div>
+						<!-- /.box-body -->
+					</div>
+					<!-- /.box -->
+				</div>
+				<!-- /.col -->
+		</div>
+		<!-- /.row -->
+			
+	<script type="text/javascript">
+	//<![CDATA[
+	var tablaMaestro;
+	$(document).ready(function() {
+		
+		tablaMaestro = $('#proyectos').DataTable( {
+		    "language": {
+	            "url": "#{request.contextPath}/js/DataTables/Spanish.json"
+	        },
+	        "processing": true,
+	        "serverSide": true,
+	        "ajax": {
+	            url: "#{request.contextPath}/proyecto/misProyectos.json",
+	            type: "POST"
+	        },
+	        "responsive": true,
+	        "autoWidth": false,
+	        "order": [[ 1, 'desc' ]],
+	        "columnDefs": [ {
+	            "orderable": false,
+	            "className": 'select-checkbox',
+	            "targets":   0
+	        } ],
+	        "select": {
+	            "style": 'single',
+	        },
+	        "rowId": "identificador",
+	        "columns": [
+	        	{ "title": "", "defaultContent": "" },
+	            { "title": "Código", "data": "idProyecto" },	            
+	            { "title": "Nombre del proyecto", "data": "descripcion" },
+	            { "title": "Estado", "data": "estado.nombre" },
+	        ]
+	    } );
+	} );
+	//]]>
+	</script>
+	</ui:define>
+    
+    
+</ui:composition>

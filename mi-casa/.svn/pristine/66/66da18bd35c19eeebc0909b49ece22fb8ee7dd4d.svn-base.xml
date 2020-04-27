@@ -1,0 +1,59 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:b="http://bootsfaces.net/ui"
+	template="../plantillas/admin-lte.xhtml">
+
+	<ui:define name="uiHead">
+    	<link href="#{request.contextPath}/js/video-js-7.5.0/video-js.min.css" rel="stylesheet" />
+    	<script src="#{request.contextPath}/js/video-js-7.5.0/video.min.js"></script>
+	</ui:define>
+
+	<ui:define name="uiTituloVista">#{videoLocalVista.tituloPagina}</ui:define>
+	
+	<ui:define name="uiBreadCrumb">
+		<ol class="breadcrumb">
+			<li><a href="#{request.contextPath}/index.xhtml">Inicio</a></li>
+			<li><a href="#{videoLocalVista.enlacePadre}">#{videoLocalVista.tituloEnlacePadre}</a></li>
+			<li class="active">#{videoLocalVista.infoRegistroActual}</li>
+		</ol>
+	</ui:define>
+	
+	<ui:define name="uiContenido">
+
+		<b:row rendered="#{videoLocalVista.visible}">
+			<div class="col-md-8 col-md-offset-2">
+				<video class="video-js vjs-default-skin vjs-16-9" controls="controls" autoplay="autoplay" preload="auto" 
+					data-setup="{}" width="640" height="264">
+    				<source src="#{videoLocalVista.rutaVideo}"></source>
+    				<p class="vjs-no-js">To view this video please enable JavaScript, and consider upgrading to a web browser that <a href="https://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a></p>
+				</video>
+			</div>
+		</b:row>
+		
+		<b:row rendered="#{videoLocalVista.visible}" style-class="row">
+			<div class="col-md-12">
+				<div class="box-footer">
+					<b:button rendered="#{videoLocalVista.archivoPrevio!=null}" look="default" iconAwesome="fa-arrow-left"
+						value="#{videoLocalVista.archivoPrevio.titulo}" href="#{videoLocalVista.archivoPrevio.enlaceWeb}"/>
+					
+					<b:button rendered="#{videoLocalVista.archivoSiguiente!=null}" look="default" 
+						iconAwesome="fa-arrow-right" iconAlign="right" styleClass="pull-right"
+						value="#{videoLocalVista.archivoSiguiente.titulo}" href="#{videoLocalVista.archivoSiguiente.enlaceWeb}" />
+              </div>
+			</div>
+		</b:row>
+		
+		<h:panelGroup rendered="#{!videoLocalVista.visible}">
+			<script type="text/javascript">
+			//<![CDATA[
+				window.location.href = "/publico/404.xhtml";
+			//]]>
+			</script>
+		</h:panelGroup>
+	</ui:define>
+
+
+</ui:composition>

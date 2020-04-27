@@ -1,0 +1,139 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:b="http://bootsfaces.net/ui"
+	template="./plantillas/admin-lte.xhtml">
+
+	<ui:define name="uiHead">
+		<style>
+			.content-header h1 {
+				font-size: 30px;
+				font-weight: 600;
+				text-align: center;
+			}
+		</style>
+	</ui:define>
+	
+	<ui:define name="uiTituloVista">
+		#{contenidoSistemaVista.tituloPortada}
+	</ui:define>
+	
+	<ui:define name="uiContenido">
+		<b:modal id="amodal" title="Publicidad" styleClass="modalPseudoClass"
+			backdrop="false">
+			<p>Este es un ejemplo de cuadro publicitario.</p>
+			<p>Por favor tome nota que este sitio es de pruebas, la
+				información que aquí se registre puede ser borrada en cualquier
+				momento.</p>
+			<f:facet name="footer">
+				<b:button value="Cerrar" dismiss="modal" />
+				<b:button value="Aceptar" look="primary" dismiss="modal" />
+			</f:facet>
+		</b:modal>
+
+		<div class="row">
+			<div class="col-lg-6 col-xs-12 mb-20">
+				<div class="embed-responsive embed-responsive-16by9">
+					<iframe class="embed-responsive-item" src="https://www.youtube.com/embed/#{contenidoSistemaVista.videoPortada}?rel=0"
+						allowfullscreen="allowfullscreen"></iframe>
+				</div>
+			</div>
+
+			<div class="col-lg-6 col-xs-12">
+
+				<div class="icon-box bg-transparency col-enlace" onclick="irA('#{request.contextPath}/proyecto/index.xhtml')">
+					<span class="icon-box-icon">
+						<img src="#{request.contextPath}/img/icon/house.svg" alt="proyecto" class="img-responsive center-block" />					
+					</span>
+					<div class="info-box-content-center">
+						<span class="info-box-text">Mi Proyecto</span>
+					</div>
+				</div>
+
+				<div class="icon-box bg-transparency col-enlace"
+					onclick="irA('#{request.contextPath}/financiamiento/index.xhtml')">
+					<span class="icon-box-icon">
+						<img src="#{request.contextPath}/img/icon/money.svg" alt="financiamiento" class="img-responsive center-block" />	
+					</span>
+					<div class="info-box-content-center">
+						<span class="info-box-text">Financiamiento</span>
+					</div>
+				</div>
+
+				<div class="icon-box bg-transparency col-enlace"
+					onclick="irA('#{request.contextPath}/materiales/index.xhtml')">
+					<span class="icon-box-icon">
+						<img src="#{request.contextPath}/img/icon/brick.svg" alt="materiales" class="img-responsive center-block" />	
+					</span>
+					<div class="info-box-content-center">
+						<span class="info-box-text">Materiales y Mano de Obra</span>
+					</div>
+				</div>
+
+				<div class="icon-box-bottom bg-transparency col-enlace"
+					onclick="irA('#{request.contextPath}/ofertas/index.xhtml')">
+					<span class="icon-box-icon">
+						<img src="#{request.contextPath}/img/icon/discounts.svg" alt="presupuesto" class="img-responsive center-block" />	
+					</span>
+					<div class="info-box-content-center">
+						<span class="info-box-text">Ofertas</span>
+					</div>
+				</div>
+			</div>
+
+		</div>
+
+		<div class="row-spacer"></div>
+		
+		<b:row rendered="#{publicidadUsuarioVista.visiblePublicidadPortada}">
+			<div class="col-lg-12 col-xs-12 mb-20">
+				<div class="carousel slide" id="d4d1c1l8up">
+					<a href="#{request.contextPath}/enlazar/d4d1c1l8up/#{publicidadUsuarioVista.publicidadPortada.idPublicidad}" class="carousel-inner" style="display:block">
+						<h:panelGroup layout="block" styleClass="item #{publicidadUsuarioVista.activoCarrusel}" rendered="#{publicidadUsuarioVista.publicidadPortada.archivo1Disponible}">
+							<img src="#{publicidadUsuarioVista.publicidadPortada.rutaWebArchivo1}" class="img-responsive center-block" />
+						</h:panelGroup>
+						<h:panelGroup layout="block" styleClass="item #{publicidadUsuarioVista.activoCarrusel}" rendered="#{publicidadUsuarioVista.publicidadPortada.archivo2Disponible}">
+							<img src="#{publicidadUsuarioVista.publicidadPortada.rutaWebArchivo2}" class="img-responsive center-block" />
+						</h:panelGroup>
+						<h:panelGroup layout="block" styleClass="item #{publicidadUsuarioVista.activoCarrusel}" rendered="#{publicidadUsuarioVista.publicidadPortada.archivo3Disponible}">
+							<img src="#{publicidadUsuarioVista.publicidadPortada.rutaWebArchivo3}" class="img-responsive center-block" />
+						</h:panelGroup>
+					</a>
+				</div>
+			</div>
+		</b:row>
+		<script type="text/javascript">
+		//<![CDATA[
+			$(document).ready(function() {
+	            $('#d4d1c1l8up').carousel({
+	                interval:   3000
+	            });
+	        });
+		//]]>
+		</script>
+
+		<script type="text/javascript">
+			//<![CDATA[
+			var tablaMaestro;
+			$(document).ready(function() {
+				//$('.modalPseudoClass').modal();
+			});
+			//]]>
+		</script>
+		<script type="text/javascript">
+		//<![CDATA[
+		  if ('serviceWorker' in navigator) {
+		    navigator.serviceWorker.register('#{request.contextPath}/service-worker.js')
+		      .then(function(reg){        
+		   }).catch(function(err) {		        
+		      });
+		  }
+		//]]>
+		</script>
+		
+
+	</ui:define>
+
+</ui:composition>

@@ -1,0 +1,100 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:b="http://bootsfaces.net/ui"
+	template="../plantillas/admin-lte.xhtml">
+	
+	<ui:define name="uiTituloVista">#{catalogosVista.tituloPagina}</ui:define>
+	
+	<ui:define name="uiBreadCrumb">
+		<ol class="breadcrumb">
+			<li><a href="#{request.contextPath}/index.xhtml">Inicio</a></li>
+			<li><a href="#{catalogosVista.enlaceListado}">Cat&#225;logos</a></li>
+			<li class="active">#{catalogosVista.infoRegistroActual}</li>
+		</ol>
+	</ui:define>
+	
+	<ui:define name="uiContenido">
+		
+		<h:panelGroup style="display: none;">
+			<h:inputHidden value="#{catalogosVista.idCatMaestro}" id="idCatMaestro" label="" />
+		</h:panelGroup>
+		
+		<div class="row formulario-datos">
+			<!-- left column -->
+        	<div class="col-md-6">
+        
+				<div class="box box-primary">
+					<div class="box-header with-border">
+						<h3 class="box-title">Cat&#225;logo</h3>
+        			</div>
+        		
+        			<div class="box-body">
+        			
+        				<b:formGroup>
+       						<label>Tipo Cat&#225;logo</label>
+       						<b:selectOneMenu value="#{catalogosVista.catMaestro.tipoCatalogo}" label="">
+       							<f:selectItem itemLabel="" itemValue="" />
+       							<f:selectItems value="#{catalogosVista.tipoCatalogo}" var="tipoCatalogo" itemLabel="#{tipoCatalogo}" itemValue="#{tipoCatalogo}" />
+       						</b:selectOneMenu>
+       					</b:formGroup>       			
+       					
+       					<b:formGroup>
+       						<label>Nombre</label>
+       						<b:inputText placeholder="Nombre en lista" value="#{catalogosVista.catMaestro.nombre}" label="" render-label="false"/>
+       					</b:formGroup>
+       					
+       					<b:formGroup>
+       						<label>Activo</label>
+       						<b:switch off-text="No" on-text="Si" value="#{catalogosVista.catMaestro.activo}" label="" render-label="false"/>
+       					</b:formGroup>              			
+          			</div>
+      			</div>
+			</div>
+			
+			<div class="col-md-6">
+        
+				<div class="box box-primary">
+					<div class="box-header with-border">
+						<h3 class="box-title">Detalle</h3>
+        			</div>
+        		
+        			<div class="box-body">
+       					
+       					<b:formGroup>
+       						<label>Descripci&#243;n</label>
+       						<b:inputTextarea placeholder="Descripci&#243;n" value="#{catalogosVista.catMaestro.descripcion}" label="" render-label="false"/>
+       					</b:formGroup>
+       					
+       					
+              			
+          			</div>
+      			</div>
+			</div>
+			
+			
+			
+		</div>
+		
+		<div class="row">
+			<div class="col-md-12">
+				<div class="box-footer">
+                <button type="button" class="btn btn-danger" onclick="irA('#{catalogosVista.enlaceListado}');">Cancelar</button>
+                
+                <b:commandButton value="Guardar" icon="" look="primary" ajax="true" styleClass="pull-right"
+					actionListener="#{catalogosVista.guardarRegistro}" onerror="" onsuccess="irA('#{request.contextPath}/admin/catalogos.xhtml');"/>
+			
+              </div>
+              <!-- /.box-footer -->
+			</div>
+		</div>
+		
+		<div class="row">
+			<div class="col-md-12">&#160;</div>
+		</div>
+	
+	</ui:define>
+
+</ui:composition>

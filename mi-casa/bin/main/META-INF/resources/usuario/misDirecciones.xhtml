@@ -1,0 +1,108 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:b="http://bootsfaces.net/ui"
+	template="../plantillas/admin-lte.xhtml">
+	
+	
+	<ui:define name="uiTituloVista">#{misDireccionesVista.tituloPagina}</ui:define>
+	
+	<ui:define name="uiBreadCrumb">
+		<ol class="breadcrumb">
+			<li><a href="#{request.contextPath}/index.xhtml">Inicio</a></li>
+			<li><a href="#{request.contextPath}/usuario/miPerfil.xhtml">Mi perfil</a></li>	
+			<li class="active">Mis direcciones</li>
+		</ol>
+	</ui:define>
+	
+	<ui:define name="uiContenido">
+		
+		<b:modal id="confirmacionEliminar" title="Eliminar Registro" styleClass="modal-danger fade">
+			<p>&#191;Eliminar el registro seleccionado?.</p>
+			<f:facet name="footer">
+				<b:button value="Cancelar" look="danger" styleClass="pull-left" dismiss="modal" />
+				<b:commandButton value="Eliminar" look="danger" ajax="true" dismiss="modal"  
+					actionListener="#{misDireccionesVista.eliminarRegistro}" oncomplete="tablaMaestro.ajax.reload();$('#frm-confirmacionEliminar').modal('hide');"/>
+			</f:facet>
+		</b:modal>
+		
+		<h:panelGroup style="display: none;">
+			<h:inputHidden value="#{misDireccionesVista.idDireccion}" id="idDireccion" label="" />
+		</h:panelGroup>
+		
+		<div class="row lista-datos">
+			<div class="col-xs-12">
+				<div class="box box-primary">
+					<div class="box-header with-border">
+						<h3 class="box-title">Lista de direcciones</h3>
+					</div>
+					<!-- /.box-header -->
+					<div class="box-body">
+							<b:buttonToolbar>
+								<b:buttonGroup>
+									<b:button icon-awesome="fa-file" title="Nuevo Registro" value="Nuevo" 
+										onclick="desmarcarRegistroSeleccionado('#frm-idDireccion');irA('#{request.contextPath}/usuario/miDireccionForm.xhtml');"/>
+									
+									<b:button icon-awesome="fa-edit" title="Editar Seleccionado" value="Editar"
+										onclick="if(marcarRegistroSeleccionado('#frm-idDireccion', tablaMaestro)) {irA('#{request.contextPath}/usuario/miDireccionForm.xhtml?', 'idDireccion');}" />
+							    	
+							    	<b:button icon-awesome="fa-trash" title="Elimiar Seleccionado" value="Eliminar" 
+							    		onclick="mostrarConfirmacionEliminar('#frm-confirmacionEliminar','#frm-idDireccion',tablaMaestro)" />
+								</b:buttonGroup>
+							</b:buttonToolbar>
+						
+							<table id="misDirecciones" class="display responsive table table-bordered table-striped"></table>
+							
+						</div>
+						<!-- /.box-body -->
+					</div>
+					<!-- /.box -->
+				</div>
+				<!-- /.col -->
+		</div>
+		<!-- /.row -->
+			
+	<script type="text/javascript">
+	//<![CDATA[
+	var tablaMaestro;
+	$(document).ready(function() {
+		
+		tablaMaestro = $('#misDirecciones').DataTable( {
+		    "language": {
+	            "url": "#{request.contextPath}/js/DataTables/Spanish.json"
+	        },
+	        "processing": true,
+	        "serverSide": true,
+	        "ajax": {
+	            url: "#{request.contextPath}/usuario/misDirecciones.json",
+	            type: "POST"
+	        },
+	        "responsive": true,
+	        "pageLength": 100,
+	        "autoWidth": false,
+	        "order": [[ 1, 'asc' ]],
+	        "columnDefs": [ {
+	            "orderable": false,
+	            "className": 'select-checkbox',
+	            "targets":   0
+	        } ],
+	        "select": {
+	            "style": 'single',
+	        },
+	        "rowId": "identificador",
+	        "columns": [
+	        	{ "title": "", "defaultContent": "" },
+	        	{ "title": "Nombre", "data": "nombre" },
+				{ "title": "Localidad", "data": "idLocalidad.nombre" },
+				{ "title": "Dirección", "data": "direccion" }
+	        ]
+	    } );
+	} );
+	//]]>
+	</script>
+	</ui:define>
+    
+    
+</ui:composition>

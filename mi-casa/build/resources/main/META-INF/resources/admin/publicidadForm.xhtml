@@ -1,0 +1,193 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:b="http://bootsfaces.net/ui"
+	xmlns:p="http://primefaces.org/ui"
+	template="../plantillas/admin-lte.xhtml">
+	
+	<ui:define name="uiTituloVista">#{publicidadVista.tituloPagina}</ui:define>
+	
+	<ui:param name="formEnctype" value="multipart/form-data" />
+	
+	<ui:define name="uiBreadCrumb">
+		<ol class="breadcrumb">
+			<li><a href="#{request.contextPath}/index.xhtml">Inicio</a></li>
+			<li><a href="#{publicidadVista.enlaceListado}">Publicidad</a></li>			
+			<li class="active">#{publicidadVista.infoRegistroActual}</li>
+		</ol>
+	</ui:define>
+	
+	<ui:define name="uiContenido">
+		
+		<div class="row formulario-datos">
+        	<div class="col-md-6">
+        		
+				<div class="box box-primary">        		
+        			<div class="box-body">
+       					
+       					<b:formGroup>
+       						<label>Ubicaci&#243;n publicidad</label>
+       						<b:selectOneMenu value="#{publicidadVista.pubPublicidad.ubicacionAnuncio}" label="">
+       							<f:selectItem itemLabel="" itemValue="" />
+       							<f:selectItems value="#{publicidadVista.ubicacionesPublicidad}" var="ubicacionPublicidad" itemLabel="#{ubicacionPublicidad.nombre}" itemValue="#{ubicacionPublicidad}" />
+       						</b:selectOneMenu>
+       					</b:formGroup> 
+       					
+       					<b:formGroup>
+       						<label>Fecha inicio</label>
+       						<b:dateTimePicker value="#{publicidadVista.pubPublicidad.fechaInicio}"
+								format="DD/MM/YYYY" locale="es" label="" render-label="false">
+								<f:converter converterId="bootFacesDateTimePickerConverter" />
+							</b:dateTimePicker>
+       					</b:formGroup>
+       					
+       					<b:formGroup>
+       						<label>Fecha final</label>
+       						<b:dateTimePicker value="#{publicidadVista.pubPublicidad.fechaFin}"
+								format="DD/MM/YYYY" locale="es" label="" render-label="false">
+								<f:converter converterId="bootFacesDateTimePickerConverter" />
+							</b:dateTimePicker>
+       					</b:formGroup>
+       					
+       					<b:formGroup>
+       						<label>L&#237;mite de clicks (Cero significa sin l&#237;mite)</label>
+       						<b:inputText value="#{publicidadVista.pubPublicidad.maxClicks}" mask="integer" label="" render-label="false"/>
+       					</b:formGroup>
+       					
+       					<b:formGroup>
+       						<label>L&#237;mite de impresiones (Cero significa sin l&#237;mite)</label>
+       						<b:inputText value="#{publicidadVista.pubPublicidad.maxImpresiones}" mask="integer" label="" render-label="false"/>
+       					</b:formGroup>
+       					
+       					<b:formGroup>
+       						<label>Enlace</label>
+       						<b:inputText value="#{publicidadVista.pubPublicidad.enlace}" label="" render-label="false"/>
+       					</b:formGroup>
+          			</div>
+      			</div>
+			</div>
+			
+			<div class="col-md-6">
+        		
+				<div class="box box-primary">
+				        		
+        			<div class="box-body">
+        				<b:formGroup>
+       						<label>Activo</label>
+       						<b:switch off-text="No" on-text="Si" value="#{publicidadVista.pubPublicidad.activo}" label="" render-label="false"/>
+       					</b:formGroup>
+        			</div>
+        			
+        			<div class="box-header with-border">
+						<h3 class="box-title">Imagen #1</h3>
+        			</div>
+        			
+        			<div class="box-body">
+        				
+        				<b:formGroup rendered="#{publicidadVista.pubPublicidad.archivo1Disponible}">
+	        				<table>
+	        				<tr>
+	        				<td width="30%">
+	        					<a target="_blank" href="#{request.contextPath}#{publicidadVista.pubPublicidad.rutaWebArchivo1}"><i class="fa fa-download fa-lg"></i></a>
+	        				</td>
+	        				<td>
+	        					<b:selectBooleanCheckbox value="#{publicidadVista.removerArchivo1}" caption="Remover archivo" label="" renderLabel="false" />
+	        				</td>
+	        				</tr>
+	        				</table>
+	        			</b:formGroup>
+	        			
+	        			<b:formGroup>
+	        				<p:fileUpload label="" value="#{publicidadVista.archivo1}"
+								skinSimple="true" mode="simple" auto="false" dragDropSupport="false"
+								allowTypes="/(\.|\/)(jpg|gif|png|jpeg)$/" accept="image/*"
+								sizeLimit="#{plantillaUIVista.sizeLimitGeneral}" />
+							<b:label text="[1200 x 150 px]" severity="warning"/>
+						</b:formGroup>
+					</div>
+					
+					<div class="box-header with-border">
+						<h3 class="box-title">Imagen #2</h3>
+        			</div>
+        			
+        			<div class="box-body">
+        				
+        				<b:formGroup rendered="#{publicidadVista.pubPublicidad.archivo2Disponible}">
+	        				<table>
+	        				<tr>
+	        				<td width="30%">
+	        					<a target="_blank" href="#{request.contextPath}#{publicidadVista.pubPublicidad.rutaWebArchivo2}"><i class="fa fa-download fa-lg"></i></a>
+	        				</td>
+	        				<td>
+	        					<b:selectBooleanCheckbox value="#{publicidadVista.removerArchivo2}" caption="Remover archivo" label="" renderLabel="false" />
+	        				</td>
+	        				</tr>
+	        				</table>
+						</b:formGroup>
+						
+						<b:formGroup>
+							<p:fileUpload label="" value="#{publicidadVista.archivo2}"
+								skinSimple="true" mode="simple" auto="false" dragDropSupport="false"
+								allowTypes="/(\.|\/)(jpg|gif|png|jpeg)$/" accept="image/*"
+								sizeLimit="#{plantillaUIVista.sizeLimitGeneral}" />
+							<b:label text="[1200 x 150 px]" severity="warning"/>
+						</b:formGroup>
+						
+					</div>
+        			
+        			<div class="box-header with-border">
+						<h3 class="box-title">Imagen #3</h3>
+        			</div>
+        			
+        			<div class="box-body">
+        				
+        				<b:formGroup rendered="#{publicidadVista.pubPublicidad.archivo3Disponible}">
+        					<table>
+	        				<tr>
+	        				<td width="30%">
+	        					<a target="_blank" href="#{request.contextPath}#{publicidadVista.pubPublicidad.rutaWebArchivo3}"><i class="fa fa-download fa-lg"></i></a>
+	        				</td>
+	        				<td>
+		        				<b:selectBooleanCheckbox value="#{publicidadVista.removerArchivo3}" caption="Remover archivo" label="" renderLabel="false" />
+		        			</td>
+	        				</tr>
+	        				</table>
+						</b:formGroup>
+						
+						<b:formGroup>
+							<p:fileUpload label="" value="#{publicidadVista.archivo3}"
+								skinSimple="true" mode="simple" auto="false" dragDropSupport="false"
+								allowTypes="/(\.|\/)(jpg|gif|png|jpeg)$/" accept="image/*"
+								sizeLimit="#{plantillaUIVista.sizeLimitGeneral}" />
+							<b:label text="[1200 x 150 px]" severity="warning"/>
+						</b:formGroup>
+					</div>
+					
+      			</div>
+			</div>
+			
+			
+		</div>
+		
+		<div class="row">
+			<div class="col-md-12">
+				<div class="box-footer">
+                <button type="button" class="btn btn-danger" onclick="irA('#{publicidadVista.enlaceListado}');">Cancelar</button>
+                
+                <b:commandButton value="Guardar" icon="save" look="primary" ajax="true" styleClass="pull-right"
+					actionListener="#{publicidadVista.guardarRegistro}" onerror="" onsuccess="irA('#{request.contextPath}/admin/publicidad.xhtml');"/>
+			
+              </div>
+              
+			</div>
+		</div>
+		
+		<div class="row">
+			<div class="col-md-12">&#160;</div>
+		</div>
+	
+	</ui:define>
+
+</ui:composition>

@@ -1,0 +1,56 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:b="http://bootsfaces.net/ui"
+	template="../plantillas/admin-lte.xhtml">
+
+	<ui:define name="uiTituloVista">#{videoYoutubeVista.tituloPagina}</ui:define>
+	
+	<ui:define name="uiBreadCrumb">
+		<ol class="breadcrumb">
+			<li><a href="#{request.contextPath}/index.xhtml">Inicio</a></li>
+			<li><a href="#{videoYoutubeVista.enlacePadre}">#{videoYoutubeVista.tituloEnlacePadre}</a></li>
+			<li class="active">#{videoYoutubeVista.infoRegistroActual}</li>
+		</ol>
+	</ui:define>
+	
+	<ui:define name="uiContenido">
+
+		<b:row rendered="#{videoYoutubeVista.visible}">
+			<div class="box box-primary">		
+				<div class="col-lg-8 col-lg-offset-2 col-md-12 col-xs-12 top-media">
+						<div class="embed-responsive embed-responsive-16by9">
+							<iframe class="embed-responsive-item" src="https://www.youtube.com/embed/#{videoYoutubeVista.archivo.youtube}?rel=0"
+								allowfullscreen="allowfullscreen"></iframe>
+						</div>
+				</div>
+			</div>
+		
+		</b:row>
+		
+		<b:row rendered="#{videoYoutubeVista.visible}" style-class="row">
+			<div class="col-md-12">
+				<div class="box-footer">
+					<b:button rendered="#{videoYoutubeVista.archivoPrevio!=null}" look="default" iconAwesome="fa-arrow-left"
+						value="#{videoYoutubeVista.archivoPrevio.titulo}" href="#{videoYoutubeVista.archivoPrevio.enlaceWeb}"/>
+					
+					<b:button rendered="#{videoYoutubeVista.archivoSiguiente!=null}" look="default" 
+						iconAwesome="fa-arrow-right" iconAlign="right" styleClass="pull-right"
+						value="#{videoYoutubeVista.archivoSiguiente.titulo}" href="#{videoYoutubeVista.archivoSiguiente.enlaceWeb}" />
+              </div>
+			</div>
+		</b:row>
+		
+		<h:panelGroup rendered="#{!videoYoutubeVista.visible}">
+			<script type="text/javascript">
+			//<![CDATA[
+				window.location.href = "/publico/404.xhtml";
+			//]]>
+			</script>
+		</h:panelGroup>
+	</ui:define>
+
+
+</ui:composition>

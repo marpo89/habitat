@@ -1,0 +1,137 @@
+package org.habitatnicaragua.micasa.modelo;
+
+import java.io.Serializable;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+
+import javax.persistence.Column;
+import javax.persistence.Convert;
+import javax.persistence.Embedded;
+import javax.persistence.Entity;
+import javax.persistence.EntityListeners;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+import javax.persistence.Transient;
+
+import org.apache.commons.lang3.StringUtils;
+import org.habitatnicaragua.micasa.util.SiNoJpaConverter;
+
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+
+@Getter
+@Setter
+@EqualsAndHashCode(of={"idArchivo"})
+@ToString
+@Entity
+@Table(name="CMS_ARCHIVO")
+@EntityListeners({AuditoriaListener.class})
+public class CmsArchivo implements Auditable,  Identificable<Long>, Serializable{
+	private static final long serialVersionUID = 1L;
+	
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@Column(name = "ID_ARCHIVO", nullable=false)
+	private Long idArchivo;
+	
+	@Column(name = "TITULO")
+	private String titulo;
+	
+	@Column(name = "ORDEN")
+	private Integer orden = 0;
+	
+	@Column(name = "YOUTUBE")
+	private String youtube;
+	
+	@Column(name = "RUTA")
+	private String ruta;
+	
+	@Column(name = "RUTA", updatable=false, insertable=false)
+	private String rutaOriginal;
+	
+	@Column(name = "COMENTARIO")
+	private String comentario;
+	
+	@Convert(converter=SiNoJpaConverter.class)
+	@Column(name = "ACTIVO", nullable=false)
+	private Boolean activo = true;
+	
+	@ManyToOne
+	@JoinColumn(name="ID_NODO")
+	private CmsNodo nodo;
+	
+	@ManyToOne
+	@JoinColumn(name="ID_PROYECTO")
+	private PryProyecto proyecto;
+	
+	@ManyToOne
+	@JoinColumn(name="ID_CMS_TIPO_ARCHIVO")
+	private CatMaestro tipoArchivo;
+	
+	@Embedded
+	private Auditoria auditoria = new Auditoria();
+
+	@Override
+	public Long getIdentificador() {
+		return idArchivo;
+	}
+
+	@Transient
+	public boolean isArchivoTipoArchivo(TipoArchivo tArchivo) {
+		if(getTipoArchivo()!=null && tArchivo!=null && tArchivo.name().equals(getTipoArchivo().getNombre())) {
+			return true;
+		}
+		
+		return false;
+	}
+	
+	@Transient
+	public boolean isArchivoTipoVideo() {
+		return isArchivoTipoArchivo(TipoArchivo.VIDEO);
+	}
+	
+	@Transient
+	public boolean isArchivoTipoArchivo() {
+		return isArchivoTipoArchivo(TipoArchivo.ARCHIVO);
+	}
+	
+	@Transient
+	public boolean isArchivoTipoYoutube() {
+		return isArchivoTipoArchivo(TipoArchivo.YOUTUBE);
+	}
+	
+	@Transient
+	public boolean isArchivoTipoEnlace() {
+		return isArchivoTipoArchivo(TipoArchivo.ENLACE);
+	}
+	
+	@Transient
+	public String getEnlaceWeb() {
+		String enlace = "";
+		
+		String tituloUrl = "";
+		try {
+			tituloUrl = URLEncoder.encode(StringUtils.trimToEmpty(getTitulo()), "UTF-8");
+		} catch (UnsupportedEncodingException e) { }
+		
+		if(proyecto!=null) {
+			enlace = "/proyecto/" + getProyecto().getIdProyecto() + "/" + getIdArchivo() + "/" + tituloUrl;
+		} else if(isArchivoTipoYoutube()) {
+			enlace = "/publico/videoy.xhtml?a=" + getIdArchivo();
+		} else if(isArchivoTipoEnlace()) {
+			enlace = getRuta();
+		} else if(isArchivoTipoArchivo()) {
+			enlace = "/archivos/nodo/" + getNodo().getIdNodo() + "/" + getIdArchivo() + "/" + tituloUrl;
+		} else if(isArchivoTipoVideo()) {
+			enlace = "/publico/videol.xhtml?a=" + getIdArchivo();
+		} 
+		
+		return enlace;
+	}
+}

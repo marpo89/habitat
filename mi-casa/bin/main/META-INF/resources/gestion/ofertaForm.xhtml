@@ -1,0 +1,216 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:b="http://bootsfaces.net/ui"
+	xmlns:p="http://primefaces.org/ui"
+	template="../plantillas/admin-lte.xhtml">
+	
+	<ui:define name="uiTituloVista">#{ofertasVista.tituloPagina}</ui:define>
+	
+	<ui:param name="formEnctype" value="multipart/form-data" />
+	
+	<ui:define name="uiBreadCrumb">
+		<ol class="breadcrumb">
+			<li><a href="#{request.contextPath}/index.xhtml">Inicio</a></li>
+			<li><a href="#{request.contextPath}/gestion/ofertas.xhtml">Admin Ofertas</a></li>
+			<li class="active">#{ofertasVista.infoRegistroActual}</li>
+		</ol>
+	</ui:define>
+	
+	<ui:define name="uiContenido">
+				
+		<h:panelGroup style="display: none;">
+			<h:inputHidden value="#{ofertasVista.idOferta}" id="idOferta" label="" />
+		</h:panelGroup>
+		
+		<div class="row formulario-datos">
+        	<div class="col-md-6">
+        
+				<div class="box box-primary">
+					<div class="box-header with-border">
+						<h3 class="box-title"></h3>
+        			</div>
+        		
+        			<div class="box-body">
+       					<b:formGroup>
+       						<label>Inicia</label>
+       						<b:dateTimePicker id="inicio" value="#{ofertasVista.oftOferta.inicioString}"
+								format="DD/MM/YYYY" locale="es" label="" render-label="false">
+								<f:converter converterId="bootFacesDateTimePickerConverter" />
+							</b:dateTimePicker>
+       					</b:formGroup>
+       					
+       					<b:formGroup>
+       						<label>Finaliza</label>
+       						<b:dateTimePicker id="fin" value="#{ofertasVista.oftOferta.finString}"
+								format="DD/MM/YYYY" locale="es" label="" render-label="false">
+								<f:converter converterId="bootFacesDateTimePickerConverter" />
+							</b:dateTimePicker>
+       					</b:formGroup>
+       					
+       					<b:formGroup>
+       						<label>Existencia limitada (Cero significa sin l&#237;mite)</label>
+       						<b:inputText value="#{ofertasVista.oftOferta.limiteCantidad}" mask="integer" label="" render-label="false"/>
+       					</b:formGroup>
+       					     
+       					<b:formGroup>
+       						<label>Activo</label>
+       						<b:switch off-text="No" on-text="Si" value="#{ofertasVista.oftOferta.activo}" label="" render-label="false"/>
+       					</b:formGroup>       			
+          			</div>
+      			</div>
+			</div>
+			
+			
+			<div class="col-md-6">
+        
+				<div class="box box-primary">
+					<div class="box-header with-border">
+						<h3 class="box-title">Imagen promocional #1</h3>
+        			</div>
+        		
+        			<div class="box-body">
+        				
+        				<b:formGroup rendered="#{ofertasVista.oftOferta.archivo1Disponible}">
+	        				<table>
+	        				<tr>
+	        				<td width="30%">
+	        					<a target="_blank" href="#{request.contextPath}#{ofertasVista.oftOferta.rutaWebArchivo1}"><i class="fa fa-download fa-lg"></i></a>
+	        				</td>
+	        				<td>
+	        					<b:selectBooleanCheckbox value="#{ofertasVista.removerArchivo1}" caption="Remover archivo" label="" renderLabel="false" />
+	        				</td>
+	        				</tr>
+	        				</table>
+	        			</b:formGroup>
+	        			
+	        			<b:formGroup>
+	        				<p:fileUpload label="" value="#{ofertasVista.archivo1}"
+								skinSimple="true" mode="simple" auto="false" dragDropSupport="false"
+								allowTypes="/(\.|\/)(jpg|gif|png|jpeg)$/" accept="image/*"
+								sizeLimit="#{plantillaUIVista.sizeLimitGeneral}" />
+							<b:label text="[500 x 300 px]" severity="warning"/>
+						</b:formGroup>
+					</div>
+					
+					<div class="box-header with-border">
+						<h3 class="box-title">Imagen promocional #2</h3>
+        			</div>
+        			
+        			<div class="box-body">
+        				
+        				<b:formGroup rendered="#{ofertasVista.oftOferta.archivo2Disponible}">
+	        				<table>
+	        				<tr>
+	        				<td width="30%">
+	        					<a target="_blank" href="#{request.contextPath}#{ofertasVista.oftOferta.rutaWebArchivo2}"><i class="fa fa-download fa-lg"></i></a>
+	        				</td>
+	        				<td>
+	        					<b:selectBooleanCheckbox value="#{ofertasVista.removerArchivo2}" caption="Remover archivo" label="" renderLabel="false" />
+	        				</td>
+	        				</tr>
+	        				</table>
+						</b:formGroup>
+						
+						<b:formGroup>
+							<p:fileUpload label="" value="#{ofertasVista.archivo2}"
+								skinSimple="true" mode="simple" auto="false" dragDropSupport="false"
+								allowTypes="/(\.|\/)(jpg|gif|png|jpeg)$/" accept="image/*"
+								sizeLimit="#{plantillaUIVista.sizeLimitGeneral}" />
+							<b:label text="[500 x 300 px]" severity="warning"/>
+						</b:formGroup>
+						
+					</div>
+        			
+        			<div class="box-header with-border">
+						<h3 class="box-title">Imagen promocional #3</h3>
+        			</div>
+        			
+        			<div class="box-body">
+        				
+        				<b:formGroup rendered="#{ofertasVista.oftOferta.archivo3Disponible}">
+        					<table>
+	        				<tr>
+	        				<td width="30%">
+	        					<a target="_blank" href="#{request.contextPath}#{ofertasVista.oftOferta.rutaWebArchivo3}"><i class="fa fa-download fa-lg"></i></a>
+	        				</td>
+	        				<td>
+		        				<b:selectBooleanCheckbox value="#{ofertasVista.removerArchivo3}" caption="Remover archivo" label="" renderLabel="false" />
+		        			</td>
+	        				</tr>
+	        				</table>
+						</b:formGroup>
+						
+						<b:formGroup>
+							<p:fileUpload label="" value="#{ofertasVista.archivo3}"
+								skinSimple="true" mode="simple" auto="false" dragDropSupport="false"
+								allowTypes="/(\.|\/)(jpg|gif|png|jpeg)$/" accept="image/*"
+								sizeLimit="#{plantillaUIVista.sizeLimitGeneral}" />
+							<b:label text="[500 x 300 px]" severity="warning"/>
+						</b:formGroup>
+					</div>
+					
+				</div>
+			</div>
+						
+		</div>
+		
+		<div class="row formulario-datos">
+			<div class="col-md-12">
+				<b:formGroup>
+       				<b:inputText placeholder="T&#237;tulo" value="#{ofertasVista.oftOferta.titulo}" label="" render-label="false"/>
+       			</b:formGroup>
+       			
+       			<b:formGroup>
+       				<h:panelGroup style="display: none;">
+						<h:inputHidden value="#{ofertasVista.oftOferta.contenido}" id="contenidoJsf" label="" />
+					</h:panelGroup>
+					<textarea id="contenido" rows="10" class="form-control"></textarea>
+       			</b:formGroup>
+        	</div>
+        </div>
+        
+        
+		<div class="row">
+			<div class="col-md-12">
+				<div class="box-footer">
+                <button type="button" class="btn btn-danger" onclick="irA('#{ofertasVista.enlaceListado}');">Cancelar</button>
+                
+                <b:commandButton value="Guardar" icon="save" look="primary" ajax="true" styleClass="pull-right"
+                	onclick="$('#frm-contenidoJsf').val(CKEDITOR.instances['contenido'].getData());ajax:ofertasVista.guardarRegistro();"
+					onerror="" onsuccess="irA('#{request.contextPath}/usuario/miPerfil.xhtml');"/>
+
+              </div>
+			</div>
+		</div>
+		
+		<div class="row">
+			<div class="col-md-12">&#160;</div>
+		</div>
+	
+		<!-- CK Editor -->
+		<script src="#{request.contextPath}/AdminLTE/bower_components/ckeditor/ckeditor.js"></script>
+		<script>
+		//<![CDATA[
+		$(document).ready(function() {
+			$('#contenido').val($('#frm-contenidoJsf').val());
+			CKEDITOR.replace('contenido', {
+				wordcount: {
+				    showParagraphs: false,
+				    showWordCount: false,
+				    showCharCount: true,
+				    countSpacesAsChars: true,
+				    countHTML: true,
+				    maxWordCount: -1,
+				    maxCharCount: 2500
+				}
+			});
+  		});
+  		//]]>
+		</script>
+		
+	</ui:define>
+
+</ui:composition>

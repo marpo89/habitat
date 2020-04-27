@@ -1,0 +1,109 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:b="http://bootsfaces.net/ui"
+	template="../plantillas/admin-lte.xhtml">
+
+	<ui:define name="uiTituloVista">#{bibliotecaVista.tituloPaginaArchivos}</ui:define>
+	
+	<ui:define name="uiBreadCrumb">
+		<ol class="breadcrumb">
+			<li><a href="#{request.contextPath}/index.xhtml">Inicio</a></li>
+			<li><a href="#{request.contextPath}/publico/biblioteca.xhtml">Biblioteca</a></li>
+			<li class="active">#{bibliotecaVista.infoRegistroActual}</li>
+		</ol>
+	</ui:define>
+	
+	<ui:define name="uiContenido">
+		
+		<h:panelGroup style="display: none;">
+			<h:inputHidden value="#{bibliotecaVista.idNodo}" id="idNodo" label="" />
+		</h:panelGroup>
+		
+		
+		<div class="row">
+        	<div class="col-md-12">
+        		<table id="archivos" class="display responsive table table-bordered table-striped"></table>
+        	</div>
+        </div>
+        
+        <ui:include src="../plantillas/publicidad.xhtml" />
+        
+		<script type="text/javascript">
+			//<![CDATA[
+			var tablaArchivos;
+			$(document).ready(function() {
+				tablaArchivos = $('#archivos').DataTable( {
+					"language": {
+			            "url": "#{request.contextPath}/js/DataTables/Spanish.json"
+			        },
+			        "searching": true,
+			        "processing": true,
+			        "serverSide": true,
+			        "ordering": true,
+			        "ajax": {
+			            url: "#{request.contextPath}/biblioteca/archivos.json?bib="+ $("#frm-idNodo").val(),
+			            type: "POST"
+			        },
+			        "responsive": true,
+			        "pageLength": 100,
+			        "order": [[ 1, 'desc' ]],
+			        "autoWidth": false,
+			        "columnDefs": [ 
+			        	{
+			        		"width": "5%",
+			        		"orderable": false,
+			        		"className": "text-center",
+			        		"targets": 0 
+						}
+			        ],
+			        "select": {
+			            "style": 'single',
+			        },
+			        "rowId": "identificador",
+			        "columns": [
+						{ 
+							"title": "", 
+							"data": "idArchivo",
+							"render": function ( data, type, row, meta ) {
+								
+								var contenido = '<i class="fa fa-file fa-3x colorPrincipal"></i>';
+								
+								return contenido;
+							}
+						},
+						{ 
+							"title": "Archivo", 
+							"data": "titulo",
+							"render": function ( data, type, row, meta ) {
+								
+								var contenido = "<b>" + row.titulo;
+								contenido += "<small class='text-muted pull-right'><i class='fa fa-clock-o'></i> " + row.auditoria.fechaRegModUI + "</small></b>";
+								contenido += "<p><small>" + row.comentario + "</small></p>";
+								
+								return contenido;
+							}
+						}
+			        ]
+				});
+				
+				tablaArchivos.on( 'select', function ( e, dt, type, indexes ) {
+				    if ( type === 'row' ) {
+				    	var enlaceWeb = getRowSeleccionado(tablaArchivos).enlaceWeb;
+				    	if(enlaceWeb && enlaceWeb.indexOf("http")==0){
+				    		window.location.href= enlaceWeb;	
+				    	} else {
+				    		window.location.href= '#{request.contextPath}' + enlaceWeb;
+				    	}
+				        
+				    }
+				} );
+			} );
+			//]]>
+		</script>
+		
+	</ui:define>
+
+</ui:composition>

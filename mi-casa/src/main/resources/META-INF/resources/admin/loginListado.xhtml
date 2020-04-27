@@ -1,0 +1,174 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:b="http://bootsfaces.net/ui"
+	template="../plantillas/admin-lte.xhtml">
+	
+	<ui:define name="uiTituloVista">Bit&#225;cora de Login</ui:define>
+	
+	<ui:define name="uiBreadCrumb">
+		<ol class="breadcrumb">
+			<li><a href="#{request.contextPath}/index.xhtml">Inicio</a></li>
+			<li class="active">Estad&#237;sticas</li>
+		</ol>
+	</ui:define>
+	
+	<ui:define name="uiContenido">
+		
+		
+		
+		<div class="row lista-datos">
+			<div class="col-xs-12">
+				<div class="box box-primary">
+						<div class="box-body">
+								<div id="gridCustomer"></div>
+								<!--<table id="loginListado" class="display responsive table table-bordered table-striped"></table>
+								 -->
+						</div>
+				</div>
+			</div>
+		</div>
+		
+		
+		<!-- /.row -->
+			
+<script type="text/javascript">  
+
+var jslogin = [
+	{ $id: "1", fecha: "23-03-2020 15:52:16", correo: "hadmin@erpuno.com", ip: "0:0:0:0:0:0:0:1", exitoso: "S"},
+	{ $id: "1", fecha: "23-03-2020 14:22:13", correo: "hadmin@erpuno.com", ip: "0:0:0:0:0:0:0:1", exitoso: "S"},
+	{ $id: "2", fecha: "23-03-2020 10:26:25", correo: "hadmin@erpuno.com", ip: "0:0:0:0:0:0:0:1", exitoso: "S"},
+	{ $id: "3", fecha: "23-03-2020 10:23:37", correo: "hadmin@erpuno.com", ip: "0:0:0:0:0:0:0:1", exitoso: "S"},
+	{ $id: "4", fecha: "23-03-2020 10:23:36", correo: "hadmin@erpuno.com", ip: "0:0:0:0:0:0:0:1", exitoso: "S"},
+	{ $id: "5", fecha: "23-03-2020 09:38:01", correo: "hadmin@erpuno.com", ip: "0:0:0:0:0:0:0:1", exitoso: "S"},
+	{ $id: "6", fecha: "22-03-2020 22:47:45", correo: "hadmin@erpuno.com", ip: "0:0:0:0:0:0:0:1", exitoso: "S"},
+	{ $id: "7", fecha: "22-03-2020 22:47:44", correo: "hadmin@erpuno.com", ip: "0:0:0:0:0:0:0:1", exitoso: "S"},
+	{ $id: "1", fecha: "22-03-2020 14:22:13", correo: "hadmin@erpuno.com", ip: "0:0:0:0:0:0:0:1", exitoso: "S"},
+	{ $id: "2", fecha: "21-03-2020 09:46:25", correo: "hadmin@erpuno.com", ip: "0:0:0:0:0:0:0:1", exitoso: "S"},
+	{ $id: "3", fecha: "21-03-2020 09:11:37", correo: "hadmin@erpuno.com", ip: "0:0:0:0:0:0:0:1", exitoso: "S"},
+	{ $id: "4", fecha: "21-03-2020 08:18:36", correo: "hadmin@erpuno.com", ip: "0:0:0:0:0:0:0:1", exitoso: "S"},
+	{ $id: "5", fecha: "21-03-2020 09:38:01", correo: "hadmin@erpuno.com", ip: "0:0:0:0:0:0:0:1", exitoso: "S"},
+	{ $id: "6", fecha: "22-03-2020 22:47:45", correo: "hadmin@erpuno.com", ip: "0:0:0:0:0:0:0:1", exitoso: "S"},
+	{ $id: "7", fecha: "22-03-2020 22:47:44", correo: "hadmin@erpuno.com", ip: "0:0:0:0:0:0:0:1", exitoso: "S"},
+	{ $id: "1", fecha: "23-03-2020 14:22:13", correo: "hadmin@erpuno.com", ip: "0:0:0:0:0:0:0:1", exitoso: "S"},
+	{ $id: "2", fecha: "23-03-2020 10:26:25", correo: "hadmin@erpuno.com", ip: "0:0:0:0:0:0:0:1", exitoso: "S"},
+	{ $id: "3", fecha: "23-03-2020 10:23:37", correo: "hadmin@erpuno.com", ip: "0:0:0:0:0:0:0:1", exitoso: "S"},
+	{ $id: "4", fecha: "23-03-2020 10:23:36", correo: "hadmin@erpuno.com", ip: "0:0:0:0:0:0:0:1", exitoso: "S"},
+	{ $id: "5", fecha: "23-03-2020 09:38:01", correo: "hadmin@erpuno.com", ip: "0:0:0:0:0:0:0:1", exitoso: "S"},
+	{ $id: "6", fecha: "22-03-2020 22:47:45", correo: "hadmin@erpuno.com", ip: "0:0:0:0:0:0:0:1", exitoso: "S"},
+	{ $id: "7", fecha: "22-03-2020 22:47:44", correo: "hadmin@erpuno.com", ip: "0:0:0:0:0:0:0:1", exitoso: "S"},
+	{ $id: "1", fecha: "23-03-2020 14:22:13", correo: "hadmin@erpuno.com", ip: "0:0:0:0:0:0:0:1", exitoso: "S"},
+	{ $id: "2", fecha: "23-03-2020 10:26:25", correo: "hadmin@erpuno.com", ip: "0:0:0:0:0:0:0:1", exitoso: "S"},
+	{ $id: "3", fecha: "23-03-2020 10:23:37", correo: "hadmin@erpuno.com", ip: "0:0:0:0:0:0:0:1", exitoso: "S"},
+	{ $id: "4", fecha: "23-03-2020 10:23:36", correo: "hadmin@erpuno.com", ip: "0:0:0:0:0:0:0:1", exitoso: "S"},
+	{ $id: "5", fecha: "23-03-2020 09:38:01", correo: "hadmin@erpuno.com", ip: "0:0:0:0:0:0:0:1", exitoso: "S"},
+	{ $id: "6", fecha: "22-03-2020 22:47:45", correo: "hadmin@erpuno.com", ip: "0:0:0:0:0:0:0:1", exitoso: "S"},
+	{ $id: "7", fecha: "22-03-2020 22:47:44", correo: "hadmin@erpuno.com", ip: "0:0:0:0:0:0:0:1", exitoso: "S"},
+	{ $id: "1", fecha: "23-03-2020 14:22:13", correo: "hadmin@erpuno.com", ip: "0:0:0:0:0:0:0:1", exitoso: "S"},
+	{ $id: "2", fecha: "23-03-2020 10:26:25", correo: "hadmin@erpuno.com", ip: "0:0:0:0:0:0:0:1", exitoso: "S"},
+	{ $id: "3", fecha: "23-03-2020 10:23:37", correo: "hadmin@erpuno.com", ip: "0:0:0:0:0:0:0:1", exitoso: "S"},
+	{ $id: "4", fecha: "23-03-2020 10:23:36", correo: "hadmin@erpuno.com", ip: "0:0:0:0:0:0:0:1", exitoso: "S"},
+	{ $id: "5", fecha: "23-03-2020 09:38:01", correo: "hadmin@erpuno.com", ip: "0:0:0:0:0:0:0:1", exitoso: "S"},
+	{ $id: "6", fecha: "22-03-2020 22:47:45", correo: "hadmin@erpuno.com", ip: "0:0:0:0:0:0:0:1", exitoso: "S"},
+	{ $id: "7", fecha: "22-03-2020 22:47:44", correo: "hadmin@erpuno.com", ip: "0:0:0:0:0:0:0:1", exitoso: "S"},
+
+	]
+
+var tablaLogin;
+$(document).ready(function () {
+		 tablaOfertas = $('#loginListado').DataTable( {
+			    "language": {
+		            "url": "#{request.contextPath}/js/DataTables/Spanish.json"
+		        },
+		        "processing": true,
+		        "serverSide": true,
+		        "ajax": {
+		            url: "#{request.contextPath}/admin/loginListado.json",
+		            type: "POST"
+		        },
+		        "responsive": true,
+		        "pageLength": 100,
+		        "autoWidth": false,
+		        "order": [[ 0, 'desc' ]],
+		        "rowId": "identificador",
+		        "columns": [
+		        	{ 
+		            	"title": "Fecha", 
+		            	"data": "fecha",
+		            	"render": function ( data, type, row, meta ) {
+							return row.fechaUi;
+						}
+		            },
+		        	{ "title": "Usuario", "data": "correo" },
+		            { "title": "IP", "data": "ip" },
+		            { "title": "Exitoso", "data": "exitoso", 
+		            	"render": function ( data, type, row, meta ) {
+							return data === true  ? "S": "N";
+						} 
+					}
+		         ]
+		    });
+    });
+	
+$(document).ready(function () {	
+	var dsCustomer = new kendo.data.DataSource({
+		/*transport: {
+			read: {
+				url: "#{request.contextPath}/admin/loginListado.json",
+				type: "POST"
+			   
+			}
+		},*/
+		 data: jslogin,
+		pageSize: 20, 
+		schema: {
+			 data: jslogin,
+		        total:20,
+			model: {
+				id: "idLogin",
+				fields: {
+					idLogin:{type:"integer"},
+					fecha:{type:"string"},
+					correo:{type:"string"},
+					ip:{type:"string"},
+					exitoso:{type:"string"},
+					identificador:{type:"integer"},
+					fechaUi:{type:"string"}
+				}
+			}
+		}
+	});
+	
+	var gridCustomer = $("#gridCustomer").kendoGrid({
+		toolbar: ["excel"],
+        excel: {
+            fileName: "BitacoraLogin.xlsx",
+            filterable: true
+        },
+		dataSource: jslogin,
+		pageable: true,
+		scrollable: true,
+		resizable: true,
+		columnMenu: false,
+		sortable: true,
+		height: 760,
+		filterable: {
+			mode: "row"
+		},
+		columns: [		
+			{field:"fecha", title:"Fecha", width:120},
+			{field:"correo", title:"Usuario", width:120},
+			{field:"ip", title:"IP", width:100},
+			{field:"exitoso", title:"Exitoso", width:100}
+		]
+	});
+	
+});
+	</script>
+	</ui:define>
+    
+    
+</ui:composition>

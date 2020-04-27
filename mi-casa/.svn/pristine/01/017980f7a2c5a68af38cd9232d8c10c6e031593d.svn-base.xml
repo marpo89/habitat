@@ -1,0 +1,90 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:b="http://bootsfaces.net/ui"
+	template="../plantillas/admin-lte.xhtml">
+	
+	<ui:define name="uiTituloVista">Actividad de Usuarios Nivel 2</ui:define>
+	
+	<ui:define name="uiBreadCrumb">
+		<ol class="breadcrumb">
+			<li><a href="#{request.contextPath}/index.xhtml">Inicio</a></li>
+			<li class="active">Actividad Reciente Usuarios N2</li>
+		</ol>
+	</ui:define>
+	
+	<ui:define name="uiContenido">
+		
+		<div class="row lista-datos">
+			<div class="col-xs-12">
+				<div class="box box-primary">
+						<div class="box-body">
+								<table id="actividadListado" class="display responsive table table-bordered table-striped"></table>
+						</div>
+				</div>
+			</div>
+		</div>
+		<!-- /.row -->
+			
+	<script type="text/javascript">
+	//<![CDATA[
+	var tablaLogin;
+	$(document).ready(function() {
+		
+		tablaOfertas = $('#actividadListado').DataTable( {
+		    "language": {
+	            "url": "#{request.contextPath}/js/DataTables/Spanish.json"
+	        },
+	        "processing": true,
+	        "serverSide": true,
+	        "ajax": {
+	            url: "#{request.contextPath}/admin/actividadUsrN2Listado.json",
+	            type: "POST"
+	        },
+	        "responsive": true,
+	        "pageLength": 100,
+	        "autoWidth": false,
+	        "order": [[ 1, 'desc' ]],
+	        "rowId": "identificador",
+	        "columns": [
+	        	{ "title": "Usuario", "data": "nombres" },
+	            { "title": "Correo", "data": "correo" },
+	            { 
+	            	"title": "Activo",
+	            	"data": "activo", 
+	            	"render": function ( data, type, row, meta ) {
+						return data === true  ? "S": "N";
+					} 
+				},
+				{ 
+	            	"title": "Muro", 
+	            	"data": "fechaMuro",
+	            	"render": function ( data, type, row, meta ) {
+						return row.fechaMuroUI;
+					}
+	            },
+	            { 
+	            	"title": "Oferta", 
+	            	"data": "fechaOferta",
+	            	"render": function ( data, type, row, meta ) {
+						return row.fechaOfertaUI;
+					}
+	            },
+	            { 
+	            	"title": "Login", 
+	            	"data": "fechaLogin",
+	            	"render": function ( data, type, row, meta ) {
+						return row.fechaLoginUI;
+					}
+	            }
+	        ]
+	    } );
+	} );
+	//]]>
+	</script>
+	</ui:define>
+    
+    
+</ui:composition>

@@ -1,0 +1,97 @@
+package org.habitatnicaragua.micasa.controlador.comun;
+
+import java.util.List;
+
+import javax.inject.Inject;
+
+import org.apache.commons.lang3.StringUtils;
+import org.habitatnicaragua.micasa.modelo.CmsArchivo;
+import org.habitatnicaragua.micasa.modelo.CmsNodo;
+import org.habitatnicaragua.micasa.servicio.ServicioContenido;
+import org.springframework.web.util.HtmlUtils;
+
+public abstract class ContenidoBase extends ControladorBaseUno {
+	private static final long serialVersionUID = 1L;
+
+	@Inject
+	private ServicioContenido servicioContenido;
+
+	
+	public String getEnlacesSistema(String url) {
+		CmsNodo cmsNodo = servicioContenido.buscarNodoDeSistema(url);
+		
+		return getEnlacesSistema(servicioContenido.listarArchivosPorNodo(cmsNodo));
+	}
+	
+	public String getEnlacesSistema(List<CmsArchivo> archivos) {
+	
+			StringBuilder sb = new StringBuilder();
+			
+			sb.append("<div class='list-group'>");
+			
+			for(CmsArchivo archivo : archivos) {
+				
+				sb.append(String.format("<a href='%s' class='list-group-item'>", archivo.getEnlaceWeb()));
+				sb.append(String.format("<h4 class='list-group-item-heading'>%s</h4>", HtmlUtils.htmlEscape(archivo.getTitulo())));
+				
+				if(!StringUtils.isBlank(archivo.getComentario())) {
+					sb.append(String.format("<p class='list-group-item-text'>%s</p>", HtmlUtils.htmlEscape(archivo.getComentario())));
+				}
+				
+				sb.append("</a>"); 
+			}
+			
+			sb.append("</div>");
+			
+			return sb.toString();
+	}
+	
+	public String getListadoEnlacesLateral(List<CmsArchivo> archivos, RenderEnlace renderEnlace) {
+		
+		StringBuilder sb = new StringBuilder();
+		
+		sb.append("<div class='list-group'>");
+		
+		for(CmsArchivo archivo : archivos) {
+			
+			sb.append(String.format("<a href='%s' class='list-group-item'>", renderEnlace.render(archivo)));
+			sb.append(String.format("<div class='list-group-item-heading'>%s</div>", HtmlUtils.htmlEscape(archivo.getTitulo())));
+			
+			if(!StringUtils.isBlank(archivo.getComentario())) {
+				sb.append(String.format("<p class='list-group-item-text'>%s</p>", HtmlUtils.htmlEscape(archivo.getComentario())));
+			}
+			
+			sb.append("</a>"); 
+		}
+		
+		sb.append("</div>");
+		
+		return sb.toString();
+	}
+	
+	public static interface RenderEnlace {
+		String render(CmsArchivo archivo);
+	}
+	
+	public CmsArchivo seleccionarArchivoPorId(Long idArchivo, List<CmsArchivo> archivos) {
+		CmsArchivo archivo = null;
+		
+		if(idArchivo==null) {
+			if(archivos!=null && archivos.size()>0) {
+				archivo = archivos.get(0);
+			}
+		} else {
+			for(CmsArchivo ai:archivos) {
+				if(idArchivo.equals(ai.getIdArchivo())) {
+					archivo = ai;
+					break;
+				}
+			}
+			if(archivo==null) {
+				archivo = archivos.get(0);
+			}
+		}
+		
+		return archivo;
+	}
+}

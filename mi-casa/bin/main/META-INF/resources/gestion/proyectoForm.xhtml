@@ -1,0 +1,459 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:b="http://bootsfaces.net/ui"
+	xmlns:p="http://primefaces.org/ui"
+	template="../plantillas/admin-lte.xhtml">
+	
+	<ui:define name="uiTituloVista">#{proyectosVista.tituloPagina}</ui:define>
+	
+	<ui:define name="uiBreadCrumb">
+		<ol class="breadcrumb">
+			<li><a href="#{request.contextPath}/index.xhtml">Inicio</a></li>
+			<li><a href="#{proyectosVista.enlaceListado}">Proyectos</a></li>
+			<li class="active">#{proyectosVista.infoRegistroActual}</li>
+		</ol>
+	</ui:define>
+	
+	<ui:define name="uiContenido">
+		
+		<b:modal id="confirmacionEliminarComentario" title="Eliminar mensaje" styleClass="modal-danger fade">
+			<p>&#191;Eliminar el mensaje seleccionado?.</p>
+			<f:facet name="footer">
+				<b:button value="Cancelar" look="danger" styleClass="pull-left" dismiss="modal" />
+				<b:button value="Eliminar" look="danger" ajax="true" dismiss="modal" onclick="eliminarComentario(event, $('#frm-idComentarioEliminar').val());" />
+			</f:facet>
+		</b:modal>
+		
+		<b:modal id="confirmacionEliminarArchivo" title="Eliminar archivo" styleClass="modal-danger fade">
+			<p>&#191;Eliminar el archivo seleccionado?.</p>
+			<f:facet name="footer">
+				<b:button value="Cancelar" look="danger" styleClass="pull-left" dismiss="modal" />
+				<b:button value="Eliminar" look="danger" ajax="true" dismiss="modal" 
+					onclick="eliminarArchivo(event, $('#frm-idProyecto').val(), $('#frm-idArchivoEliminar').val());" />
+			</f:facet>
+		</b:modal>
+		
+		<h:panelGroup style="display: none;">
+			<h:inputHidden value="#{proyectosVista.idProyecto}" id="idProyecto" label="" />
+			<h:inputHidden value="0" id="idComentarioEliminar" label="" />
+			<h:inputHidden value="0" id="idArchivoEliminar" label="" />
+		</h:panelGroup>
+		
+		<b:tabView id="_tabs">
+			<b:tab title="Proyecto">
+				<f:facet name="anchor"><b:iconAwesome name="fa-key" /></f:facet>
+				
+				<div class="row formulario-datos">
+					<div class="col-md-6">
+        				<b:formGroup>
+       						<label>Estado</label>
+       						<b:selectOneMenu value="#{proyectosVista.pryProyecto.estado}" label="">
+       							<f:selectItems value="#{proyectosVista.listaEstados}" var="estado" itemLabel="#{estado.nombre}" itemValue="#{estado}" />
+       						</b:selectOneMenu>
+       					</b:formGroup>
+					</div>
+			
+					<b:column styleClass="col-md-6" rendered="#{proyectosVista.puedeCambiarTecnico}">
+						<b:formGroup>
+		       				<label>T&#233;cnico</label>
+	       					<b:selectOneMenu value="#{proyectosVista.pryProyecto.tecnico}" label="">
+	       						<f:selectItem itemLabel="" itemValue="" />
+	       						<f:selectItems value="#{proyectosVista.listaTecnicos}" var="tecnico" itemLabel="#{tecnico.nombres}" itemValue="#{tecnico}" />
+	       					</b:selectOneMenu>
+		       			</b:formGroup>
+					</b:column>
+				</div>
+		
+				<div class="row">
+					<div class="col-md-12">
+						<div class="box-footer">
+		                	<b:button value="Actualizar" icon="save" look="primary" onclick="guardarRegistro(event)" />
+		                	
+		                	<button type="button" class="btn btn-danger pull-right" onclick="irA('#{request.contextPath}/gestion/proyectos.xhtml');">Cerrar</button>
+		              </div>
+					</div>
+				</div>
+				
+				<div class="row formulario-datos">
+					<!-- left column -->
+		        	<div class="col-md-6">
+		        
+		        		<div class="box box-primary">
+							<div class="box-header with-border">
+								<h3 class="box-title">Datos de contacto</h3>
+		        			</div>
+		        		
+		        			<div class="box-body">
+		        				<b:formGroup>
+		       						<label>Nombres y apellidos</label>
+		       						<b:inputText placeholder="Nombre completo" autocomplete="off" disabled="true"
+										value="#{proyectosVista.pryProyecto.duenio.nombres}" label="" render-label="false" />
+		       					</b:formGroup>
+		       					
+		       					<b:formGroup>
+		       						<label>Tel&#233;fono</label>
+		       						<b:inputText placeholder="Tel&#233;fono" value="#{proyectosVista.pryProyecto.duenio.telefonos}" 
+		       							disabled="true" label="" render-label="false" />
+		       					</b:formGroup>
+		       					
+		       					<b:formGroup>
+		       						<label>Correo electr&#243;nico</label>
+		       						<b:inputText placeholder="Correo electr&#243;nico" value="#{proyectosVista.pryProyecto.duenio.correo}"
+										disabled="true" label="" render-label="false" />
+		       					</b:formGroup>
+		       					             
+		       					<b:formGroup>
+		       						<label>Direcci&#243;n f&#237;sica</label>
+		       						<b:inputTextarea maxlength="500" placeholder="Direcci&#243;n" label="" render-label="false"
+										disabled="true" value="#{proyectosVista.pryProyecto.duenio.direccionFisica}" />
+		       					</b:formGroup>			
+		       					
+		          			</div>
+		      			</div>
+		      			
+						<div class="box box-primary">
+							<div class="box-header with-border">
+								<h3 class="box-title">Pago de servicio</h3>
+		        			</div>
+		        		
+		        			<div class="box-body">
+		        				<b:formGroup>
+		       						<label>Fecha de pago</label>
+		       						<b:dateTimePicker value="#{proyectosVista.pryProyecto.fechaPagoString}"
+		       							disabled="true"
+										format="DD/MM/YYYY" locale="es" label="" render-label="false">
+										<f:converter converterId="bootFacesDateTimePickerConverter" />
+									</b:dateTimePicker>
+		       					</b:formGroup>
+		       					
+		       					<b:formGroup>
+		       						<label>Banco</label>
+		       						<b:inputText placeholder="Banco" value="#{proyectosVista.pryProyecto.idBanco.nombre}"
+										disabled="true" label="" render-label="false" />
+		       					</b:formGroup>
+		       					
+		       					<b:formGroup>
+		       						<label>N&#250;mero de comprobante</label>
+		       						<b:inputText placeholder="Comprobante" value="#{proyectosVista.pryProyecto.comprobante}" 
+		       							disabled="true" maxlength="255" label="" render-label="false"/>
+		       					</b:formGroup>
+		       					             			
+		          			</div>
+		      			</div>
+		      			
+					</div>
+					
+					<div class="col-md-6">
+		        
+		        		<div class="box box-primary">
+							<div class="box-header with-border">
+								<h3 class="box-title">Cu&#233;ntanos sobre tu mejora</h3>
+		        			</div>
+		        		
+		        			<div class="box-body">
+		        				<b:formGroup>
+		       						<label>&#191;Qu&#233; espacio desea mejorar en su casa?</label>
+									<b:inputText tags="true" value="#{proyectosVista.pryProyecto.espaciosMejora}" 
+										disabled="true" tiny-screen="full-width" label="" renderLabel="false" />
+		       					</b:formGroup>
+		          			</div>
+		          			
+		          			<div class="box-body">
+		        				<b:formGroup>
+		       						<label>Describa la mejora que desea realizar en este espacio</label>
+		       						<b:inputTextarea placeholder="Descripci&#243;n" value="#{proyectosVista.pryProyecto.descripcion}" 
+		       							disabled="true" label="" render-label="false"/>       						
+		       					</b:formGroup>
+		       				</div>
+		       				
+		          			<div class="box-body">
+		        				<b:formGroup>
+		       						<label>&#191;Qu&#233; tipo de materiales piensa utilizar para construir esa mejora?</label>
+									<b:inputText tags="true" value="#{proyectosVista.pryProyecto.materialesMejora}"
+										disabled="true" tiny-screen="full-width" label="" renderLabel="false" />
+		       						  
+		       					</b:formGroup>
+		          			</div>
+		      			</div>
+		      			
+		        		<div class="box box-primary">
+							<div class="box-header with-border">
+								<h3 class="box-title">Presupuesto</h3>
+		        			</div>
+		        		
+		        			<div class="box-body">
+		        				<b:formGroup>
+		       						<label>&#191;Tiene un presupuesto destinado para esto?</label>
+		       						<b:switch off-text="No" on-text="Si" value="#{proyectosVista.pryProyecto.presupuesto}" label="" render-label="false" disabled="true" />
+		       					</b:formGroup>
+		       					
+		       					<b:formGroup>
+		       						<label>&#191;De cu&#225;nto es su presupuesto?</label>
+		       						
+		       						<table style="width: 100%">
+		       							<tr>
+		       								<td>
+				       							<b:inputText placeholder="Monto" value="#{proyectosVista.pryProyecto.montoPresupuesto}" mask="numeric" 
+				       								disabled="true" label="" render-label="false" />
+			       							</td>
+			       							<td>
+			       								<b:inputText value="#{proyectosVista.pryProyecto.idMoneda.nombre}"
+													disabled="true" label="" render-label="false" />
+			       							</td>
+			       						</tr>
+			       					</table>
+			       					
+		       					</b:formGroup>
+		       					
+		       					<b:formGroup>
+		       						<label>&#191;Ya contact&#243; a un alba&#241;il para que realice esta mejora?</label>
+		       						<b:switch off-text="No" on-text="Si" value="#{proyectosVista.pryProyecto.tieneAlbanil}" 
+		       							disabled="true" label="" render-label="false"/>
+		       					</b:formGroup>
+		       					             			
+		          			</div>
+		      			</div>
+		      			
+		      			
+		      			<div class="box box-primary">
+							<div class="box-header with-border">
+								<h3 class="box-title">Visita</h3>
+		        			</div>
+		        			
+		        			<div class="box-body">
+			        			<b:formGroup>
+			     					<label>&#191;Puede usted estar presente durante la visita que realizaremos a su vivienda?</label>
+			     					<b:switch off-text="No" on-text="Si" value="#{proyectosVista.pryProyecto.presenteVisita}" 
+			     						disabled="true" label="" render-label="false"/>
+			     				</b:formGroup>
+			     				
+			     				<b:formGroup>
+			       					<label>Si usted no puede estar presente durante la visita, &#191;qui&#233;n ser&#225; la persona encargada de recibirnos?</label>
+			       					<b:inputText placeholder="Nombre persona" value="#{proyectosVista.pryProyecto.nombrePerAtencionVisita}" 
+			       						disabled="true" maxlength="255" label="" render-label="false"/>
+			       				</b:formGroup>
+			       			</div>
+		        		</div>
+					</div>
+				</div>
+				
+			</b:tab>
+			
+			<b:tab title="Mensajes">
+				<f:facet name="anchor"><b:iconAwesome name="comments-o" /></f:facet>
+				
+				<div class="box box-success">
+					<div class="box-footer">
+						<b:inputTextarea placeholder="Escriba su comentario" value="#{proyectosVista.comentario}" 
+						 	id="txtComentario" label="" renderLabel="false" />
+						
+						<b:button value="Publicar" icon-awesome="fa-plus" look="success" 
+							styleClass="pull-right" onclick="guardarComentario(event)" />
+					</div>
+					
+					<div class="box-body chat" id="chat-box">
+						<table id="comentarios" class="display responsive table table-bordered table-striped"></table>
+					</div>
+					
+				</div>
+				
+			</b:tab>
+			
+			<b:tab title="Archivos">
+				<f:facet name="anchor"><b:iconAwesome name="fa-file-o" /></f:facet>
+			
+				<div class="row">
+		        	<div class="col-md-12">
+		        		<div class="box box-primary">
+							<div class="box-header with-border">
+								<h3 class="box-title">Adjuntar archivo</h3>
+		        			</div>
+		        		
+		        			<div class="box-body">
+		        				<b:formGroup>									
+									<p:fileUpload label="" 
+										skinSimple="true" mode="advanced" auto="true" dragDropSupport="false"
+										sizeLimit="#{plantillaUIVista.sizeLimitProyecto}"
+										fileUploadListener="#{proyectosVista.subirArchivoProyecto}"
+										oncomplete="tablaArchivos.ajax.reload();"/>
+								</b:formGroup>
+		          			</div>
+		      			</div>
+		      		</div>		      		
+		      	</div>
+		      	
+		      	<div class="row">
+		        	<div class="col-md-12">
+		        		<table id="archivos" class="display responsive table table-bordered table-striped"></table>
+		        	</div>
+		        </div>
+		      	
+			</b:tab>
+			
+		</b:tabView>
+		
+		<b:remoteCommand name="guardarRegistro" id="guardarRegistro" actionListener="#{proyectosVista.guardarRegistro}" parameters="event" update="frm" />
+		
+		<b:remoteCommand name="guardarComentario" id="guardarComentario" update="@findPartialIdRecursive(txtComentario)"
+			actionListener="#{proyectosVista.guardarComentario}" onsuccess="tablaComentarios.ajax.reload();"  parameters="event" />
+			
+		<b:remoteCommand name="eliminarComentario" id="eliminarComentario" 
+			actionListener="#{proyectosVista.eliminarComentario}" parameters="event,idComentario" 
+			onsuccess="tablaComentarios.ajax.reload();" />
+		
+		<b:remoteCommand name="eliminarArchivo" id="eliminarArchivo" 
+			actionListener="#{proyectosVista.eliminarArchivo}" parameters="event,idProyecto,idArchivo" 
+			onsuccess="tablaArchivos.ajax.reload();" />
+			
+		<div class="row">
+			<div class="col-md-12">&#160;</div>
+		</div>			
+			
+		<script type="text/javascript">
+		//<![CDATA[
+			$(document).ready(function() {
+				initTabs();
+				
+				if($(location).attr('hash')=='#comentarios'){
+					$('#frm-_tabs li:eq(1) a').tab('show');
+				} else if($(location).attr('hash')=='#archivos'){
+					$('#frm-_tabs li:eq(2) a').tab('show');
+				}
+			});
+		//]]>
+		</script>
+		
+		<script type="text/javascript">
+			//<![CDATA[
+			var tablaComentarios;
+			$(document).ready(function() {
+				
+				tablaComentarios = $('#comentarios').DataTable( {
+				    "language": {
+			            "url": "#{request.contextPath}/js/DataTables/Spanish.json"
+			        },
+			        "searching": false,
+			        "processing": true,
+			        "serverSide": true,
+			        "ajax": {
+			            url: "#{request.contextPath}/gestion/proyectos/comentarios.json?idProyecto=" + $("#frm-idProyecto").val(),
+			            type: "POST"
+			        },
+			        "responsive": true,
+			        "pageLength": 100,
+			        "autoWidth": false,
+			        "order": [[ 1, 'desc' ]],
+			        "rowId": "identificador",
+			        "columnDefs": [ 
+			        	{ 
+			        		"width": "1%", 
+			        		"orderable": false,
+			        		"targets": 0 
+						}
+			        ],
+			        "columns": [
+			        	{ 
+			            	"title": "",
+			            	"data": "idComentario", 
+			            	"render": function ( data, type, row, meta ) {
+			            		var contenido = '';
+			            		
+			            		if(row.propio) contenido = '<i class="fa fa-trash fa-lg" onclick="$(\'#frm-idComentarioEliminar\').val(' + data + ');$(\'#frm-confirmacionEliminarComentario\').modal();"></i>';
+			            		
+			            		return contenido;
+							}
+						},
+						{ 
+			            	"title": "",
+			            	"data": "idComentario", 
+			            	"render": function ( data, type, row, meta ) {
+								var contenido = '<div class="item"><p class="message">';	
+			            		
+								contenido += '<small class="text-muted pull-right"><i class="fa fa-clock-o"></i> ';
+								contenido += row.auditoria.fechaRegUI;
+								contenido += '</small>';
+								
+								contenido += '<a href="#{request.contextPath}/usuario/usuarioDetallesForm.xhtml?u=' + row.comentarista.idUsuario + '"';
+								contenido += ' class="name" title="' + row.comentarista.idUsuario + '">';
+								contenido += row.comentarista.nombres;
+								contenido += '</a><br>';
+								
+								contenido += "<br>"+row.contenido ;
+								contenido += '</p></div>';
+							
+			            		return contenido;
+							} 
+						}
+			        ]
+			    } );
+			} );
+			//]]>
+		</script>
+		
+		<script type="text/javascript">
+			//<![CDATA[
+			var tablaArchivos;
+			$(document).ready(function() {
+				tablaArchivos = $('#archivos').DataTable( {
+					"language": {
+			            "url": "#{request.contextPath}/js/DataTables/Spanish.json"
+			        },
+			        "searching": false,
+			        "processing": true,
+			        "serverSide": true,
+			        "ordering": false,
+			        "ajax": {
+			            url: "#{request.contextPath}/gestion/proyectos/archivos.json?idProyecto=" + $("#frm-idProyecto").val(),
+			            type: "POST"
+			        },
+			        "responsive": true,
+			        "pageLength": 100,
+			        "autoWidth": false,
+			        "columnDefs": [ 
+			        	{
+			        		"width": "5%",
+			        		"className": "text-center",
+			        		"targets": 0 
+						},
+						{
+			        		"width": "5%",
+			        		"className": "text-center",
+			        		"targets": 1
+						}
+			        ],
+			        "columns": [
+						{ 
+							"title": "", 
+							"data": "idArchivo",
+							"render": function ( data, type, row, meta ) {
+								
+								var contenido = '<a target="_blank" href="#{request.contextPath}/archivos' + row.enlaceWeb + '">';
+								
+								contenido += '<i class="fa fa-download fa-lg"></i></a>';
+								
+								return contenido;
+							}
+						},
+						{ 
+			            	"title": "",
+			            	"data": "idArchivo", 
+			            	"render": function ( data, type, row, meta ) {
+			            		
+			            		var contenido = '<i class="fa fa-trash fa-lg" onclick="$(\'#frm-idArchivoEliminar\').val(' + data + ');$(\'#frm-confirmacionEliminarArchivo\').modal();"></i>';
+			            		
+			            		return contenido;
+							}
+						},
+						{ "title": "Archivo", "data": "titulo" }
+			        ]
+				});
+			} );
+			//]]>
+		</script>
+			
+	</ui:define>
+
+</ui:composition>

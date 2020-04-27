@@ -1,0 +1,560 @@
+package org.habitatnicaragua.micasa.servicio;
+
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.UUID;
+
+import javax.inject.Inject;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
+
+import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.FilenameUtils;
+import org.apache.commons.lang3.RandomStringUtils;
+import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.math.NumberUtils;
+import org.habitatnicaragua.micasa.dao.OftOfertaDao;
+import org.habitatnicaragua.micasa.dao.OftCuponDao;
+import org.habitatnicaragua.micasa.dao.VwOfertaDao;
+import org.habitatnicaragua.micasa.modelo.OftOferta;
+import org.habitatnicaragua.micasa.modelo.OftOferta_;
+import org.habitatnicaragua.micasa.modelo.OftCupon;
+import org.habitatnicaragua.micasa.modelo.PerUsuario;
+import org.habitatnicaragua.micasa.modelo.PerUsuario_;
+import org.habitatnicaragua.micasa.modelo.Rol;
+import org.habitatnicaragua.micasa.modelo.VwOferta;
+import org.habitatnicaragua.micasa.modelo.VwOferta_;
+import org.habitatnicaragua.micasa.util.ExcepcionUno;
+import org.primefaces.model.UploadedFile;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
+import org.springframework.data.jpa.domain.Specifications;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+@Service
+@Transactional(rollbackFor = Exception.class)
+public class ServicioOfertaImpl implements ServicioOferta {	
+	
+	@Inject
+	private ServicioPerfil servicioPerfil;
+	
+	@Inject
+	private ServicioContenido servicioContenido;
+	
+	@Inject
+	private ServicioComun servicioComun;
+	
+	@Inject
+	private OftOfertaDao oftOfertaDao;
+	
+	@Inject
+	private OftCuponDao oftCuponDao;
+	
+	@Inject
+	private VwOfertaDao vwOfertaDao;
+	
+	/** Inicio: OftOferta **/
+	
+	@Override
+	public OftOferta buscarOftOfertaPorId(Long id) {
+		OftOferta oferta = oftOfertaDao.findOne(id);
+				
+		if(oferta==null) {
+			throw ExcepcionUno.parametroInvalido();
+		}
+		
+		if(servicioPerfil.isUsuarioActualMiembroRol(Rol.ADMIN)) {
+			return oferta;
+		}
+		
+		if(servicioPerfil.isUsuarioActualMiembroRol(Rol.FINANCIAMIENTO, Rol.MATERIAL)) {
+			if(servicioPerfil.getIdUsuarioActual().equals(oferta.getDuenio().getIdUsuario())) {
+				return oferta;
+			}
+		}
+		
+		if(!Boolean.TRUE.equals(oferta.getActivo())) {
+			return null;
+		}
+		
+		return oferta;
+	}
+	
+	@Override
+	public Page<OftOferta> listarOftOferta(Pageable pagina, String filtro) {
+		Page<OftOferta> resultado = null;
+		
+		Specification<OftOferta> filtroBase = null;
+		if(!servicioPerfil.isUsuarioActualMiembroRol(Rol.ADMIN)) {
+			filtroBase = new Specification<OftOferta>(){
+				@Override
+				public Predicate toPredicate(Root<OftOferta> root, CriteriaQuery<?> query, CriteriaBuilder cb) {
+					List<Predicate> predicates = new LinkedList<>();
+					
+					predicates.add(cb.equal(root.get(OftOferta_.duenio), servicioPerfil.getUsuarioActual()));
+					
+					return cb.and(predicates.toArray(new Predicate[0]));
+				}
+			};
+		}
+		
+		Specification<OftOferta> where = null;
+		if(!StringUtils.isBlank(filtro)) {
+			final String filtroSql = StringUtils.trim(filtro.toUpperCase()) + "%";
+			where = new Specification<OftOferta>() {
+	
+				@Override
+				public Predicate toPredicate(Root<OftOferta> root, CriteriaQuery<?> query, CriteriaBuilder cb) {
+					List<Predicate> predicates = new LinkedList<>();
+					predicates.add(cb.like(cb.upper(root.get(OftOferta_.titulo)), filtroSql));
+					
+					long idOfertaFiltro = NumberUtils.toLong(filtro);
+					if(idOfertaFiltro>0) predicates.add(cb.equal(root.get(OftOferta_.idOferta), idOfertaFiltro));
+					
+					if(servicioPerfil.isUsuarioActualMiembroRol(Rol.ADMIN)) {
+						predicates.add(cb.like(cb.upper(root.get(OftOferta_.duenio).get(PerUsuario_.idUsuario)), filtroSql));
+					}
+							
+					return cb.or(predicates.toArray(new Predicate[0]));
+				}
+			};
+		}
+		
+		resultado = oftOfertaDao.findAll(Specifications.where(filtroBase).and(where), pagina);
+		
+		
+		return resultado;
+	}
+		
+	@Override
+	public void eliminarOftOferta(Long idOferta) throws ExcepcionUno {
+		if(idOferta==null) {
+			throw ExcepcionUno.objetoNull();
+		}
+		
+		OftOferta oftOferta = oftOfertaDao.findOne(idOferta);
+		if(oftOferta==null) {
+			throw ExcepcionUno.objetoNull();
+		}
+		
+		if(!isOfertaEditable(oftOferta)) {
+			throw ExcepcionUno.permisoDenegado();
+		}
+		
+		removerArchivosOftOferta(oftOferta, true, true, true);
+		
+		try {
+			oftOfertaDao.delete(oftOferta);
+		} catch (Throwable t){
+			throw new ExcepcionUno(t);
+		}
+    }
+	
+	@Override
+	public OftOferta guardarOftOferta(OftOferta oftOferta, UploadedFile archivo1, UploadedFile archivo2, UploadedFile archivo3) throws ExcepcionUno {
+		
+		if(oftOferta==null) {
+			throw ExcepcionUno.objetoNull();
+		}
+		
+		if(!isOfertaEditable(oftOferta)) {
+			throw ExcepcionUno.permisoDenegado();
+		}
+		
+		if(StringUtils.isBlank(oftOferta.getTitulo())) {
+			throw ExcepcionUno.campoRequerido("Título");
+		}
+		
+		if(StringUtils.isBlank(oftOferta.getContenido())) {
+			throw ExcepcionUno.campoRequerido("Contenido");
+		}
+
+		if(oftOferta.getInicio()==null) {
+			throw ExcepcionUno.campoRequerido("Fecha inicial");
+		}
+		
+		if(oftOferta.getFin()==null) {
+			throw ExcepcionUno.campoRequerido("Fecha final");
+		}
+		
+		if(oftOferta.getFin().before(oftOferta.getInicio())) {
+			Date tmp = oftOferta.getInicio();
+			oftOferta.setInicio(oftOferta.getFin());
+			oftOferta.setFin(tmp);
+		}
+		
+		if(oftOferta.getIdOferta()==null && oftOferta.getFin().before(new Date())) {
+			throw new ExcepcionUno("El rango de fechas está en el pasado.");
+		}
+		
+		if(oftOferta.getDuenio()==null) {
+			oftOferta.setDuenio(servicioPerfil.getUsuarioActual());
+		}
+		
+		if(oftOferta.getLimiteCantidad()==null || oftOferta.getLimiteCantidad()<0) {
+			oftOferta.setLimiteCantidad(0);
+		}
+		
+		if(oftOferta.getIdOferta()==null) {
+			try {
+				oftOferta = oftOfertaDao.save(oftOferta);
+			} catch (Throwable t){
+				throw new ExcepcionUno(t);
+			}
+		}
+		
+		subirArchivoAdjuntoOftOferta(oftOferta, archivo1, 1);
+		subirArchivoAdjuntoOftOferta(oftOferta, archivo2, 2);
+		subirArchivoAdjuntoOftOferta(oftOferta, archivo3, 3);
+		
+		try {
+			oftOferta = oftOfertaDao.save(oftOferta);
+		} catch (Throwable t){
+			throw new ExcepcionUno(t);
+		}
+		
+		return oftOferta;
+	}
+	
+	private void subirArchivoAdjuntoOftOferta(OftOferta oftOferta, UploadedFile archivo, int numero) throws ExcepcionUno {
+		if(archivo==null || archivo.getSize()<=0 || !servicioContenido.isArchivoImagen(archivo)) {
+			return;
+		}
+		
+		servicioContenido.validarArchivoPeligroso(archivo.getFileName());
+		
+		try {
+			String extension = FilenameUtils.getExtension(archivo.getFileName());
+			
+			String rutaArchivoExistente = null;
+			switch(numero) {
+				case 1: rutaArchivoExistente = oftOferta.getArchivo1(); break;
+				case 2: rutaArchivoExistente = oftOferta.getArchivo2(); break;
+				case 3: rutaArchivoExistente = oftOferta.getArchivo3(); break;
+			}
+			
+			String directorio = servicioComun.getValorParametro("RUTA_LOCAL_ARCHIVOS") + File.separator + "ofertas" + File.separator;
+			FileUtils.forceMkdir(new File(directorio));
+			
+			
+			String nuevoNombre = null;
+			
+			if(StringUtils.isBlank(rutaArchivoExistente)) {
+				nuevoNombre = UUID.randomUUID().toString() + "." + extension;
+			} else {
+				nuevoNombre = FilenameUtils.getBaseName(rutaArchivoExistente) + "." + extension;
+			}
+			
+			String rutaLocalRelativaArchivo = oftOferta.getIdOferta() + File.separator + nuevoNombre;
+			File archivoDisco = new File(directorio + rutaLocalRelativaArchivo);
+			
+			servicioContenido.validarRutaArchivoLocal(archivoDisco);
+			FileUtils.copyInputStreamToFile(archivo.getInputstream(), archivoDisco);
+			
+			String ruta = File.separator + "ofertas" + File.separator + rutaLocalRelativaArchivo;
+			
+			switch(numero) {
+				case 1: oftOferta.setArchivo1(ruta); break;
+				case 2: oftOferta.setArchivo2(ruta); break;
+				case 3: oftOferta.setArchivo3(ruta); break;
+			}
+			
+			
+		} catch (Exception e) {
+			throw new ExcepcionUno(e);
+		}
+	}
+	
+	@Override
+	public InputStream obtenerInputStreamArchivoLocalOferta(OftOferta oftOferta, int numero) {
+		if(oftOferta==null) return null;
+		
+		String rutaArchivo = "";
+		switch(numero) {
+		case 1:
+			rutaArchivo = oftOferta.getArchivo1();
+			break;
+		case 2:
+			rutaArchivo = oftOferta.getArchivo2();
+			break;
+		case 3:
+			rutaArchivo = oftOferta.getArchivo3();
+			break;
+		default:
+			return null;	
+		}
+		
+		if(StringUtils.isBlank(rutaArchivo)) {
+			return null;
+		}
+		
+		String rutaLocalArchivo = servicioComun.getValorParametro("RUTA_LOCAL_ARCHIVOS") + rutaArchivo;
+		
+		File archivo = new File(rutaLocalArchivo);
+		
+		servicioContenido.validarRutaArchivoLocal(archivo);
+		
+		if(!archivo.exists()) return null;
+		
+		if(archivo.isDirectory()) return null;
+		
+		try {
+			return FileUtils.openInputStream(archivo);
+		} catch (IOException e) {
+			throw new ExcepcionUno(e);
+		}
+	}
+	
+	@Override
+	public OftOferta removerArchivosOftOferta(OftOferta oftOferta, boolean removerArchivo1, boolean removerArchivo2, boolean removerArchivo3) {
+		if(oftOferta==null) {
+			throw ExcepcionUno.objetoNull();
+		}
+		
+		if(!isOfertaEditable(oftOferta)) {
+			throw ExcepcionUno.permisoDenegado();
+		}
+		
+		if(removerArchivo1 && !StringUtils.isBlank(oftOferta.getArchivo1())) {
+			removerArchivoOferta(oftOferta.getArchivo1());
+			oftOferta.setArchivo1(null);
+		}
+		
+		if(removerArchivo2 && !StringUtils.isBlank(oftOferta.getArchivo2())) {
+			removerArchivoOferta(oftOferta.getArchivo2());
+			oftOferta.setArchivo2(null);
+		}
+		
+		if(removerArchivo3 && !StringUtils.isBlank(oftOferta.getArchivo3())) {
+			removerArchivoOferta(oftOferta.getArchivo3());
+			oftOferta.setArchivo3(null);
+		}
+		
+		try {
+			oftOferta = oftOfertaDao.save(oftOferta);
+		} catch (Throwable t){
+			throw new ExcepcionUno(t);
+		}
+		
+		return oftOferta;
+	}
+	
+	private void removerArchivoOferta(String rutaArchivo) {
+		
+		String rutaLocalArchivo = servicioComun.getValorParametro("RUTA_LOCAL_ARCHIVOS") + rutaArchivo;
+		
+		File archivo = new File(rutaLocalArchivo);
+		
+		servicioContenido.validarRutaArchivoLocal(archivo);
+		
+		if(archivo.exists() && archivo.isFile() && archivo.canWrite()) {
+			archivo.delete();
+		}
+	}
+	
+	@Override
+	public boolean isOfertaEditable(OftOferta oftOferta) {
+		if(oftOferta==null) return false;
+		
+		if(oftOferta.getIdOferta()==null) return true;
+		
+		if(servicioPerfil.getUsuarioActual().isAdmin()) return true;
+		
+		if(oftOferta.getDuenio()!=null && oftOferta.getDuenio().getIdUsuario().equals(servicioPerfil.getUsuarioActual().getIdUsuario())) {
+			return true;
+		}
+		
+		return false;
+	}
+	
+	/** Fin: OftOferta **/	
+	
+	/** Inicio: OftUsarOferta **/
+	
+	@Override
+	public OftCupon buscarOftUsarOfertaPorId(Long id) {
+		return oftCuponDao.findOne(id);
+	}
+	
+	@Override
+	public Page<OftCupon> listarOftUsarOferta(Pageable pagina, String filtro) {
+		Page<OftCupon> resultado = null;
+		
+		Specification<OftCupon> where = null;
+		if(!StringUtils.isBlank(filtro)) {
+			///final String filtroSql = StringUtils.trim(filtro.toUpperCase()) + "%";
+			where = new Specification<OftCupon>() {
+	
+				@Override
+				public Predicate toPredicate(Root<OftCupon> root, CriteriaQuery<?> query, CriteriaBuilder cb) {
+					List<Predicate> predicates = new LinkedList<>();
+					//predicates.add(cb.like(cb.upper(root.get(CmsFolder_.nombre)), filtroSql));
+					return cb.or(predicates.toArray(new Predicate[0]));
+				}
+				
+			};
+		}
+		
+		resultado = oftCuponDao.findAll(where, pagina);
+		
+		return resultado;
+	}
+	
+	@Override
+	public void eliminarOftUsarOferta(Long idUsarOferta) throws ExcepcionUno {
+		if(idUsarOferta==null) {
+			throw ExcepcionUno.objetoNull();
+		}
+		
+		try {
+			oftCuponDao.delete(idUsarOferta);
+		} catch (Throwable t){
+			throw new ExcepcionUno(t);
+		}
+    }
+	
+	@Override
+	public OftCupon buscarCuponPorUsuarioOferta(Long idOferta, PerUsuario perUsuario) {
+		if(perUsuario!=null) return oftCuponDao.buscarCuponPorUsuarioOferta(idOferta, perUsuario);
+		
+		return null;
+	}
+	
+	@Override
+	public void borrarCuponOferta(Long idOferta, PerUsuario perUsuario) throws ExcepcionUno {
+		oftCuponDao.borrarCuponOferta(idOferta, perUsuario);
+	}
+	
+	@Override
+	public synchronized OftCupon generarCuponOferta(Long idOferta, PerUsuario perUsuario) throws ExcepcionUno {
+		
+		VwOferta oferta = buscarDetalleOfertaPorId(idOferta);
+		
+		if(oferta==null) {
+			throw ExcepcionUno.objetoNull();
+		}
+		
+		if(oferta.getLimiteCantidad()>0 && oferta.getTomadas()>=oferta.getLimiteCantidad()) {
+			throw new ExcepcionUno("Oferta agotada.");
+		}
+				
+		OftOferta oftOferta = buscarOftOfertaPorId(idOferta);
+		
+		if(oftOferta==null) {
+			throw ExcepcionUno.objetoNull();
+		}
+		
+		OftCupon cuponExistent = buscarCuponPorUsuarioOferta(idOferta, perUsuario);
+		if(cuponExistent!=null) {
+			throw new ExcepcionUno("Cupón ya generado.");
+		}
+		
+		OftCupon cupon = new OftCupon();
+		cupon.setOferta(oftOferta);
+		cupon.setUsuario(perUsuario);
+		
+		SimpleDateFormat format = new SimpleDateFormat("yyMMdd");
+		String codigoBase = format.format(new Date()) + "-" + oftOferta.getIdentificador() + "-" + perUsuario.getIdUsuario().charAt(0) + "-";
+		
+		String codigo = null;
+		do {
+			codigo = codigoBase + RandomStringUtils.randomNumeric(4);
+			Long cantidad = oftCuponDao.contarCuponesPorCodigo(codigo);
+			if(cantidad>0) {
+				codigo = null;
+			}
+		} while(codigo == null);
+		
+		cupon.setCodigo(codigo);
+
+		try {
+			return oftCuponDao.save(cupon);
+		} catch (Throwable t){
+			throw new ExcepcionUno(t);
+		}
+	}
+
+	@Override
+	public OftCupon validarOferta(String codigoCupon) {
+		if(StringUtils.isBlank(codigoCupon)) return null;
+				
+		return oftCuponDao.buscarCuponPorCodigo(StringUtils.trim(codigoCupon));
+	}
+	
+	@Override
+	public OftCupon utilizarOferta(OftCupon oftCupon) {
+		if(oftCupon!=null) {
+			oftCupon.setUtilizado(true);
+			return oftCuponDao.save(oftCupon);
+		}
+		
+		return null;
+	}
+	
+	/** Fin: OftUsarOferta **/	
+	
+	
+	/** Inicio: VwOferta **/
+	
+	@Override
+	public Page<VwOferta> listarOfertaActiva(Pageable pagina, String filtro, String idProveedor) {
+		Page<VwOferta> resultado = null;
+		
+
+		Specification<VwOferta> filtroBase = null;
+		if(!StringUtils.isBlank(idProveedor) && !"null".equals(idProveedor)) {
+			filtroBase = new Specification<VwOferta>(){
+				@Override
+				public Predicate toPredicate(Root<VwOferta> root, CriteriaQuery<?> query, CriteriaBuilder cb) {
+					return cb.equal(root.get(VwOferta_.duenio).get(PerUsuario_.idUsuario) , idProveedor);
+				}
+			};
+		}
+
+		//la vista contiene los filtros requeridos
+		Specification<VwOferta> where = null;
+		if(!StringUtils.isBlank(filtro)) {
+			final String filtroSql = StringUtils.trim(filtro.toUpperCase()) + "%";
+			where = new Specification<VwOferta>() {
+				
+				@Override
+				
+				public Predicate toPredicate(Root<VwOferta> root, CriteriaQuery<?> query, CriteriaBuilder cb) {
+					List<Predicate> predicates = new LinkedList<>();
+					
+					predicates.add(cb.like(cb.upper(root.get(VwOferta_.titulo)), filtroSql));
+					predicates.add(cb.like(cb.upper(root.get(VwOferta_.duenio).get(PerUsuario_.nombres)), filtroSql));
+							
+					return cb.or(predicates.toArray(new Predicate[0]));
+				}	
+			};
+		}
+
+		resultado = vwOfertaDao.findAll(Specifications.where(filtroBase).and(where), pagina);
+		
+		return resultado;
+	}
+	
+	@Override
+	public VwOferta buscarDetalleOfertaPorId(Long id) {
+		VwOferta vwOferta = vwOfertaDao.findOne(id);
+				
+		if(vwOferta==null) {
+			throw ExcepcionUno.parametroInvalido();
+		}
+		
+		return vwOferta;
+	}
+	
+	
+	/** Fin: VwOferta **/
+}

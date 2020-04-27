@@ -1,0 +1,29 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:b="http://bootsfaces.net/ui"
+	template="../plantillas/admin-lte.xhtml">
+
+	<ui:define name="uiContenido">
+		<div class="row">
+			<div class="col-lg-12 col-xs-12 mb-20">
+				<div class="error-page">
+					<h2 class="headline text-red">#{requestScope["status"]}</h2>
+					<div class="error-content">
+						<h3>
+							<i class="fa fa-warning text-red"></i> Oops! Algo va mal.
+						</h3>
+						<p>
+							Trabajaremos para solucionar el problema lo antes posible.  
+							De momento puede regresar al <a href="#{request.contextPath}/index.xhtml"> inicio del sitio</a>.
+						</p>
+						<p>#{requestScope["message"]}</p>
+						<p>#{requestScope["exception"]}</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</ui:define>
+</ui:composition>

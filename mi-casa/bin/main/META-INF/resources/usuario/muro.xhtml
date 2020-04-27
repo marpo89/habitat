@@ -1,0 +1,138 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:b="http://bootsfaces.net/ui"
+	template="../plantillas/admin-lte.xhtml">
+
+	<ui:define name="uiTituloVista">Muro <a href="#{request.contextPath}/usuario/usuarioDetallesForm.xhtml?u=#{request.getParameter('u')}">#{muroNivel2Vista.usuario.nombres}</a></ui:define>
+
+	<ui:define name="uiBreadCrumb">
+		<ol class="breadcrumb">
+			<li><a href="#{request.contextPath}/index.xhtml">Inicio</a></li>
+			<li class="active">Muro</li>
+		</ol>
+	</ui:define>
+
+	<ui:define name="uiContenido">
+	
+		<b:modal id="confirmacionEliminarContenido" title="Eliminar contenido" styleClass="modal-danger fade">
+			<p>&#191;Eliminar el contenido seleccionado?.</p>
+			<f:facet name="footer">
+				<b:button value="Cancelar" look="danger" styleClass="pull-left" dismiss="modal" />
+				<b:button value="Eliminar" look="danger" ajax="true" dismiss="modal" onclick="eliminarContenido(event, $('#frm-idContenidoEliminar').val());" />
+			</f:facet>
+		</b:modal>
+		
+		<h:panelGroup style="display: none;">
+			<h:inputHidden value="0" id="idContenidoEliminar" label="" />
+		</h:panelGroup>
+		
+		<div class="row">
+			<div class="col-xs-12">
+				<div class="box box-primary">
+					<div class="box-body">
+						<table id="muro"
+							class="display responsive table table-bordered table-striped"></table>
+					</div>
+				</div>
+			</div>
+		</div>	
+
+		<b:remoteCommand name="eliminarContenido" id="eliminarContenido" 
+			actionListener="#{muroNivel2Vista.eliminarContenido}" parameters="event,idContenido" 
+			onsuccess="tablaMuro.ajax.reload();" />
+		
+		
+		<script type="text/javascript">
+		//<![CDATA[
+		var tablaMuro;
+		$(document).ready(function() {
+		
+			tablaMuro = $('#muro').DataTable( {
+			    "language": {
+		            "url": "#{request.contextPath}/js/DataTables/Spanish.json"
+		        },
+		        "processing": true,
+		        "serverSide": true,
+		        "ajax": {
+		            url: "#{request.contextPath}/muro/contenido.json?u=#{request.getParameter('u')}",
+		            type: "POST"
+		        },
+		        "responsive": true,
+		        "ordering": false,
+		        "lengthChange": false,
+		        "searching": false,
+		        "stripeClasses": [],
+		        "autoWidth": false,
+		        "rowId": "identificador",
+		        "columnDefs": [ 
+		        	{ 
+		        		"width": "1%", 
+		        		"orderable": false,
+		        		"targets": 0 
+					}
+		        ],
+		        "columns": [
+		        	{ 
+		            	"title": "",
+		            	"data": "idContenido", 
+		            	"render": function ( data, type, row, meta ) {
+		            		var contenido = '';
+		            		
+		            		if(row.propio) {
+		            			contenido += '<a href="#{request.contextPath}/usuario/contenidoN2.xhtml?idContenido=' + data + '"><i class="fa fa-pencil fa-lg" onclick=""></i></a>';
+		            			contenido += '<br><br>';
+		            			contenido += '<i class="fa fa-trash fa-lg" onclick="$(\'#frm-idContenidoEliminar\').val(' + data + ');$(\'#frm-confirmacionEliminarContenido\').modal();"></i>';
+		            		}
+		            		
+		            		return contenido;
+						},
+						"responsivePriority": 2
+					},
+		        	{ 
+						"title": "", 
+						"data": "idContenido",
+						"render": function(data, type, row, meta){
+							var descripcion = '';
+							
+							descripcion += '<small class="text-muted pull-right"><i class="fa fa-clock-o"></i> ';
+							descripcion += row.auditoria.fechaRegUI;
+							descripcion += '</small>';
+							
+							descripcion += "<h4>" + row.titulo + "</h4>";
+							
+							if(row.contenidoDisponible){
+								descripcion += row.contenido;
+							}
+							
+							if(row.youtubeDisponible){
+								descripcion += '<div class="embed-responsive embed-responsive-16by9">';
+								descripcion += '<iframe class="embed-responsive-item" src="https://www.youtube.com/embed/' + row.youtube + '?rel=0" allowfullscreen="allowfullscreen"></iframe>';
+								descripcion += '</div>';
+							}
+							
+							if(row.archivoDisponible && row.archivoImagen){
+								descripcion += '<img src="#{request.contextPath}' + row.rutaWebArchivo + '" alt="" class="img-responsive center-block" />';
+							}
+							
+							if(row.archivoDisponible && !row.archivoImagen){
+								descripcion += '<a href="#{request.contextPath}' + row.rutaWebArchivo + '"><i class="fa fa-file fa-2x"></i> Descargar archivo adjunto.</a>';
+							}
+							
+							return descripcion;
+						},
+						"responsivePriority": 1
+					}   	        	
+		        ]
+		        
+		    });
+		});
+		//]]>
+	</script>
+
+
+	</ui:define>
+
+</ui:composition>

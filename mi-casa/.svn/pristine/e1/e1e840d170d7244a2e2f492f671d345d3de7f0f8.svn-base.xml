@@ -1,0 +1,223 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:b="http://bootsfaces.net/ui"
+	template="../plantillas/admin-lte.xhtml">
+	
+	<ui:define name="uiHead">
+		<link rel="stylesheet" href="#{request.contextPath}/AdminLTE/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css" />
+	</ui:define>
+	
+	<ui:define name="uiTituloVista">#{nodosVista.tituloPagina}</ui:define>
+	
+	<ui:define name="uiBreadCrumb">
+		<ol class="breadcrumb">
+			<li><a href="#{request.contextPath}/index.xhtml">Inicio</a></li>
+			<li><a href="#{nodosVista.enlaceListado}">Contenidos</a></li>
+			<li class="active">#{nodosVista.infoRegistroActual}</li>
+		</ol>
+	</ui:define>
+	
+	<ui:define name="uiContenido">
+	
+		<b:modal id="confirmacionEliminar" title="Eliminar Registro" styleClass="modal-danger fade">
+			<p>&#191;Eliminar el registro seleccionado?.</p>
+			<f:facet name="footer">
+				<b:button value="Cancelar" look="danger" styleClass="pull-left" dismiss="modal" />
+				<b:commandButton value="Eliminar" look="danger" ajax="true" dismiss="modal"  
+					actionListener="#{nodosVista.eliminarRegistroArchivo}" oncomplete="tablaMaestro.ajax.reload();$('#frm-confirmacionEliminar').modal('hide');"/>
+			</f:facet>
+		</b:modal>
+		
+		<h:panelGroup style="display: none;">
+			<h:inputHidden value="#{nodosVista.idNodo}" id="idNodo" label="" />
+			<h:inputHidden value="#{nodosVista.idArchivo}" id="idArchivo" label="" />
+		</h:panelGroup>
+		
+		<div class="row formulario-datos">
+			<!-- left column -->
+        	<div class="col-md-12">
+        
+				<div class="box box-primary">
+					<div class="box-header with-border">
+						<h3 class="box-title">Contenido</h3>
+        			</div>
+        		
+        			<div class="box-body">
+        			
+        				<b:formGroup>
+       						<label>Tipo Contenido</label>
+       						<b:selectOneMenu value="#{nodosVista.cmsNodo.tipoNodo}" label="">
+       							<f:selectItem itemLabel="" itemValue="" />
+       							<f:selectItems value="#{nodosVista.listaTiposNodo}" var="tipoNodo" itemLabel="#{tipoNodo.nombre}" itemValue="#{tipoNodo}" />
+       						</b:selectOneMenu>
+       					</b:formGroup>       			
+       					
+       					<b:formGroup>
+       						<label>T&#237;tulo</label>
+       						<b:inputText placeholder="T&#237;tulo" value="#{nodosVista.cmsNodo.titulo}" label="" render-label="false"/>
+       					</b:formGroup>
+       					
+       					<b:formGroup>
+       						<label>Enlace</label>
+       						<b:inputText placeholder="enlace" value="#{nodosVista.cmsNodo.enlace}" label="" render-label="false"/>
+       					</b:formGroup>
+       					
+       					<b:formGroup>
+       						<label>Activo</label>
+       						<b:switch off-text="No" on-text="Si" value="#{nodosVista.cmsNodo.activo}" label="" render-label="false"/>
+       					</b:formGroup>
+       					
+       					<b:formGroup>
+       						<label>Sistema</label>
+       						<b:switch off-text="No" on-text="Si" value="#{nodosVista.cmsNodo.sistema}" label="" render-label="false"/>
+       					</b:formGroup>
+          			</div>
+      			</div>
+			</div>
+			
+			<div class="col-md-12">
+        
+				<div class="box box-primary">
+					<div class="box-header with-border">
+						<h3 class="box-title">Contenido</h3>
+        			</div>
+        		
+        			<div class="box-body">
+       					
+       					<b:formGroup>
+       						<h:panelGroup style="display: none;">
+								<h:inputHidden value="#{nodosVista.cmsNodo.contenido}" id="contenidoJsf" label="" />
+							</h:panelGroup>
+							<textarea id="contenido" rows="10" class="form-control"></textarea>
+       					</b:formGroup>
+       					
+          			</div>
+      			</div>
+			</div>
+		</div>
+		
+		<div class="row">
+			<div class="col-md-12">
+				<div class="box-footer">
+                <button type="button" class="btn btn-danger" onclick="irA('#{nodosVista.enlaceListado}');">Cancelar</button>
+                
+                <b:commandButton value="Guardar" icon="save" look="primary" ajax="true" styleClass="pull-right"
+                	onclick="$('#frm-contenidoJsf').val(CKEDITOR.instances['contenido'].getData());ajax:nodosVista.guardarRegistro();javascript:return false;"
+					onerror="" onsuccess="irA('#{request.contextPath}/admin/contenidos.xhtml');"/>
+			
+              </div>
+			</div>
+		</div>
+		
+		<div class="row">
+			<div class="col-md-12">&#160;</div>
+		</div>
+		
+		<b:row rendered="#{nodosVista.modoEditarMaestro}">
+		<div class="row lista-datos">
+			<div class="col-md-12">
+				<div class="box box-primary">
+					<div class="box-header with-border">
+						<h3 class="box-title">Lista de Archivos</h3>
+					</div>
+					<!-- /.box-header -->
+					<div class="box-body">
+							<b:buttonToolbar>
+								<b:buttonGroup>
+									<b:button icon-awesome="fa-file" title="Nuevo Registro" value="Nuevo" 
+										onclick="desmarcarRegistroSeleccionado('#frm-idArchivo');irA('#{request.contextPath}/admin/archivosForm.xhtml?','idNodo');"/>
+									
+									<b:button icon-awesome="fa-edit" title="Editar Seleccionado" value="Editar"
+										onclick="if(marcarRegistroSeleccionado('#frm-idArchivo', tablaMaestro)) {irA('#{request.contextPath}/admin/archivosForm.xhtml?','idNodo','idArchivo');}" />
+							    	
+							    	<b:button icon-awesome="fa-trash" title="Elimiar Seleccionado" value="Eliminar" 
+							    		onclick="mostrarConfirmacionEliminar('#frm-confirmacionEliminar','#frm-idArchivo',tablaMaestro)" />
+								</b:buttonGroup>
+							</b:buttonToolbar>
+						
+							<table id="nodos" class="display responsive table table-bordered table-striped"></table>
+							
+						</div>
+						<!-- /.box-body -->
+					</div>
+					<!-- /.box -->
+				</div>
+				<!-- /.col -->
+		</div>
+		
+		<script type="text/javascript">
+		//<![CDATA[
+		var tablaMaestro;
+		$(document).ready(function() {
+			
+			tablaMaestro = $('#nodos').DataTable( {
+			    "language": {
+		            "url": "#{request.contextPath}/js/DataTables/Spanish.json"
+		        },
+		        "searching": false,
+		        "processing": true,
+		        "serverSide": true,
+		        "ajax": {
+		            url: "#{request.contextPath}/admin/archivos.json?idNodo="+ $("#frm-idNodo").val()+"&idArchivo="+$("#frm-idArchivo").val(),
+		            type: "POST"
+		        },
+		        "responsive": true,
+		        "pageLength": 100,
+		        "autoWidth": false,
+		        "order": [[ 1, 'asc' ]],
+		        "columnDefs": [ {
+		            "orderable": false,
+		            "className": 'select-checkbox',
+		            "targets":   0
+		        } ],
+		        "select": {
+		            "style": 'single',
+		        },
+		        "rowId": "identificador",
+		        "columns": [
+		        	{ "title": "", "defaultContent": "" },
+		            { "title": "Orden", "data": "orden" },
+		            { "title": "Título", "data": "titulo" },
+		            { "title": "Tipo Archivo", "data": "tipoArchivo.nombre" },
+		            { "title": "Activo",
+		            	"data": "activo", 
+		            	"render": function ( data, type, row, meta ) {
+							return data === true  ? "S": "N";
+						} 
+					},
+					{ 
+						"title": "", 
+						"data": "idArchivo",
+						"render": function ( data, type, row, meta ) {
+							
+							var contenido = '<a target="_blank" href="#{request.contextPath}' + row.enlaceWeb + '">';
+							
+							contenido += '<i class="fa fa-download fa-lg"></i></a>';
+							
+							return contenido;
+						}
+					},
+		        ]
+		    } );
+		} );
+		//]]>
+		</script>
+		</b:row>
+	
+		<!-- CK Editor -->
+		<script src="#{request.contextPath}/AdminLTE/bower_components/ckeditor/ckeditor.js"></script>
+		<script>
+		//<![CDATA[
+		$(document).ready(function() {
+			$('#contenido').val($('#frm-contenidoJsf').val());
+			CKEDITOR.replace('contenido');
+  		});
+  		//]]>
+		</script>
+		
+	</ui:define>
+
+</ui:composition>

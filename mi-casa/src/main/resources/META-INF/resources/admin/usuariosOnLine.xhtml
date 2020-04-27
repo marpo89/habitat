@@ -1,0 +1,36 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:b="http://bootsfaces.net/ui"
+	template="../plantillas/admin-lte.xhtml">
+	
+	<ui:define name="uiTituloVista">#{usuariosVista.tituloPagina}</ui:define>
+	
+	<ui:define name="uiBreadCrumb">
+		<ol class="breadcrumb">
+			<li><a href="#{request.contextPath}/index.xhtml">Inicio</a></li>
+			<li class="active">Usuarios en l&#237;nea</li>
+		</ol>
+	</ui:define>
+	
+	<ui:define name="uiContenido">
+		
+		<div class="row lista-datos">
+			<div class="col-xs-12">
+				<div class="box box-primary">
+
+					<div class="box-body">
+							<b:dataTable id="usuarios" styleClass="usuarios" value="#{usuariosEnLineaVista.usuariosEnLinea}" var="usuario" 
+								page-length="100" responsive="true" customLangUrl="#{request.contextPath}/js/DataTables/Spanish.json"
+								widgetVar="tablaMaestro">
+							    <b:dataTableColumn value="#{usuario}" label="Usuario" data-order="#{usuario}" order="asc" />
+							</b:dataTable>
+						</div>
+					</div>
+				</div>
+		</div>
+
+	</ui:define>
+</ui:composition>

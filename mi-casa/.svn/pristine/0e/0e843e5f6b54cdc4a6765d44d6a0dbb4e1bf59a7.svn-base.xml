@@ -1,0 +1,165 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:b="http://bootsfaces.net/ui" 
+	xmlns:p="http://primefaces.org/ui"
+	template="../plantillas/admin-lte.xhtml">
+
+	<ui:define name="uiBreadCrumb">
+		<ol class="breadcrumb">
+			<li><a href="#{request.contextPath}/index.xhtml">Inicio</a></li>
+			<li><a href="/ofertas/index.xhtml">Ofertas disponibles</a></li>
+			<li class="active">Detalle</li>
+		</ol>
+	</ui:define>
+
+	<ui:define name="uiContenido">
+	
+		<b:modal id="modalGenerarCupon" title="Generar cup&#243;n de oferta" styleClass="modalPseudoClass" backdrop="false">
+			<p>Oferta ##{detalleOfertaVista.oferta.idOferta}. Provista por: #{detalleOfertaVista.oferta.duenio.nombres}.</p>
+			<p>#{detalleOfertaVista.condiciones}</p>
+			<f:facet name="footer">
+				<b:button value="Cerrar" dismiss="modal" />
+				<b:commandButton value="Aceptar" look="primary" ajax="true" styleClass="pull-right"
+							actionListener="#{detalleOfertaVista.generarCupon}" onsuccess="$('#frm-modalGenerarCupon').modal('hide');"/>
+			</f:facet>
+			
+		</b:modal>
+		
+		<div class="row">
+			<div class="col-lg-12 col-xs-12 mb-20">
+				<div class="box box-primary">
+					<h1><h:outputText value="#{detalleOfertaVista.oferta.titulo}" id="titulo" /></h1>
+				</div>
+			</div>
+		</div>
+		
+		<b:row id="filaDatosOferta">
+			<div class="col-lg-6 col-xs-12 mb-20">
+				<b:formGroup>
+					<div id="Carousel" class="carousel slide">
+						<div class="carousel-inner">							
+							<h:panelGroup layout="block" styleClass="item #{detalleOfertaVista.activoCarrusel}" rendered="#{detalleOfertaVista.oferta.archivo1Disponible}">
+								<img src="#{detalleOfertaVista.oferta.rutaWebArchivo1}"/>
+							</h:panelGroup>
+
+							<h:panelGroup layout="block" styleClass="item #{detalleOfertaVista.activoCarrusel}" rendered="#{detalleOfertaVista.oferta.archivo2Disponible}">
+								<img src="#{detalleOfertaVista.oferta.rutaWebArchivo2}"/>
+							</h:panelGroup>
+							
+							<h:panelGroup layout="block" styleClass="item #{detalleOfertaVista.activoCarrusel}" rendered="#{detalleOfertaVista.oferta.archivo3Disponible}">
+								<img src="#{detalleOfertaVista.oferta.rutaWebArchivo3}"/>
+							</h:panelGroup>
+						</div>
+						
+						<a class="left carousel-control" href="#Carousel" data-slide="prev"> 
+							<span class="glyphicon glyphicon-chevron-left"></span>
+						</a> 
+						<a class="right carousel-control" href="#Carousel" data-slide="next">
+							<span class="glyphicon glyphicon-chevron-right"></span>
+						</a>
+					</div>
+				</b:formGroup>
+			</div>
+
+			<div class="col-lg-6 col-xs-12 mb-20">
+				<b:formGroup>
+					<h:outputText value="#{detalleOfertaVista.oferta.contenido}" escape="false" />
+				</b:formGroup>
+				
+				<h:panelGrid columns="1" styleClass="text-center table-condensed" style="width:100%">
+					<label>Tienes hasta el: #{detalleOfertaVista.oferta.finUI}</label>
+					
+					<b:button value="Obtenga su cup&#243;n" look="primary" onclick="irA('#{request.contextPath}/login.xhtml?desdeLugar=detalleOferta&#38;idLugar=#{detalleOfertaVista.idOferta}');"
+								rendered="#{detalleOfertaVista.botonIrLoginVisible}" />
+								
+					<b:button value="Obtenga su cup&#243;n" look="primary" onclick="$('#frm-modalGenerarCupon').modal();" 
+								rendered="#{detalleOfertaVista.botonCuponVisible}" />
+							
+					<h4 class="box-title">
+						<h:outputText value="Cup&#243;n" rendered="#{detalleOfertaVista.cuponVisible}" />
+					</h4>
+					
+					<p:link href="cupon.xhtml?u=#{detalleOfertaVista.oferta.idOferta}" rendered="#{detalleOfertaVista.cuponVisible}" target="_blank">
+						<p:barcode value="#{detalleOfertaVista.oftCuponUsuarioActual.codigo}" type="code128" width="250" title="Cup&#243;n" />
+					</p:link>
+					
+					<b:commandButton value="Borrar mi cup&#243;n" look="danger" ajax="true" 
+								actionListener="#{detalleOfertaVista.borrarMiCupon}"
+								rendered="#{detalleOfertaVista.cuponVisible}" />
+				</h:panelGrid>
+				
+			</div>
+		</b:row>
+
+		<div class="row">
+			<div class="col-lg-12 col-xs-12 mb-20">
+
+				<div class="box">
+					<div class="box-header with-border">
+						
+						<b:formGroup>
+							<h3 class="box-title">
+								<label>Provisto por:&#160;</label>
+								<a href="#{request.contextPath}/usuario/usuarioDetallesForm.xhtml?u=#{detalleOfertaVista.oferta.duenio.idUsuario}">
+								#{detalleOfertaVista.oferta.duenio.nombres}
+								</a>
+							</h3>
+						</b:formGroup>
+						<b:buttonGroup>
+								<a href='#{request.contextPath}/usuario/muro.xhtml?u=#{detalleOfertaVista.oferta.duenio.idUsuario}' title ='Muro'><i class='fa fa-rss'></i><b> Muro</b></a>
+								<a href='#{request.contextPath}/usuario/usuarioDetallesForm.xhtml?u=#{detalleOfertaVista.oferta.duenio.idUsuario}' title ='Perfil'><i class='fa fa-user-circle'></i><b> Perfil</b></a>
+						</b:buttonGroup>
+						<br/>
+						<b:buttonGroup>		
+								<b:button target="_blank"  look="primary" icon-awesome="fa-globe fa-lg"
+									title="#{detalleOfertaVista.oferta.duenio.sitioWeb}" value=""
+									rendered="#{not empty detalleOfertaVista.oferta.duenio.sitioWeb}"
+									onclick="irA('#{detalleOfertaVista.oferta.duenio.sitioWeb}');" />
+	
+								<b:button target="_blank" look="primary" icon-awesome="fa-facebook-f"
+									title="#{detalleOfertaVista.oferta.duenio.facebook}" value=""
+									rendered="#{not empty detalleOfertaVista.oferta.duenio.facebook}"
+									onclick="irA('#{detalleOfertaVista.oferta.duenio.facebook}');" />
+	
+								<b:button target="_blank" look="primary" icon-awesome="fa-twitter"
+									title="#{detalleOfertaVista.oferta.duenio.twitter}" value=""
+									rendered="#{not empty detalleOfertaVista.oferta.duenio.twitter}"
+									onclick="{irA('#{detalleOfertaVista.oferta.duenio.twitter}');}" />
+	
+								<b:button look="primary" icon-awesome="fa-whatsapp"
+									title="#{detalleOfertaVista.oferta.duenio.whatsapp}" value="#{detalleOfertaVista.oferta.duenio.whatsapp}"
+									rendered="#{not empty detalleOfertaVista.oferta.duenio.whatsapp}" />
+	
+							</b:buttonGroup>
+						</div>
+					</div>
+
+			</div>
+
+		</div>
+
+
+		<div class="row">
+			<div class="col-lg-12 col-xs-12 mb-20">
+				<div>
+					<button type="button" class="btn btn-info" onclick="history.back()">Ver otras ofertas</button>
+				</div>
+			</div>
+		</div>
+
+
+    <script>
+        $(document).ready(function() {
+            $('#Carousel').carousel({
+                interval:   3000
+            });
+        });
+    </script>
+    
+
+	</ui:define>
+
+</ui:composition>

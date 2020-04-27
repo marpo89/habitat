@@ -1,0 +1,117 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="https://www.thymeleaf.org"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:b="http://bootsfaces.net/ui"
+	template="../plantillas/admin-lte.xhtml">
+	
+	<ui:define name="uiTituloVista">#{calculadoraFinanciera.tituloPagina}</ui:define>
+	
+	<ui:define name="uiBreadCrumb">
+		<ol class="breadcrumb">
+			<li><a href="#{request.contextPath}/index.xhtml">Inicio</a></li>
+			<li><a href="#{calculadoraFinanciera.enlaceListado}">Financiamiento</a></li>
+			<li class="active">Calculadora</li>
+		</ol>
+	</ui:define>
+	
+	<ui:define name="uiContenido">
+		
+		<!-- 
+		<div class="row">
+			<div class="col-lg-12 col-xs-12 mb-20">
+				<div class="box box-primary">
+					<h1><h:outputText value="Calcular" id="titulo" /></h1>
+				</div>
+			</div>
+		</div>
+		 -->
+		 
+		<b:row id="filaDatosCalculadora">
+			<div class="col-lg-6 col-xs-12 mb-20">
+				<div class="box box-primary">
+				<div class="box-body">
+					<b:formGroup>
+       					<label>Entidad Financiera</label>
+       						<b:selectOneMenu value="#{calculadoraVista.calculadora.entidadFinanc}" label="">
+       							<f:selectItems value="#{calculadoraVista.listaFinancieras}" var="entidadFinanc" itemLabel="#{entidadFinanc.nombre}" itemValue="#{entidadFinanc}" />
+       							<f:ajax event="change" update=":changePlazo"/>
+       						</b:selectOneMenu>
+       						</b:formGroup>
+       					<b:formGroup>
+       						<label>Tasa de interés</label>
+       						<b:inputText id="tasaInteres" placeholder="Tasa de interés" value="#{calculadoraFinanciera.calculo.tasaInteres}" label="" render-label="false"/>
+       					</b:formGroup>
+       					<b:formGroup>
+       						<label>Plazo (meses)</label>
+       						<b:inputText id="plazo" placeholder="Plazo" value="#{calculadoraFinanciera.calculo.plazo}" label="" render-label="false"/>
+       					</b:formGroup>
+       					<b:formGroup>
+       						<label>Monto</label>
+       						<b:inputText placeholder="Monto" value="#{calculadoraFinanciera.calculo.monto}" label="" render-label="false"/>
+       					</b:formGroup>
+       					<b:formGroup>
+       						<label>Cuota calculada</label>
+       						<b:inputText placeholder="Cuota" value="#{calculadoraFinanciera.calculo.cuota}" label="" render-label="false" disabled="true" />
+       					</b:formGroup>
+					
+					<b:commandButton value="Calcular" look="primary" ajax="true" 
+								actionListener="#{calculadoraFinanciera.calcularCuota}"
+								/>
+					
+				</div>
+				</div>
+			</div>
+		</b:row>
+		
+		
+		<!-- 	
+		<div class="row formulario-datos">
+        	<div class="col-md-6">
+				<div class="box box-primary">
+					<div class="box-header with-border">
+						<h3 class="box-title">Parámetros</h3>
+        			</div>
+        			<div class="box-body">
+        		<form action="#" th:action="@{/greeting}" th:object="${greeting}" method="post">
+			    	<p>Plazo: <input type="text" th:field="*{plazo}" /></p>
+			        <p>Tasa Interés: <input type="text" th:field="*{tasaInteres}" /></p>
+			        <p><button type="submit" value="Submit" />Calcular</p>
+    			</form>
+        				<b:formGroup action="" method="">
+       						<label>Entidad Financiera</label>
+       						<b:selectOneMenu value="#{calculadoraVista.calculadora.entidadFinanc}" label="">
+       							<f:selectItems value="#{calculadoraVista.listaEstados}" var="entidadFinanc" itemLabel="#{entidadFinanc.nombre}" itemValue="#{entidadFinanc}" />
+       							<f:ajax event="change" update=":changePlazo"/>
+       						</b:selectOneMenu>
+       					</b:formGroup>
+       					<b:formGroup>
+       						<label>Tasa de interés</label>
+       						<b:inputText id="tasaInteres" placeholder="Tasa de interés" value="#{calculadoraFinanciera.calculo.tasaInteres}" label="" render-label="false"/>
+       					</b:formGroup>
+       					<b:formGroup>
+       						<label>Plazo (meses)</label>
+       						<b:inputText id="plazo" placeholder="Plazo" value="#{calculadoraFinanciera.calculo.plazo}" label="" render-label="false"/>
+       					</b:formGroup>
+       					<b:formGroup>
+       						<label>Monto</label>
+       						<b:inputText placeholder="Monto" value="#{calculadoraFinanciera.calculo.monto}" label="" render-label="false"/>
+       					</b:formGroup>
+       					<b:formGroup>
+       						<label>Cuota calculada</label>
+       						<b:inputText placeholder="Cuota" value="#{calculadoraFinanciera.calculo.cuota}" label="" render-label="false"/>
+       					</b:formGroup>
+          			</div>
+      			</div>
+			</div>
+		</div>
+		-->
+	
+		<div class="row">
+			<div class="col-md-12">&#160;</div>
+		</div>
+	</ui:define>
+</ui:composition>

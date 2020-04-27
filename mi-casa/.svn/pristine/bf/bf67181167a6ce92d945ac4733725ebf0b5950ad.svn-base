@@ -1,0 +1,68 @@
+package org.habitatnicaragua.micasa.controlador.comun;
+
+import java.util.List;
+
+import javax.annotation.PostConstruct;
+import javax.faces.bean.ViewScoped;
+import javax.inject.Inject;
+import javax.inject.Named;
+
+import org.habitatnicaragua.micasa.modelo.CmsArchivo;
+import org.habitatnicaragua.micasa.modelo.CmsNodo;
+import org.habitatnicaragua.micasa.servicio.ServicioComun;
+import org.habitatnicaragua.micasa.servicio.ServicioContenido;
+
+import lombok.Getter;
+
+@Named("contenidoAsistenciaProyecto")
+@ViewScoped
+@Getter
+public class ContenidoAsistenciaProyecto extends ContenidoBase {
+	private static final long serialVersionUID = 1L;
+
+	@Inject
+	private ServicioComun servicioComun;
+
+	@Inject
+	private ServicioContenido servicioContenido;
+	
+	private String tituloAsistenciaProyecto = null;
+	private String enlacesAsistenciaProyecto = null;
+	
+	private CmsNodo cmsNodo = null;
+	private List<CmsArchivo> archivos = null;
+	private CmsArchivo archivo = null;
+	
+	@PostConstruct
+	public void init() {
+		Long a = getLongRequestParameter("a");
+		
+		cmsNodo = servicioContenido.buscarNodoDeSistema("/proyecto/asistencia.xhtml");
+		archivos = servicioContenido.listarArchivosPorNodo(cmsNodo);
+		
+		archivo = seleccionarArchivoPorId(a, archivos);
+	}
+	
+	public String getTituloAsistenciaProyecto() {
+		if(tituloAsistenciaProyecto==null && archivo!=null) {
+			tituloAsistenciaProyecto = archivo.getTitulo();
+		}
+		
+		return tituloAsistenciaProyecto;
+	}
+	
+	public String getEnlaces() {
+		if( enlacesAsistenciaProyecto==null) {
+			enlacesAsistenciaProyecto =  getListadoEnlacesLateral(archivos, new RenderEnlace() {
+				public String render(CmsArchivo archivo) {
+					if(archivo.isArchivoTipoYoutube()) {
+						return getServletContext().getContextPath() + "/proyecto/asistencia.xhtml?a=" + archivo.getIdArchivo();
+					} else {
+						return  archivo.getEnlaceWeb();
+					}
+				};
+			});
+		}
+		return enlacesAsistenciaProyecto;
+	}
+}

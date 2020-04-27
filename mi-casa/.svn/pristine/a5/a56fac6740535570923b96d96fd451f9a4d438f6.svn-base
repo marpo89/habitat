@@ -1,0 +1,121 @@
+package org.habitatnicaragua.micasa.controlador.publico;
+
+import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.math.NumberUtils;
+import org.habitatnicaragua.micasa.controlador.comun.ContextoUno;
+import org.habitatnicaragua.micasa.modelo.PerUsuario;
+import org.habitatnicaragua.micasa.modelo.PryProyecto;
+import org.habitatnicaragua.micasa.modelo.PryProyectoEstado;
+import org.habitatnicaragua.micasa.modelo.Rol;
+import org.habitatnicaragua.micasa.modelo.dto.ActividadRecienteProyectoDTO;
+import org.habitatnicaragua.micasa.servicio.ServicioPerfil;
+import org.habitatnicaragua.micasa.servicio.ServicioProyecto;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort.Direction;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+
+@Controller("inicio")
+@RequestMapping("/")
+public class Inicio extends ContextoUno {
+	private static final long serialVersionUID = 1L;
+
+	@Inject
+	private ServicioPerfil servicioPerfil;
+	
+	@Inject
+	private ServicioProyecto servicioProyecto;
+	
+	@RequestMapping(value="/infoMiProyecto", method= {RequestMethod.POST, RequestMethod.GET})
+	public void infoMiProyecto(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) {
+		boolean seFue = irMiProyectoEnCurso(httpServletRequest, httpServletResponse);
+		
+		if(!seFue) {
+			irA(httpServletResponse, httpServletRequest.getContextPath() + "/proyecto/asistencia.xhtml");
+		}
+	}
+	
+	@RequestMapping(value="/inicio", method= {RequestMethod.POST, RequestMethod.GET})
+	public void iniciar(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) {
+
+		String desdeLugar = (String)httpServletRequest.getSession().getAttribute("desdeLugar");
+		httpServletRequest.getSession().removeAttribute("desdeLugar");
+		
+		String idLugar = (String)httpServletRequest.getSession().getAttribute("idLugar");
+		httpServletRequest.getSession().removeAttribute("idLugar");
+		
+		if(servicioPerfil.isUsuarioActualMiembroRol(Rol.ADMIN)) {
+			irA(httpServletResponse, httpServletRequest.getContextPath() + "/admin/loginListado.xhtml");
+		    return;
+		}
+		
+		if(servicioPerfil.isUsuarioActualMiembroRol(Rol.ADMIN_TECNICO) ||
+				servicioPerfil.isUsuarioActualMiembroRol(Rol.TECNICO)) {
+			irA(httpServletResponse, httpServletRequest.getContextPath() + "/gestion/proyectos.xhtml");
+		    return;
+		}
+		
+		if(servicioPerfil.isUsuarioActualMiembroRol(Rol.DISTRIBUIDOR)) {
+			irA(httpServletResponse, httpServletRequest.getContextPath() + "/gestion/validarOfertas.xhtml");
+		    return;
+		}
+
+		if(!StringUtils.isBlank(desdeLugar)) {
+			if("detalleOferta".equals(desdeLugar) && NumberUtils.toLong(idLugar)>0) {
+				irA(httpServletResponse, httpServletRequest.getContextPath() + "/ofertas/detalleOferta.xhtml?u="+NumberUtils.toLong(idLugar));
+				return;
+			}
+		}
+		
+		boolean seFue = irMiProyectoEnCurso(httpServletRequest, httpServletResponse);
+		
+		if(!seFue) {
+			irA(httpServletResponse, httpServletRequest.getContextPath() + "/index.xhtml");
+		}
+	}
+	
+	private boolean irMiProyectoEnCurso(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) {
+		PerUsuario usuarioActual = servicioPerfil.getUsuarioActual();
+		
+		if(usuarioActual!=null && usuarioActual.isNivel1()) {
+			
+			ActividadRecienteProyectoDTO arp = servicioProyecto.buscarActividadRecienteProyectoPorUsuarioActual();
+			if(arp!=null && arp.getProyecto()!=null) {
+				String url = httpServletRequest.getContextPath() + "/proyecto/miProyectoForm.xhtml?idProyecto=" + arp.getProyecto().getIdProyecto();
+				if(ActividadRecienteProyectoDTO.ARCHIVO.equals(arp.getTipoActividadReciente())) {
+					url += "#archivos";
+				} else if(ActividadRecienteProyectoDTO.COMENTARIO.equals(arp.getTipoActividadReciente())) {
+					url += "#comentarios";
+				}
+				irA(httpServletResponse, url);
+			    return true;
+			}
+			
+			
+			Pageable pagina = new PageRequest(0, 2, Direction.DESC, "idProyecto");
+			Page<PryProyecto> proyectosUsuario = servicioProyecto.listarMisPryProyectosUsuario(pagina, null);
+			if(proyectosUsuario!=null && proyectosUsuario.getSize()>0) {
+				String url = null;
+				PryProyecto p1 = proyectosUsuario.getContent().get(0);
+				
+				if(PryProyectoEstado.COTIZANDO.getNombre().equals(p1.getEstado().getNombre()) ||
+						PryProyectoEstado.PENDIENTE_PAGO.getNombre().equals(p1.getEstado().getNombre())){
+					url = httpServletRequest.getContextPath() + "/proyecto/miProyectoForm.xhtml?idProyecto=" + p1.getIdProyecto();
+				} else {
+					url = httpServletRequest.getContextPath() + "/proyecto/misProyectos.xhtml";
+				}
+				
+				irA(httpServletResponse, url);
+			}
+		}
+		
+		return false;
+	}
+}

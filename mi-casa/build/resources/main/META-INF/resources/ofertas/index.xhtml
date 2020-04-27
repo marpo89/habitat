@@ -1,0 +1,101 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:b="http://bootsfaces.net/ui"
+	template="../plantillas/admin-lte.xhtml">
+
+	<ui:define name="uiTituloVista">Ofertas</ui:define>
+
+	<ui:define name="uiBreadCrumb">
+		<ol class="breadcrumb">
+			<li><a href="#{request.contextPath}/index.xhtml">Inicio</a></li>
+			<li class="active">Ofertas disponibles</li>
+		</ol>
+	</ui:define>
+
+	<ui:define name="uiContenido">
+		<div class="row">
+			<div class="col-xs-12">
+				<div class="box box-primary">
+					<div class="box-body">
+						<table id="ofertas"
+							class="display responsive table table-bordered table-striped"></table>
+					</div>
+				</div>
+			</div>
+		</div>	
+
+		<ui:include src="../plantillas/publicidad.xhtml" />
+
+		<script type="text/javascript">
+		//<![CDATA[
+		var tablaOfertas;
+		$(document).ready(function() {
+		
+			tablaOfertas = $('#ofertas').DataTable( {
+			    "language": {
+		            "url": "#{request.contextPath}/js/DataTables/Spanish.json"
+		        },
+		        "processing": true,
+		        "serverSide": true,
+		        "ajax": {
+		            url: "#{request.contextPath}/ofertas/ofertasActivas.json?p=#{request.getParameter('p')}",
+		            type: "POST"
+		        },
+		        "responsive": true,
+		        "ordering": false,
+		        "columnDefs": [ 
+		        	{ 
+		        		"width": "40%", 
+		        		"targets": 0
+					}					
+				],
+		        "autoWidth": true,
+		        "rowId": "identificador",
+		        "columns": [
+					{
+						"title" : "",
+						"data" : "titulo",
+						"render" : function( data, type, row, meta) {
+							var contenido = "<p><b>"+row.tituloCorto+"</b></p>";
+								contenido += "<p><a href='#{request.contextPath}/ofertas/detalleOferta.xhtml?u="+row.idOferta+"' title='Ver detalle'><img id = 'oferta' src='#{request.contextPath}"
+									+ row.rutaWebArchivo1
+									+ "' alt='' width='100%'/></a></p>";	
+							return contenido;
+						}
+					},
+		        	{ 
+						"title": "", 
+						"data": "inicioUI",
+						"render": function(data, type, row, meta){
+							
+							var existencias;
+								if(row.limiteCantidad === 0){
+									existencias = ''
+								}
+								else {
+									existencias = ' de ' + row.limiteCantidad
+								}
+							
+							var descripcion = "<h4>"+row.duenio.nombres+"</h4>";
+								descripcion += row.contenidoCorto;
+							    descripcion += "<p>"
+								+ "<span class='fa fa-hourglass-end'></span><b> Tomados: <b>" + row.tomadas + existencias
+								+ "</br><span class='fa fa-clock-o'></span><b> Tienes hasta: </b>"+row.finUI+"</p><p></p>"
+								+ "<a href='#{request.contextPath}/ofertas/detalleOferta.xhtml?u="+row.idOferta+"' title =''><p class='btn btn-default-micasa'><b> Ver detalle</b></p></a>";
+							return descripcion;
+						} 
+					}   	        	
+		        ]
+		        
+		    });
+		});
+		//]]>
+	</script>
+
+
+	</ui:define>
+
+</ui:composition>

@@ -1,0 +1,930 @@
+    html,
+    body {
+        color: #333;
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 0.875rem;
+        width: 100%;
+        height: auto;
+    }
+    
+    a:hover {
+        text-decoration: none;
+    }
+    
+    .mc-content {
+        padding-top: 7.563rem;
+    }
+    /*//----- WEB FONT -----//*/
+    
+    @font-face {
+        font-family: 'Neue Haas Grotesk Display Pro';
+        src: url('../fonts/NeueHaasDisplay-Roman.woff2') format('woff2'), url('../fonts/NeueHaasDisplay-Roman.woff') format('woff');
+        font-weight: normal;
+        font-style: normal;
+    }
+    
+    @font-face {
+        font-family: 'Neue Haas Grotesk Display Pro';
+        src: url('../fonts/NeueHaasDisplay-Mediu.woff2') format('woff2'), url('../fonts/NeueHaasDisplay-Mediu.woff') format('woff');
+        font-weight: 500;
+        font-style: normal;
+    }
+    
+    @font-face {
+        font-family: 'Neue Haas Grotesk Display Pro';
+        src: url('../fonts/NeueHaasDisplay-Bold.woff2') format('woff2'), url('../fonts/NeueHaasDisplay-Bold.woff') format('woff');
+        font-weight: bold;
+        font-style: normal;
+    }
+    /*//----- Navbar & Menu -----//*/
+    
+    .mc-head .navbar-brand>img {
+        width: 135%;
+        margin-top: -5px;
+    }
+    
+    .mc-head {
+        background-color: #fff !important;
+        box-shadow: 0px 1px 8px rgba(0, 0, 0, .25);
+        border-bottom: 0;
+    }
+    
+    .mc-head .d-flex>.align-self-stretch>.col-xs-12:last-of-type>.navbar {
+        border: 0;
+        border-radius: 0;
+        background-color: transparent;
+        margin-bottom: 5px;
+    }
+    
+    .mc-head>.container>.row {
+        display: flex!important;
+        flex-wrap: wrap;
+    }
+    
+    .mc-head .d-flex {
+        display: flex !important;
+    }
+    
+    .mc-head .d-flex>.align-self-stretch {
+        align-self: stretch!important;
+        display: flex!important;
+        flex-wrap: wrap;
+    }
+    
+    .mc-head .d-flex>.align-self-stretch>.col-xs-12:first-of-type {
+        display: flex !important;
+        justify-content: flex-end!important;
+        align-items: center!important;
+    }
+    
+    .list-inline>li {
+        padding-left: 0;
+        padding-right: 0;
+    }
+    
+    .mc-nav>li>a {
+        color: #000 !important;
+        font-family: 'Neue Haas Grotesk Display Pro';
+        font-weight: normal;
+        font-size: 0.875rem;
+        text-transform: uppercase;
+        transition: all .25s ease-in-out;
+    }
+    
+    .mc-nav>li>a:hover,
+    .mc-nav>li>a:active,
+    .mc-nav>li>a:focus {
+        color: #00A2E0!important;
+        background-color: transparent!important;
+    }
+    
+    .navbar-default .navbar-nav>.open>a,
+    .navbar-default .navbar-nav>.open>a:focus,
+    .navbar-default .navbar-nav>.open>a:hover {
+        color: #00A2E0!important;
+        background-color: transparent!important;
+    }
+    
+    .mc-nav>li.nav-item {
+        border-right: 1px solid rgba(0, 0, 0, .05);
+        padding-right: 8px;
+    }
+    
+    .mc-nav>li.nav-item:last-child {
+        border-right: 0;
+        padding-right: 0;
+    }
+    
+    .mc-nav>li.nav-item>.dropdown-menu {
+        left: auto;
+        margin-top: 5px;
+        border-top-left-radius: 0;
+        border-top-right-radius: 0;
+        border: 0;
+        box-shadow: 0px 6px 8px rgba(0, 0, 0, .25);
+        background-color: #F9FDFE;
+    }
+    
+    .mc-nav>li.nav-item>.dropdown-menu::before {
+        content: "";
+        border-top: 0;
+        border-right: .6em solid transparent;
+        border-bottom: .6em solid #00A2E0;
+        border-left: .6em solid transparent;
+        position: absolute;
+        top: -8px;
+        left: 12px;
+    }
+    
+    .mc-nav>li.nav-item>.dropdown-menu-right::before {
+        content: "";
+        border-top: 0;
+        border-right: .6em solid transparent;
+        border-bottom: .6em solid #00A2E0;
+        border-left: .6em solid transparent;
+        position: absolute;
+        top: -8px;
+        right: 12px;
+        left: initial;
+    }
+    
+    .mc-nav>li.nav-item>.dropdown-menu>li>a {
+        color: #575756;
+        font-size: 0.875rem;
+        padding: .25rem .5rem;
+    }
+    
+    .mc-nav>li.nav-item>.dropdown-menu>li>a>p {
+        margin-bottom: .275rem;
+    }
+    
+    .mc-nav>li.nav-item>.dropdown-menu>li>a:hover {
+        background-color: #EDFBFF;
+        color: #00A2E0;
+    }
+    
+    .mc-second-menu {
+        margin-bottom: 0!important;
+        display: flex!important;
+        align-items: center!important;
+    }
+    
+    .mc-second-menu>li {
+        font-family: 'Neue Haas Grotesk Display Pro';
+        font-weight: 500;
+        font-size: 0.875rem;
+    }
+    
+    .mc-second-menu>li:nth-child(3) {
+        margin-left: 0.3rem;
+    }
+    
+    .mc-second-menu>li:nth-child(2),
+    .mc-second-menu>li:nth-child(4),
+    .mc-second-menu>li:nth-child(5),
+    .mc-second-menu>li:nth-child(6),
+    .mc-second-menu>li:last-child {
+        width: 52px;
+        margin-right: 0rem;
+    }
+    
+    .mc-second-menu>li:nth-child(2)>a:hover,
+    .mc-second-menu>li:nth-child(4)>a:hover,
+    .mc-second-menu>li:nth-child(5)>a:hover {
+        background-color: #CCECF9;
+    }
+    
+    .mc-second-menu>li:nth-child(6)>a,
+    .mc-second-menu>li:last-child>a {
+        background-color: #00A2E0;
+    }
+    
+    .mc-second-menu>li>a>span.mc-badge {
+        background-color: #FF0000;
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        position: absolute;
+        right: 74px;
+        top: 10px;
+    }
+    /*//----- Slider Section -----//*/
+    
+    .mc-indicators>li {
+        margin-bottom: 1.5rem;
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+    }
+    
+    .carousel-indicators .active {
+        margin-bottom: 1.5rem;
+    }
+    
+    .mc-caption {
+        width: 450px;
+        height: auto;
+        background-color: rgba(255, 255, 255, 0.85);
+        bottom: 100px;
+        padding: 15px;
+        color: #575756;
+        text-align: left;
+        text-shadow: none;
+    }
+    
+    .mc-caption h1 {
+        font-family: 'Neue Haas Grotesk Display Pro';
+        font-weight: 500;
+        text-transform: uppercase;
+        font-size: 1.75rem;
+    }
+    
+    .mc-caption a {
+        font-family: 'Neue Haas Grotesk Display Pro';
+        font-weight: 500;
+        text-transform: uppercase;
+        font-size: 1rem;
+        border-radius: 0;
+        border: 0;
+    }
+    
+    .mc-blue>h1>span {
+        color: #00A2E0;
+    }
+    
+    .mc-orange>h1>span {
+        color: #FF671F;
+    }
+    
+    .mc-green>h1>span {
+        color: #43B02A;
+    }
+    
+    .mc-darkblue>h1>span {
+        color: #002F6C;
+    }
+    
+    .mc-caption.mc-blue a {
+        background-color: #00A2E0;
+    }
+    
+    .mc-caption.mc-orange a {
+        background-color: #FF671F;
+    }
+    
+    .mc-caption.mc-green a {
+        background-color: #43B02A;
+    }
+    
+    .mc-caption.mc-darkblue a {
+        background-color: #002F6C;
+    }
+    
+    .mc-caption.mc-blue a:hover,
+    .mc-caption.mc-blue a:active,
+    .mc-caption.mc-blue a:focus {
+        background-color: #0087d4 !important;
+    }
+    
+    .mc-caption.mc-orange a:hover,
+    .mc-caption.mc-orange a:active,
+    .mc-caption.mc-orange a:focus {
+        background-color: #BF4D17 !important;
+    }
+    
+    .mc-caption.mc-green a:hover,
+    .mc-caption.mc-green a:active,
+    .mc-caption.mc-green a:focus {
+        background-color: #328420 !important;
+    }
+    
+    .mc-caption.mc-darkblue a:hover,
+    .mc-caption.mc-darkblue a:active,
+    .mc-caption.mc-darkblue a:focus {
+        background-color: #002351 !important;
+    }
+    /*//----- Our Section -----//*/
+    
+    .mc-team {
+        background-color: #F9F9F9;
+        padding-top: 30px;
+        padding-bottom: 30px;
+    }
+    
+    .mc-team h2 {
+        color: #00A2E0;
+        font-family: 'Neue Haas Grotesk Display Pro';
+        font-weight: bold;
+    }
+    
+    .mc-team p {
+        font-size: 1.125rem;
+    }
+    
+    .mc-team .text-center>h2::before,
+    .mc-team .text-center>h2::after {
+        content: ' ';
+        width: 25%;
+        height: 1px;
+        background-color: #00A2E0;
+        position: absolute;
+        left: 0;
+        margin-top: 1.1rem;
+        margin-left: 5%;
+    }
+    
+    .mc-team .text-center>h2::after {
+        right: 0;
+        left: initial;
+        margin-left: 0%;
+        margin-right: 5%;
+    }
+    
+    .mc-team .text-center>p::after {
+        content: '';
+        border-bottom: 1px solid #BCBCBB;
+        width: 100px;
+        margin: 15px auto;
+        display: block;
+        box-shadow: 0px 10px 0 #BCBCBB;
+    }
+    
+    .mc-anuncio>img {
+        padding-top: 30px;
+        padding-bottom: 30px;
+    }
+    /*//----- Links Services Section -----//*/
+    
+    .mc-align {
+        display: flex !important;
+        align-items: stretch !important;
+        padding: 15px;
+        height: 25vh;
+    }
+    
+    .mc-services {
+        margin-top: 30px;
+    }
+    
+    .mc-services>div[class*='col-']>.panel {
+        border-width: 2px;
+        border-color: #00A2E0;
+        border-radius: 0.375rem;
+        transition: all .25s ease-in-out;
+    }
+    
+    .mc-services>div[class*='col-']>.panel:hover {
+        background-color: #00A2E0;
+    }
+    
+    .mc-card-body {
+        padding: 0.938rem;
+    }
+    
+    .panel:hover>.mc-card-body>svg {
+        background-color: #00A2E0;
+        box-shadow: 0 30px 70px rgba(0, 47, 108, .2);
+    }
+    
+    .panel:hover>.mc-card-body>h5 {
+        color: #fff!important;
+    }
+    
+    .panel:hover>.mc-card-body>svg path,
+    .panel:hover>.mc-card-body>svg polygon {
+        fill: #fff;
+    }
+    
+    .mc-card-body svg {
+        width: 104px;
+        height: auto;
+        border-radius: 0.375rem;
+        background-color: #fff;
+        padding: 15px;
+        position: absolute;
+        left: 27%;
+        top: -2rem;
+        transition: all .25s ease-in-out;
+    }
+    
+    .mc-card-body h5 {
+        font-family: 'Neue Haas Grotesk Display Pro';
+        font-weight: bold;
+        color: #00A2E0;
+        font-size: 1.125rem;
+        margin-top: 5rem;
+    }
+    /*//----- Video Section -----//*/
+    
+    .mc-video {
+        background-color: #002F6C;
+        padding-top: 20px;
+        padding-bottom: 20px;
+    }
+    
+    .mc-video p {
+        color: #fff;
+        font-family: 'Neue Haas Grotesk Display Pro';
+        font-weight: normal;
+        font-size: 1.125rem;
+        margin-top: 20px;
+    }
+    /*//----- CONTACT FORM -----//*/
+    
+    .mc-form-content {
+        background-color: #f9f9f9;
+        padding-top: 20px;
+        padding-bottom: 20px;
+    }
+    
+    .mc-content>.container-fluid>.row {
+        display: flex;
+        justify-content: center;
+    }
+    
+    .mc-form .form-control,
+    .mc-form select {
+        border-radius: 0;
+        border: 0;
+        background-color: #f2f2f2;
+        font-family: 'Neue Haas Grotesk Display Pro';
+        font-weight: normal;
+    }
+    
+    .mc-form label {
+        font-family: 'Neue Haas Grotesk Display Pro';
+        font-weight: 500;
+    }
+    
+    .mc-form .form-control::placeholder,
+    .mc-form option[selected] {
+        font-family: 'Neue Haas Grotesk Display Pro';
+        font-weight: 500;
+        color: #a4a4a4;
+    }
+    
+    .mc-form button,
+    .mc-btn {
+        font-family: 'Neue Haas Grotesk Display Pro';
+        font-weight: 500;
+        background-color: #00A2E0;
+        border-radius: 0;
+        border: none;
+    }
+    
+    .mc-form button:hover,
+    .mc-form button:active,
+    .mc-form button:focus,
+    .mc-btn:hover,
+    .mc-btn:active,
+    .mc-btn:focus {
+        background-color: #0087d4 !important;
+    }
+    /*//----- MODAL -----//*/
+    
+    .mc-modal-contact .modal-header {
+        background-color: #00A2E0;
+        color: #fff;
+        border-bottom: 0;
+    }
+    
+    .mc-modal-contact .modal-body>p {
+        font-family: 'Neue Haas Grotesk Display Pro';
+        font-weight: normal;
+        font-size: 0.875rem;
+    }
+    /*//----- FOOTER -----//*/
+    
+    .mc-footer {
+        background-color: #00A2E0;
+        color: #fff;
+        padding-top: 20px;
+    }
+    
+    .mc-footer a {
+        color: #fff;
+        transition: all .25s ease-in-out;
+    }
+    
+    .mc-footer a:hover {
+        color: #99DAF3;
+    }
+    
+    .mc-footer .list-group>li {
+        background-color: transparent;
+        border-color: rgba(249, 249, 249, 0.25);
+        border-top: 0;
+        border-left: 0;
+        border-right: 0;
+    }
+    
+    .mc-suscription .input-group>input {
+        border-radius: 0;
+        border: 0;
+        background-color: #0087d4;
+        color: #fff !important;
+    }
+    
+    .mc-suscription .input-group>input::placeholder {
+        color: #99DAF3;
+    }
+    
+    .mc-suscription .input-group>.input-group-btn>button {
+        background-color: #fff;
+        border-radius: 0;
+        color: #00A2E0;
+        font-family: 'Neue Haas Grotesk Display Pro';
+        font-weight: 500;
+        border: none;
+        text-transform: uppercase;
+        transition: all .125s ease-in-out;
+    }
+    
+    .mc-suscription .input-group>.input-group-append>button:hover,
+    .mc-suscription .input-group>.input-group-append>button:active,
+    .mc-suscription .input-group>.input-group-append>button:focus {
+        background-color: #99DAF3;
+        color: #00A2E0;
+    }
+    
+    .mc-copy {
+        color: #99DAF3;
+        background-color: #0087d4;
+        padding-top: 0.625rem;
+        padding-bottom: 0.625rem;
+        margin-top: 30px;
+    }
+    
+    .mc-copy>p {
+        margin-bottom: 0;
+    }
+    /*------ Media Queries ------*/
+    
+    @media (min-width:1200px) {
+        .mc-card-body svg {
+            left: calc(125%/4.5);
+        }
+    }
+    
+    @media (min-width:992px) and (max-width:1199px) {
+        .mc-head>.container {
+            width: auto;
+        }
+        .mc-card-body svg {
+            left: calc(120%/3.75);
+        }
+        .mc-head .navbar-brand>img {
+            width: 80%;
+        }
+    }
+    
+    @media (min-width:768px) and (max-width:991px) {
+        .mc-head>.container,
+        .mc-footer>.container {
+            width: auto;
+        }
+        .mc-head>.container>.row>.col-xs-12:first-of-type {
+            position: absolute;
+        }
+        .mc-head .navbar-brand {
+            padding: 15px;
+        }
+        .mc-head .navbar-brand>img {
+            width: 75%;
+            margin-top: -5px;
+        }
+        .mc-head .d-flex {
+            display: block!important;
+        }
+        .mc-head .d-flex>.align-self-stretch {
+            margin-left: 7.5%;
+        }
+        .mc-nav>li.nav-item {
+            padding-right: 4px;
+        }
+        .mc-nav>li>a {
+            font-size: 0.75rem;
+            padding: 8px 12px;
+        }
+        .mc-second-menu>li:nth-child(2),
+        .mc-second-menu>li:nth-child(4),
+        .mc-second-menu>li:nth-child(5),
+        .mc-second-menu>li:nth-child(6),
+        .mc-second-menu>li:last-child {
+            width: 35px;
+        }
+        .mc-second-menu>li:nth-child(4)>a>img {
+            width: 26px;
+        }
+        .mc-second-menu>li:nth-child(6)>a>img {
+            width: 35px;
+        }
+        .mc-second-menu>li>a>span.mc-badge {
+            right: 50px;
+            top: 6px;
+        }
+        .mc-content {
+            padding-top: 7rem;
+        }
+        .mc-caption {
+            width: 350px;
+        }
+        .mc-card-body svg {
+            left: calc(95%/3.5);
+        }
+        .mc-services .panel {
+            width: 100%;
+        }
+        .mc-services>div[class*='col-'] {
+            margin-bottom: 2.875rem;
+        }
+    }
+    
+    @media (min-width:768px) and (max-width:799px) {
+        .mc-caption {
+            width: calc(100%/2.7);
+            bottom: 20px;
+        }
+        .mc-caption h1 {
+            font-size: 1.25rem;
+        }
+        .carousel-indicators {
+            display: none;
+        }
+        .mc-caption>p:first-of-type {
+            display: none !important;
+        }
+    }
+    
+    @media (min-width:321px) and (max-width:767px) {
+        .mc-head>.container>.row>.col-xs-12:first-of-type {
+            position: absolute;
+        }
+        .mc-head .navbar-brand {
+            padding: 15px 0;
+        }
+        .mc-head .navbar-brand>img {
+            width: 75%;
+            margin-top: -5px;
+        }
+        .mc-head .d-flex {
+            display: block!important;
+            padding-left: 0;
+            padding-right: 0;
+        }
+        .mc-second-menu>li>a>span.mc-badge {
+            right: 66px;
+        }
+        .mc-head .navbar>.navbar-collapse {
+            border-top: 1px solid rgba(0, 0, 0, .05);
+            text-align: center;
+            max-height: 360px;
+            overflow-y: scroll;
+        }
+        .mc-nav>li {
+            border-right: none;
+            padding-right: 0;
+            margin-right: 0!important;
+            border-bottom: 1px solid rgba(0, 0, 0, .025);
+            padding-bottom: .35rem;
+            padding-top: .35rem;
+        }
+        .mc-nav>li:last-of-type {
+            border-bottom: none;
+        }
+        .mc-nav>li>.dropdown-menu {
+            box-shadow: none !important;
+            padding: 8px 12px;
+            text-align: center;
+        }
+        .mc-nav>li>.dropdown-menu>li>a {
+            display: contents;
+            line-height: 3.2 !important;
+        }
+        .mc-nav>li>.dropdown-menu>li>a>p {
+            margin-bottom: .925rem !important;
+            line-height: 0.2;
+        }
+        .mc-nav>li.nav-item {
+            border-right: 0;
+            padding-right: 0;
+            padding-top: 0;
+            padding-bottom: 0;
+        }
+        .mc-nav>li.nav-item>.dropdown-menu::before {
+            content: "";
+            border-top: 0;
+            border-right: 0px;
+            border-bottom: 0px;
+            border-left: 0px;
+            position: initial;
+            top: initial;
+            left: initial;
+        }
+        .mc-second-menu>li:nth-child(2),
+        .mc-second-menu>li:nth-child(4),
+        .mc-second-menu>li:nth-child(5),
+        .mc-second-menu>li:nth-child(6),
+        .mc-second-menu>li:last-child {
+            width: 46px;
+        }
+        .mc-card-body svg {
+            left: calc(110%/3);
+        }
+        .mc-services>div[class*='col-'] {
+            margin-bottom: 2.875rem;
+        }
+        .mc-services>div[class*='col-']:last-of-type {
+            margin-bottom: 0;
+        }
+        .mc-align {
+            height: 32vh;
+        }
+        .mc-caption {
+            width: 260px;
+            bottom: 20px;
+            padding: 10px;
+        }
+        .mc-caption h1 {
+            font-size: 1.5rem;
+        }
+        .mc-caption h1,
+        .mc-caption>p {
+            text-align: center;
+            margin-bottom: 0;
+        }
+        .mc-indicators {
+            display: none;
+        }
+        .mc-caption>p:first-of-type {
+            display: none !important;
+        }
+        .mc-team .text-center>h2::before,
+        .mc-team .text-center>h2::after {
+            width: 10%;
+        }
+        .mc-services .card {
+            width: 100%;
+        }
+        .mc-footer .navbar-brand {
+            display: block;
+            text-align: center;
+            margin: 0;
+        }
+        .mc-footer .list-group,
+        .mc-footer .mc-suscription,
+        .mc-footer h4,
+        .mc-footer .list-inline {
+            margin: .75rem auto;
+            text-align: center;
+        }
+        .mc-footer img {
+            margin: 0 auto;
+            display: block;
+        }
+    }
+    
+    @media (max-width:320px) {
+        .mc-head>.container>.row>.col-xs-12:first-of-type {
+            position: absolute;
+        }
+        .mc-head .navbar-brand {
+            padding: 15px 0;
+        }
+        .mc-head .navbar-brand>img {
+            width: 75%;
+            margin-top: -5px;
+        }
+        .mc-head .d-flex {
+            display: block!important;
+            padding-left: 0;
+            padding-right: 0;
+        }
+        .mc-second-menu>li>a>span.mc-badge {
+            right: 60px;
+        }
+        .mc-head .navbar>.navbar-collapse {
+            border-top: 1px solid rgba(0, 0, 0, .05);
+            text-align: center;
+            max-height: 360px;
+            overflow-y: scroll;
+        }
+        .mc-nav>li {
+            border-right: none;
+            padding-right: 0;
+            margin-right: 0!important;
+            border-bottom: 1px solid rgba(0, 0, 0, .025);
+            padding-bottom: .35rem;
+            padding-top: .35rem;
+        }
+        .mc-nav>li:last-of-type {
+            border-bottom: none;
+        }
+        .mc-nav>li>.dropdown-menu {
+            box-shadow: none !important;
+            padding: 8px 12px;
+            text-align: center;
+        }
+        .mc-nav>li>.dropdown-menu>li>a {
+            display: contents;
+            line-height: 3.2 !important;
+        }
+        .mc-nav>li>.dropdown-menu>li>a>p {
+            margin-bottom: .925rem !important;
+            line-height: 0.2;
+        }
+        .mc-nav>li.nav-item {
+            border-right: 0;
+            padding-right: 0;
+            padding-top: 0;
+            padding-bottom: 0;
+        }
+        .mc-nav>li.nav-item>.dropdown-menu::before {
+            content: "";
+            border-top: 0;
+            border-right: 0px;
+            border-bottom: 0px;
+            border-left: 0px;
+            position: initial;
+            top: initial;
+            left: initial;
+        }
+        .mc-second-menu>li:nth-child(2),
+        .mc-second-menu>li:nth-child(4),
+        .mc-second-menu>li:nth-child(5),
+        .mc-second-menu>li:nth-child(6),
+        .mc-second-menu>li:last-child {
+            width: 42px;
+        }
+        .mc-second-menu>li:nth-child(2)>a>img {
+            width: 96%;
+        }
+        .mc-second-menu>li:nth-child(4)>a>img {
+            width: 69%;
+        }
+        .mc-second-menu>li:nth-child(5)>a>img {
+            width: 96%;
+        }
+        .mc-second-menu>li:nth-child(6)>a>img {
+            width: 96%;
+        }
+        .mc-second-menu>li:last-child>a>img {
+            width: 98%;
+        }
+        .mc-content {
+            padding-top: 7.5rem;
+        }
+        .mc-card-body svg {
+            left: calc(100% / 3);
+        }
+        .mc-caption {
+            width: 260px;
+            bottom: 20px;
+            padding: 10px;
+            left: 8%;
+            right: 8%;
+        }
+        .mc-caption h1 {
+            font-size: 1.5rem;
+        }
+        .mc-caption h1,
+        .mc-caption>p {
+            text-align: center;
+            margin-bottom: 0;
+        }
+        .mc-indicators {
+            display: none;
+        }
+        .mc-caption>p:first-of-type {
+            display: none !important;
+        }
+        .mc-team .text-center>h2::before,
+        .mc-team .text-center>h2::after {
+            width: 8%;
+        }
+        .mc-services .card {
+            width: 100%;
+        }
+        .mc-footer .navbar-brand {
+            display: block;
+            text-align: center;
+            margin: 0;
+        }
+        .mc-footer .list-group,
+        .mc-footer .mc-suscription,
+        .mc-footer h4,
+        .mc-footer .list-inline {
+            margin: .75rem auto;
+            text-align: center;
+        }
+        .mc-footer img {
+            margin: 0 auto;
+            display: block;
+        }
+        .mc-services>div[class*='col-'] {
+            margin-bottom: 2.875rem;
+        }
+        .mc-services>div[class*='col-']:last-of-type {
+            margin-bottom: 0;
+        }
+    }

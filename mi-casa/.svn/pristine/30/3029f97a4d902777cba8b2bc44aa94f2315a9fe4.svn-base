@@ -1,0 +1,27 @@
+package org.habitatnicaragua.micasa.modelo;
+
+public enum PryProyectoEstado {
+	CREADO("CREADO", false), 
+	EN_GESTION("EN GESTION", false),
+	VISITADO("VISITADO", false),
+	TERMINADO("TERMINADO", true),
+	DESCARTADO("DESCARTADO", true),
+	CANCELADO_CLIENTE("CANCELADO POR CLIENTE", true);
+	
+	private String nombre;
+	private boolean terminal;
+	
+	PryProyectoEstado(String nombre, boolean terminal) {
+		this.nombre = nombre;
+		this.terminal = terminal;
+	}
+	
+	public String getNombre() {
+		return nombre;
+	}
+
+	public boolean isTerminal() {
+		return terminal;
+	}
+	
+}

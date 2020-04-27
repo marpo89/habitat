@@ -1,0 +1,56 @@
+.col-enlace {
+	cursor: pointer;
+}
+
+.navbar-brand, .navbar-nav > li > a{
+	text-shadow: none !important;
+}
+
+.mb-20 {
+	margin-bottom: 20px;
+}
+
+.sui-fileupload-content {
+	display: none;
+}
+
+.ui-fileupload-row > div:nth-child(1),
+.ui-fileupload-row > div:nth-child(2),
+.ui-fileupload-row > div:nth-child(3),
+.ui-fileupload-row > div:nth-child(5) {
+	display: none;
+}
+
+.ui-autocomplete-multiple,
+.ui-autocomplete-multiple-container {
+	width: 90% !important;
+}
+
+table#carpetas tbody tr,
+table#archivos tbody tr {
+	cursor: pointer;
+}
+
+.colorPrincipal {
+	color: #00AFD7;
+}
+
+.nav>li>a {
+	padding: 12px 10px !important;
+}
+
+@media (max-width: 992px) {
+	.row-spacer {
+		height: 7px;
+	}
+}
+
+@media (min-width: 992px) {
+	.row-spacer {
+	  height: 20px;
+	}
+}
+
+.label.miPerfil {
+	font-size: 13px;
+}

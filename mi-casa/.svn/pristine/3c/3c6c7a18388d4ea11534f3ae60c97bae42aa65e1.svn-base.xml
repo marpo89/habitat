@@ -1,0 +1,301 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:b="http://bootsfaces.net/ui"
+	xmlns:p="http://primefaces.org/ui"
+	template="../plantillas/admin-lte.xhtml">
+
+	<ui:define name="uiHead">
+		<!--  https://leafletjs.com/download.html  -->
+		<link rel="stylesheet"
+			href="https://unpkg.com/leaflet@1.3.4/dist/leaflet.css"
+			integrity="sha512-puBpdR0798OZvTTbP4A8Ix/l+A4dHDD0DGqYW6RQ+9jxkRFclaxxQb/SJAWZfWAkuyeQUytO7+7N4QKrDh+drA=="
+			crossorigin="" />
+		<script src="https://unpkg.com/leaflet@1.3.4/dist/leaflet.js"
+			integrity="sha512-nMMmRyTVoLYqjP9hrbed9S+FzjZHW5gY1TWCHA5ckwXZBadntCNs8kEqAWdrb9O7rxbCaA4lKTIWjDXZxflOcA=="
+			crossorigin="" />
+			
+	</ui:define>
+
+
+	<ui:define name="uiTituloVista"><a href="#{request.contextPath}/usuario/muro.xhtml?u=#{detalleUsuarioVista.usuario.idUsuario}">#{detalleUsuarioVista.usuario.nombres}</a></ui:define>
+
+	<ui:define name="uiBreadCrumb">
+		<ol class="breadcrumb">
+			<li><a href="#{request.contextPath}/index.xhtml">Inicio</a></li>
+			<li><a href="#{detalleUsuarioVista.enlaceProveedores}">#{detalleUsuarioVista.leyendaEnlaceProveedores}</a></li>
+			<li class="active">Perfil</li>
+		</ol>
+	</ui:define>
+
+	<ui:define name="uiContenido">
+	
+		<b:modal id="modalCalificacion" title="Comparta su opini&#243;n" styleClass="modalPseudoClass"
+			backdrop="false">
+			<b:formGroup>
+				<label>&#191;Cu&#225;ntas estrellas le brinda?</label>
+				<p:rating value="#{perCalificacionVista.perCalificacion.puntaje}" label="" render-label="false" />
+			</b:formGroup>
+			<b:formGroup>
+				<b:inputTextarea placeholder="Comparta su opini&#243;n sobre este proveedor. ¿Lo recomienda? ¿Por qu&#233;?" 
+					value="#{perCalificacionVista.perCalificacion.comentario}" label="" render-label="false" maxlength="500" />
+			</b:formGroup>
+			<f:facet name="footer">
+				<b:button value="Cancelar" dismiss="modal" />								
+				<b:commandButton value="Enviar" look="primary" ajax="true" styleClass="pull-right" update="modalCalificacion"
+							actionListener="#{perCalificacionVista.guardarCalificacion}" onsuccess="$('#frm-modalCalificacion').modal('hide');tablaOpiniones.ajax.reload();"/>						
+			</f:facet>
+		</b:modal>		
+		
+	    <b:modal id="confirmacionEliminarCalificacion" title="Eliminar" styleClass="modal-danger fade">
+			<p>&#191;Eliminar la calificaci&#243;n seleccionada?.</p>
+			<f:facet name="footer">
+				<b:button value="Cancelar" look="danger" styleClass="pull-left" dismiss="modal" />
+				<b:button value="Eliminar" look="danger" ajax="true" dismiss="modal" onclick="eliminarCalificacion(event, $('#frm-idCalificacionEliminar').val());" />	
+			</f:facet>
+		</b:modal>
+		
+
+		<h:panelGroup style="display: none;">
+			<h:inputHidden value="#{detalleUsuarioVista.usuario.idUsuario}"	id="uuidUsuario" label="" />
+			<h:inputHidden value="0" id="idCalificacionEliminar" label="" />
+		</h:panelGroup>
+
+		<div class="row formulario-datos">
+			<!-- left column -->
+			<div class="col-md-6">
+
+				<div class="box box-primary">
+					<b:image value="#{detalleUsuarioVista.rutaAvatar}" id="avatar"
+						styleClass="img-responsive center-block" />
+					<b:formGroup>
+						<label>Correo:&#160;</label>
+						<h:outputText value="#{detalleUsuarioVista.usuario.correo}" />
+					</b:formGroup>
+					<b:formGroup rendered="#{detalleUsuarioVista.usuario.nivel2}">
+						<table><tr>
+							<td><label>Calificaci&#243;n:&#160;</label></td>
+							<td>
+								<p:rating value="#{perCalificacionVista.calificacionPromedio.promedio}" readonly="true" label=""/>
+							</td>
+							<td>
+								<label>&#160;Valoraciones:</label> #{perCalificacionVista.calificacionPromedio.cantValoraciones}
+							</td>
+							<td>
+								<b:button rendered="#{detalleUsuarioVista.opinionesVisibles}" value="Comparta su opini&#243;n"
+									look="success" onclick="$('#frm-modalCalificacion').modal();" />
+								<b:button rendered="#{detalleUsuarioVista.opinionesLoginVisible}" value="Comparta su opini&#243;n"
+									look="success" href="#{request.contextPath}/login.xhtml" />
+							    </td>
+						</tr></table>
+       			    </b:formGroup>
+				</div>
+
+				<div class="box box-primary">
+					<div class="box-header with-border">
+						<h3 class="box-title">Datos de contacto</h3>
+					</div>
+
+					<div class="box-body">
+						<b:formGroup
+							rendered="#{not empty detalleUsuarioVista.usuario.contacto}">
+							<label>Persona de contacto:&#160;</label>
+							<h:outputText value="#{detalleUsuarioVista.usuario.contacto}" />
+						</b:formGroup>
+
+						<b:formGroup
+							rendered="#{not empty detalleUsuarioVista.usuario.direccionFisica}">
+							<label>Direcci&#243;n principal:&#160;</label>
+							<h:outputText
+								value="#{detalleUsuarioVista.usuario.direccionFisica}" />
+						</b:formGroup>
+
+						<b:formGroup
+							rendered="#{not empty detalleUsuarioVista.usuario.telefonos}">
+							<label>Tel&#233;fono:&#160;</label>
+							<h:outputText value="#{detalleUsuarioVista.usuario.telefonos}" />
+						</b:formGroup>
+
+						<b:buttonGroup>
+							<a href='#{request.contextPath}/usuario/muro.xhtml?u=#{detalleUsuarioVista.usuario.idUsuario}' title ='Muro'><i class='fa fa-rss'></i><b> Muro</b></a>
+						</b:buttonGroup>
+						<br/>
+						
+						<b:buttonGroup>
+
+							<b:button target="_blank"  look="primary" icon-awesome="fa-globe fa-lg"
+								title="#{detalleUsuarioVista.usuario.sitioWeb}" value=""
+								rendered="#{not empty detalleUsuarioVista.usuario.sitioWeb}"
+								onclick="irA('#{detalleUsuarioVista.usuario.sitioWeb}');" />
+
+							<b:button target="_blank" look="primary" icon-awesome="fa-facebook-f"
+								title="#{detalleUsuarioVista.usuario.facebook}" value=""
+								rendered="#{not empty detalleUsuarioVista.usuario.facebook}"
+								onclick="irA('#{detalleUsuarioVista.usuario.facebook}');" />
+
+							<b:button target="_blank" look="primary" icon-awesome="fa-twitter"
+								title="#{detalleUsuarioVista.usuario.twitter}" value=""
+								rendered="#{not empty detalleUsuarioVista.usuario.twitter}"
+								onclick="{irA('#{detalleUsuarioVista.usuario.twitter}');}" />
+
+							<b:button look="primary" icon-awesome="fa-whatsapp"
+								title="#{detalleUsuarioVista.usuario.whatsapp}" value="#{detalleUsuarioVista.usuario.whatsapp}"
+								rendered="#{not empty detalleUsuarioVista.usuario.whatsapp}" />
+
+						</b:buttonGroup>
+
+					</div>
+				</div>
+			</div>
+
+			<div class="col-md-6 direcciones" style = "display: none;">
+
+				<div class="box box-primary">
+					<div class="box-header with-border">
+						<h3 class="box-title">Direcciones</h3>
+					</div>
+
+					<div class="box-body">
+						<b:row rendered="#{detalleUsuarioVista.usuario.nivel2}">
+							<div id='map' style="height: 80vh; width: 100%;"></div>
+
+							<script type="text/javascript">
+								var map;
+								function initmap() {
+									map = new L.Map('map');
+									var osmUrl = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
+									var osmAttrib = 'Map data <a href="https://openstreetmap.org">OpenStreetMap</a>';
+									var osm = new L.TileLayer(osmUrl, {
+										attribution : osmAttrib
+									});
+
+									map.addLayer(osm);
+
+									var posting = $.post( "#{request.contextPath}/usuario/" + $('#frm-uuidUsuario').val() + "/direccionesMapa.json",null, "json");
+
+									posting.done(function( listaMarcadores ) {
+										var latLngs = [];
+										var hayDatos = false;
+										$(listaMarcadores).each(function( i, marcador ) {
+											hayDatos = true;
+											latLngs.push([marcador.latitud, marcador.longitud]);
+											var marker = L.marker([marcador.latitud, marcador.longitud], {title: marcador.titulo}).addTo(map);
+											
+											marker.bindPopup("<b>" + marcador.titulo + "</b><br/>" + marcador.descripcion);
+										});
+										if (hayDatos) $(".direcciones").show();
+										map.fitBounds(latLngs);
+									});
+								}
+
+								$(document).ready(function(){initmap();});
+							</script>
+						</b:row>
+					</div>
+				</div>
+			</div>
+			
+			<b:row rendered="#{detalleUsuarioVista.opinionesVisibles}" styleClass="row">
+				<div class="col-md-12">
+					<div class="box box-primary">
+						<div class="box-header with-border">
+							<h3 class="box-title">Comentarios de los usuarios</h3>
+						</div>
+						<div class="box-body" >
+												
+							<table id="opiniones" class="display responsive table table-bordered table-striped" ></table>
+							
+						</div>								
+					</div>							
+				</div>
+				
+				<script type="text/javascript">
+				//<![CDATA[
+					var tablaOpiniones;
+					$(document).ready(function() {
+
+						tablaOpiniones = $('#opiniones').DataTable( {
+						    "language": {
+					            "url": "#{request.contextPath}/js/DataTables/Spanish.json"
+					        },
+					        "processing": true,
+					        "serverSide": true,
+					        "bFilter": false,
+					        "ajax": {
+					            url: "#{request.contextPath}/usuario/misCalificacion.json?u="+ $("#frm-uuidUsuario").val(),
+					            type: "POST"
+					        },
+					        "responsive": true,
+					        "autoWidth": false,
+					        "order": [[ 1, 'desc' ]],
+					        "rowId": "identificador",
+					        "columnDefs": [ 
+					        	{ 
+					        		"width": "1%", 
+					        		"orderable": false,
+					        		"targets": 0 
+								}
+					        ],
+					        "columns": [
+					        	{ 
+					            	"title": "",
+					            	"data": "idCalificacion", 
+					            	"render": function ( data, type, row, meta ) {
+					            		var contenido = '';
+					            		
+					            		if(row.propio)  contenido = '<i class="fa fa-trash fa-lg" onclick="$(\'#frm-idCalificacionEliminar\').val(' + data + ');$(\'#frm-confirmacionEliminarCalificacion\').modal();"></i>';
+					            		
+					            		return contenido;
+									}
+								},
+								{ "title": "", 
+					        	  "data": "auditoria.fechaReg",
+						        	  "render": function ( data, type, row, meta ) {
+											var contenido = '<div class="item"><p class="message">';	
+						            		
+											contenido += '<small class="text-muted pull-right"><i class="fa fa-clock-o"></i> ';
+											contenido += row.fechaRegUI;
+											contenido += '</small>';
+																		
+											contenido += row.usuarioRegEnmascarado;
+											
+											contenido += '<br>' + row.comentario;
+											
+											contenido += '</p></div>';
+										
+						            		return contenido;}
+					        	}
+					        ]
+					    } );
+					} );
+				//]]>
+				</script>
+			</b:row>
+
+		</div>
+		
+		<div class="row">
+			<div class="col-md-12">
+				<div class="box-footer">
+					<button type="button" class="btn btn-danger"
+						onclick="history.back()">Regresar</button>
+				</div>
+				
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-md-12">&#160;</div>
+		</div>
+		
+		<b:remoteCommand name="eliminarCalificacion" id="eliminarCalificacion" 
+			actionListener="#{perCalificacionVista.eliminarCalificacion}" parameters="event,idCalificacion" 
+			onsuccess="tablaOpiniones.ajax.reload();" />
+		
+		
+		
+	</ui:define>
+
+</ui:composition>

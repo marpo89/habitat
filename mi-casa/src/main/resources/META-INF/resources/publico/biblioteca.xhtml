@@ -1,0 +1,94 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:b="http://bootsfaces.net/ui"
+	template="../plantillas/admin-lte.xhtml">
+  
+	<ui:define name="uiTituloVista">Biblioteca</ui:define>
+	
+	<ui:define name="uiBreadCrumb">
+		<ol class="breadcrumb">
+			<li><a href="#{request.contextPath}/index.xhtml">Inicio</a></li>
+		</ol>
+	</ui:define>
+	
+	<ui:define name="uiContenido">
+		
+		<div class="row">
+        	<div class="col-md-12">
+        		<table id="carpetas" class="display responsive table table-bordered table-striped"></table>
+        	</div>
+        </div>
+        
+        <ui:include src="../plantillas/publicidad.xhtml" />
+        
+		<script type="text/javascript">
+			//<![CDATA[
+			var tablaCarpetas;
+			$(document).ready(function() {
+				tablaCarpetas = $('#carpetas').DataTable( {
+					"language": {
+			            "url": "#{request.contextPath}/js/DataTables/Spanish.json"
+			        },
+			        "searching": true,
+			        "processing": true,
+			        "serverSide": true,
+			        "ordering": true,
+			        "ajax": {
+			            url: "#{request.contextPath}/biblioteca/carpetas.json",
+			            type: "POST"
+			        },
+			        "responsive": true,
+			        "pageLength": 100,
+			        "order": [[ 1, 'desc' ]],
+			        "autoWidth": false,
+			        "columnDefs": [ 
+			        	{
+			        		"width": "5%",
+			        		"orderable": false,
+			        		"className": "text-center",
+			        		"targets": 0 
+						}
+			        ],
+			        "select": {
+			            "style": 'single',
+			        },
+			        "rowId": "identificador",
+			        "columns": [
+						{ 
+							"title": "", 
+							"data": "idNodo",
+							"render": function ( data, type, row, meta ) {
+								
+								var contenido = '<i class="fa fa-folder fa-3x colorPrincipal"></i>';
+								
+								return contenido;
+							}
+						},
+						{ 
+							"title": "Folder", 
+							"data": "titulo",
+							"render": function ( data, type, row, meta ) {
+								
+								var contenido = "<b>" + row.titulo + "</b><p><small>" + row.contenido + "</small></p>";
+								
+								return contenido;
+							}
+						}
+			        ]
+				});
+				
+				tablaCarpetas.on( 'select', function ( e, dt, type, indexes ) {
+				    if ( type === 'row' ) {				        
+				        window.location.href= '#{request.contextPath}/publico/archivos.xhtml?bib=' + getIdSeleccionado(tablaCarpetas);
+				    }
+				} );
+			} );
+			//]]>
+		</script>
+		
+	</ui:define>
+
+</ui:composition>

@@ -1,0 +1,71 @@
+package org.habitatnicaragua.micasa.seguridad;
+
+import java.io.IOException;
+
+import javax.inject.Inject;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.apache.commons.lang3.StringUtils;
+import org.habitatnicaragua.micasa.modelo.PerUsuario;
+import org.habitatnicaragua.micasa.modelo.SegLogin;
+import org.habitatnicaragua.micasa.servicio.ServicioComun;
+import org.habitatnicaragua.micasa.servicio.ServicioPerfil;
+import org.habitatnicaragua.micasa.servicio.ServicioSeguridad;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;
+
+@Configuration
+public class LoginOkHandler extends SimpleUrlAuthenticationSuccessHandler {
+
+	@Inject
+	private ServicioPerfil servicioPerfil;
+	
+	@Inject
+	private ServicioComun servicioComun;
+	
+	@Inject
+	private ServicioSeguridad servicioSeguridad;
+	
+	@Override
+	public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
+			Authentication authentication) throws IOException, ServletException {
+
+		String desdeLugar = request.getParameter("desdeLugar");
+		if(!StringUtils.isBlank(desdeLugar) && !"null".equals(desdeLugar)) {
+			request.getSession().setAttribute("desdeLugar", request.getParameter("desdeLugar"));
+		}
+		
+		String idLugar = request.getParameter("idLugar");
+		if(!StringUtils.isBlank(idLugar) && !"null".equals(idLugar)) {
+			request.getSession().setAttribute("idLugar", request.getParameter("idLugar"));
+		}
+		
+		SegLogin segLogin = new SegLogin();
+		segLogin.setExitoso(true);
+		segLogin.setFecha(servicioComun.getFechaHoraSistema());
+		segLogin.setCorreo(authentication.getName());
+		segLogin.setIp(request.getRemoteAddr());
+		
+		servicioSeguridad.guardarSegLogin(segLogin);
+		
+		super.onAuthenticationSuccess(request, response, authentication);
+	}
+
+
+	@Override
+	protected String determineTargetUrl(HttpServletRequest request, HttpServletResponse response) {
+		
+		PerUsuario perUsuario = servicioPerfil.getUsuarioActual();
+		if(perUsuario!=null && perUsuario.getIrPerfil()) {
+			servicioPerfil.marcarPerfilVisitado(perUsuario);
+			//return "/usuario/miPerfil.xhtml";
+		}
+		
+		return "/inicio";
+	}
+	
+
+}

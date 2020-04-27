@@ -1,0 +1,22 @@
+{
+  "short_name": "Mi Casa",
+  "name": "Mi Casa - Habitat Nicaragua",
+  "description": "Mi Casa es un servicio soportado por habitatnicaragua.org",
+  "icons": [
+    {
+      "src": "/icon-192.png",
+      "type": "image/png",
+      "sizes": "192x192"
+    },
+    {
+      "src": "/icon-512.png",
+      "type": "image/png",
+      "sizes": "512x512"
+    }
+  ],
+  "start_url": "/index.xhtml",
+  "background_color": "#eaeffa",
+  "display": "standalone",
+  "scope": "/",
+  "theme_color": "#eaeffa"
+}

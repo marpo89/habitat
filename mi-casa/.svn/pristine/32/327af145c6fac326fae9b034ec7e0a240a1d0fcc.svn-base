@@ -1,0 +1,71 @@
+jsf.ajax.addOnError(function(data) {
+    //data.errorName;
+    
+	mostrarError(data.errorMessage);
+});
+
+/**
+ * http://bootstrap-notify.remabledesigns.com/
+ */
+function mostrarError(mensaje){
+	$.notify({title: '', message: mensaje, icon: 'fa fa-times-circle'}, 
+    		{position: null, type: 'danger', allow_dismiss: true, newest_on_top: false, delay: 0, timer: 0,
+    			placement: {from: 'top', align: 'right'	},
+    			animate: {enter: 'animated fadeInDown', exit: 'animated fadeOutUp'}
+    		});
+}
+
+function mostrarConfirmacionEliminar(widgetId, campo, tableDatos){
+	if(marcarRegistroSeleccionado(campo, tableDatos)){
+		$(widgetId).modal();
+	}
+}
+
+function getIdSeleccionado(tableDatos){
+	if(tableDatos.rows( { selected: true } ).data().length <= 0){
+		return '';
+	}
+	return tableDatos.rows( { selected: true } ).data()[0].identificador;
+}
+
+function getRowSeleccionado(tableDatos){
+	if(tableDatos.rows( { selected: true } ).data().length <= 0){
+		return '';
+	}
+	return tableDatos.rows( { selected: true } ).data()[0];
+}
+
+function marcarRegistroSeleccionado(campo, tableDatos){
+	if(tableDatos.rows( { selected: true } ).data().length <= 0){
+		mostrarError('Debe seleccionar un registro.');
+		return false;
+	}
+	
+	$(campo).val(getIdSeleccionado(tableDatos));
+	
+	return true;
+}
+
+function desmarcarRegistroSeleccionado(campo){
+	$(campo).val(null);
+}
+
+function initTabs(){
+	$(".tab-panel").addClass("nav-tabs-custom");
+}
+
+function irA(){
+	var url = '';
+	var urlParams = {};
+	
+	for (var i = 0; i < arguments.length; i++) {
+		if(i==0) 
+			url = arguments[i];
+		else 
+			urlParams[arguments[i]] = $('#frm-' + arguments[i]).val();
+	}
+	
+	window.location.href= url + $.param(urlParams);
+}
+
+

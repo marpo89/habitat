@@ -1,0 +1,1149 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"  "http://www.w3.org/TR/html4/loose.dtd">
+
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+		<meta name="keywords" content="CASE Studio 2, html, report">
+		<link rel="stylesheet" type="text/css" media="screen" href="classic_yellow.css" title="report">
+		<link rel="stylesheet" type="text/css" media="print" href="classic_yellow_print.css" title="report">
+		<title>CASE Studio 2 - HTML Report</title>
+	</head>
+
+<body class="rightPage">
+<a name = "Table_13"></a>
+<div class="caption1">CAT_MAESTRO</div>
+<div class="caption2">Columns</div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+ 
+  <tr>
+    <td class="tabhead" > Key    </td>    <td class="tabhead" > Column name    </td>    <td class="tabhead" > Domain    </td>    <td class="tabhead" > Data type    </td>    <td class="tabhead" > Not null    </td>    <td class="tabhead" > Unique    </td>    <td class="tabhead" > Check    </td>    <td class="tabhead" > Default    </td>    <td class="tabhead"  colspan="2"> Comments    </td>  </tr>
+  <tr>
+    <td class="tabdata" > PK    </td>    <td class="tabdata" > ID_CAT_MAESTRO    </td>    <td class="tabdata" >     </td>    <td class="tabdata" > BigSerial    </td>    <td class="tabdata" > YES    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" >     </td>    <td class="tabdata"  colspan="3">     </td>  </tr>
+  <tr>
+    <td class="tabdata" >     </td>    <td class="tabdata" > TIPO_CATALOGO    </td>    <td class="tabdata" >     </td>    <td class="tabdata" > Varchar (100)    </td>    <td class="tabdata" > YES    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" >     </td>    <td class="tabdata"  colspan="3">     </td>  </tr>
+  <tr>
+    <td class="tabdata" >     </td>    <td class="tabdata" > NOMBRE    </td>    <td class="tabdata" >     </td>    <td class="tabdata" > Varchar (255)    </td>    <td class="tabdata" > YES    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" >     </td>    <td class="tabdata"  colspan="3">     </td>  </tr>
+  <tr>
+    <td class="tabdata" >     </td>    <td class="tabdata" > DESCRIPCION    </td>    <td class="tabdata" >     </td>    <td class="tabdata" > Text    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" >     </td>    <td class="tabdata"  colspan="3">     </td>  </tr>
+  <tr>
+    <td class="tabdata" >     </td>    <td class="tabdata" > ACTIVO    </td>    <td class="tabdata" >     </td>    <td class="tabdata" > Char (1)    </td>    <td class="tabdata" > YES    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" >     </td>    <td class="tabdata" > 'S'    </td>    <td class="tabdata"  colspan="2"> S =&gt; Activo<br> N =&gt; Inactivo    </td>  </tr>
+  <tr>
+    <td class="tabdata" >     </td>    <td class="tabdata" > USUARIO_REG    </td>    <td class="tabdata" >     </td>    <td class="tabdata" > Varchar (100)    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" >     </td>    <td class="tabdata"  colspan="3">     </td>  </tr>
+  <tr>
+    <td class="tabdata" >     </td>    <td class="tabdata" > FECHA_REG    </td>    <td class="tabdata" >     </td>    <td class="tabdata" > Timestamp    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" >     </td>    <td class="tabdata"  colspan="3">     </td>  </tr>
+  <tr>
+    <td class="tabdata" >     </td>    <td class="tabdata" > USUARIO_MOD    </td>    <td class="tabdata" >     </td>    <td class="tabdata" > Varchar (100)    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" >     </td>    <td class="tabdata"  colspan="3">     </td>  </tr>
+  <tr>
+    <td class="tabdata" >     </td>    <td class="tabdata" > FECHA_MOD    </td>    <td class="tabdata" >     </td>    <td class="tabdata" > Timestamp    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" >     </td>    <td class="tabdata"  colspan="3">    </td>  </tr>
+</table>
+
+<div class="caption2">Relationships</div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+ 
+  <tr>
+    <td class="tabhead" > Constraint (relationship) name    </td>    <td class="tabhead" > Relationship type    </td>    <td class="tabhead" > Parent table    </td>    <td class="tabhead" > Child table    </td>    <td class="tabhead" > Card.    </td>  </tr>
+  <tr>
+    <td class="tabdata" > Rel701 (Rel701)    </td>    <td class="tabdata" > Non-identifying    </td>    <td class="tabdata" > CAT_MAESTRO    </td>    <td class="tabdata" > PRY_PROYECTO    </td>    <td class="tabdata" > 1:N    </td>  </tr>
+  <tr>
+    <td class="tabdata" > Rel702 (Rel702)    </td>    <td class="tabdata" > Non-identifying    </td>    <td class="tabdata" > CAT_MAESTRO    </td>    <td class="tabdata" > PRY_PROYECTO    </td>    <td class="tabdata" > 1:N    </td>  </tr>
+  <tr>
+    <td class="tabdata" > Rel43 (Rel43)    </td>    <td class="tabdata" > Non-identifying    </td>    <td class="tabdata" > CAT_MAESTRO    </td>    <td class="tabdata" > CMS_NODO    </td>    <td class="tabdata" > 1:N    </td>  </tr>
+  <tr>
+    <td class="tabdata" > Rel53 (Rel53)    </td>    <td class="tabdata" > Non-identifying    </td>    <td class="tabdata" > CAT_MAESTRO    </td>    <td class="tabdata" > PUB_PUBLICIDAD    </td>    <td class="tabdata" > 1:N    </td>  </tr>
+  <tr>
+    <td class="tabdata" > Rel62 (Rel62)    </td>    <td class="tabdata" > Non-identifying    </td>    <td class="tabdata" > CAT_MAESTRO    </td>    <td class="tabdata" > CMS_ARCHIVO    </td>    <td class="tabdata" > 1:N    </td>  </tr>
+  <tr>
+    <td class="tabdata" > Rel63 (Rel63)    </td>    <td class="tabdata" > Non-identifying    </td>    <td class="tabdata" > CAT_MAESTRO    </td>    <td class="tabdata" > PER_DIRECCION    </td>    <td class="tabdata" > 1:N    </td>  </tr>
+  <tr>
+    <td class="tabdata" > Relationship64 (Relationship64)    </td>    <td class="tabdata" > Non-identifying    </td>    <td class="tabdata" > CAT_MAESTRO    </td>    <td class="tabdata" > PRY_PROYECTO    </td>    <td class="tabdata" > 1:N    </td>  </tr>
+  <tr>
+    <td class="tabdata" > Relationship65 (Relationship65)    </td>    <td class="tabdata" > Non-identifying    </td>    <td class="tabdata" > CAT_MAESTRO    </td>    <td class="tabdata" > PRY_PROYECTO    </td>    <td class="tabdata" > 1:N    </td>  </tr>
+  <tr>
+    <td class="tabdata" > Relationship66 (Relationship66)    </td>    <td class="tabdata" > Non-identifying    </td>    <td class="tabdata" > CAT_MAESTRO    </td>    <td class="tabdata" > PRY_PROYECTO    </td>    <td class="tabdata" > 1:N   </td>  </tr>
+</table>
+
+<div class="caption2">Indexes</div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+ 
+  <tr>
+    <td class="tabhead" > Index name    </td>    <td class="tabhead" > Columns    </td>    <td class="tabhead" > Unique    </td>    <td class="tabhead" > Descending    </td>    <td class="tabhead" > Clustered    </td>  </tr>
+  <tr>
+    <td class="tabdata" > IDX_CAT_MAESTRO_UNQ    </td>    <td class="tabdata" > TIPO_CATALOGO, NOMBRE    </td>    <td class="tabdata" > YES    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" > NO    </td>  </tr>
+  <tr>
+    <td class="tabdata" > IDX_CAT_MAESTRO_NOMBRE    </td>    <td class="tabdata" > NOMBRE    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" > NO   </td>  </tr>
+</table>
+
+<div class="caption2">Comments</div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+ 
+  <tr>
+    <td class="tabdata" > Máster de Catálogos   </td>  </tr>
+</table>
+
+<div class="caption2">User-defined variables</div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+ 
+  <tr>
+    <td class="tabhead"  width="50%"> Name    </td>    <td class="tabhead"  width="50%"> Value    </td>  </tr>
+  <tr>
+    <td class="tabdata" > Temporary Table    </td>    <td class="tabdata" > No    </td>  </tr>
+  <tr>
+    <td class="tabdata" > Inherited Tables    </td>    <td class="tabdata" >     </td>  </tr>
+  <tr>
+    <td class="tabdata" > Without OIDs    </td>    <td class="tabdata" > Yes    </td>  </tr>
+  <tr>
+    <td class="tabdata" > Schema    </td>    <td class="tabdata" >     </td>  </tr>
+  <tr>
+    <td class="tabdata" > Tablespace    </td>    <td class="tabdata" >     </td>  </tr>
+  <tr>
+    <td class="tabdata" > Using index tablespace (for Primary key)    </td>    <td class="tabdata" >    </td>  </tr>
+</table>
+
+ <br><br> 
+<a name = "Table_12"></a>
+<div class="caption1">CMS_ARCHIVO</div>
+<div class="caption2">Columns</div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+ 
+  <tr>
+    <td class="tabhead" > Key    </td>    <td class="tabhead" > Column name    </td>    <td class="tabhead" > Domain    </td>    <td class="tabhead" > Data type    </td>    <td class="tabhead" > Not null    </td>    <td class="tabhead" > Unique    </td>    <td class="tabhead" > Check    </td>    <td class="tabhead" > Default    </td>    <td class="tabhead"  colspan="2"> Comments    </td>  </tr>
+  <tr>
+    <td class="tabdata" > PK    </td>    <td class="tabdata" > ID_ARCHIVO    </td>    <td class="tabdata" >     </td>    <td class="tabdata" > BigSerial    </td>    <td class="tabdata" > YES    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" >     </td>    <td class="tabdata"  colspan="3">     </td>  </tr>
+  <tr>
+    <td class="tabdata" > FK    </td>    <td class="tabdata" > ID_CMS_TIPO_ARCHIVO    </td>    <td class="tabdata" >     </td>    <td class="tabdata" > Bigint    </td>    <td class="tabdata" > YES    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" >     </td>    <td class="tabdata" >     </td>    <td class="tabdata"  colspan="2"> YOUTUBE<br> ENLACE<br> ARCHIVO    </td>  </tr>
+  <tr>
+    <td class="tabdata" > FK    </td>    <td class="tabdata" > ID_PROYECTO    </td>    <td class="tabdata" >     </td>    <td class="tabdata" > Bigint    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" >     </td>    <td class="tabdata"  colspan="3">     </td>  </tr>
+  <tr>
+    <td class="tabdata" > FK    </td>    <td class="tabdata" > ID_NODO    </td>    <td class="tabdata" >     </td>    <td class="tabdata" > Bigint    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" >     </td>    <td class="tabdata"  colspan="3">     </td>  </tr>
+  <tr>
+    <td class="tabdata" >     </td>    <td class="tabdata" > TITULO    </td>    <td class="tabdata" >     </td>    <td class="tabdata" > Varchar (255)    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" >     </td>    <td class="tabdata"  colspan="3">     </td>  </tr>
+  <tr>
+    <td class="tabdata" >     </td>    <td class="tabdata" > ORDEN    </td>    <td class="tabdata" >     </td>    <td class="tabdata" > Integer    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" >     </td>    <td class="tabdata"  colspan="3"> 0    </td>  </tr>
+  <tr>
+    <td class="tabdata" >     </td>    <td class="tabdata" > YOUTUBE    </td>    <td class="tabdata" >     </td>    <td class="tabdata" > Varchar (255)    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" >     </td>    <td class="tabdata"  colspan="3">     </td>  </tr>
+  <tr>
+    <td class="tabdata" >     </td>    <td class="tabdata" > RUTA    </td>    <td class="tabdata" >     </td>    <td class="tabdata" > Varchar (1000)    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" >     </td>    <td class="tabdata"  colspan="3">     </td>  </tr>
+  <tr>
+    <td class="tabdata" >     </td>    <td class="tabdata" > COMENTARIO    </td>    <td class="tabdata" >     </td>    <td class="tabdata" > Text    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" >     </td>    <td class="tabdata"  colspan="3">     </td>  </tr>
+  <tr>
+    <td class="tabdata" >     </td>    <td class="tabdata" > ACTIVO    </td>    <td class="tabdata" >     </td>    <td class="tabdata" > Char (1)    </td>    <td class="tabdata" > YES    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" >     </td>    <td class="tabdata" > 'S'    </td>    <td class="tabdata"  colspan="2"> S =&gt; Activo<br> N =&gt; Inactivo    </td>  </tr>
+  <tr>
+    <td class="tabdata" >     </td>    <td class="tabdata" > USUARIO_REG    </td>    <td class="tabdata" >     </td>    <td class="tabdata" > Varchar (100)    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" >     </td>    <td class="tabdata"  colspan="3">     </td>  </tr>
+  <tr>
+    <td class="tabdata" >     </td>    <td class="tabdata" > FECHA_REG    </td>    <td class="tabdata" >     </td>    <td class="tabdata" > Timestamp    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" >     </td>    <td class="tabdata"  colspan="3">     </td>  </tr>
+  <tr>
+    <td class="tabdata" >     </td>    <td class="tabdata" > USUARIO_MOD    </td>    <td class="tabdata" >     </td>    <td class="tabdata" > Varchar (100)    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" >     </td>    <td class="tabdata"  colspan="3">     </td>  </tr>
+  <tr>
+    <td class="tabdata" >     </td>    <td class="tabdata" > FECHA_MOD    </td>    <td class="tabdata" >     </td>    <td class="tabdata" > Timestamp    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" >     </td>    <td class="tabdata"  colspan="3">    </td>  </tr>
+</table>
+
+<div class="caption2">Relationships</div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+ 
+  <tr>
+    <td class="tabhead" > Constraint (relationship) name    </td>    <td class="tabhead" > Relationship type    </td>    <td class="tabhead" > Parent table    </td>    <td class="tabhead" > Child table    </td>    <td class="tabhead" > Card.    </td>  </tr>
+  <tr>
+    <td class="tabdata" > Rel59 (Rel59)    </td>    <td class="tabdata" > Non-identifying    </td>    <td class="tabdata" > CMS_NODO    </td>    <td class="tabdata" > CMS_ARCHIVO    </td>    <td class="tabdata" > 1:N    </td>  </tr>
+  <tr>
+    <td class="tabdata" > Rel62 (Rel62)    </td>    <td class="tabdata" > Non-identifying    </td>    <td class="tabdata" > CAT_MAESTRO    </td>    <td class="tabdata" > CMS_ARCHIVO    </td>    <td class="tabdata" > 1:N    </td>  </tr>
+  <tr>
+    <td class="tabdata" > Rel69 (Rel69)    </td>    <td class="tabdata" > Non-identifying    </td>    <td class="tabdata" > PRY_PROYECTO    </td>    <td class="tabdata" > CMS_ARCHIVO    </td>    <td class="tabdata" > 1:N   </td>  </tr>
+</table>
+
+<div class="caption2">Indexes</div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+ 
+  <tr>
+    <td class="tabhead" > Index name    </td>    <td class="tabhead" > Columns    </td>    <td class="tabhead" > Unique    </td>    <td class="tabhead" > Descending    </td>    <td class="tabhead" > Clustered    </td>  </tr>
+  <tr>
+    <td class="tabdata" > IDX_CMS_ARCHIVO_USR    </td>    <td class="tabdata" > USUARIO_REG    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" > NO    </td>  </tr>
+  <tr>
+    <td class="tabdata" > IDX_CMS_ARCHIVO_NODO    </td>    <td class="tabdata" > ID_NODO, ACTIVO, ORDEN    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" > NO    </td>  </tr>
+  <tr>
+    <td class="tabdata" > IDX_CMS_ARCHIVO_TITULO    </td>    <td class="tabdata" > TITULO    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" > NO    </td>  </tr>
+  <tr>
+    <td class="tabdata" > IDX_CMS_ARCHIVO_PRY    </td>    <td class="tabdata" > ID_PROYECTO, ACTIVO, ORDEN    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" > NO   </td>  </tr>
+</table>
+
+<div class="caption2">Comments</div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+ 
+  <tr>
+    <td class="tabdata" > Archivo objeto<br> Rerefencia a Archivo externo (video youtube)   </td>  </tr>
+</table>
+
+<div class="caption2">User-defined variables</div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+ 
+  <tr>
+    <td class="tabhead"  width="50%"> Name    </td>    <td class="tabhead"  width="50%"> Value    </td>  </tr>
+  <tr>
+    <td class="tabdata" > Temporary Table    </td>    <td class="tabdata" > No    </td>  </tr>
+  <tr>
+    <td class="tabdata" > Inherited Tables    </td>    <td class="tabdata" >     </td>  </tr>
+  <tr>
+    <td class="tabdata" > Without OIDs    </td>    <td class="tabdata" > Yes    </td>  </tr>
+  <tr>
+    <td class="tabdata" > Schema    </td>    <td class="tabdata" >     </td>  </tr>
+  <tr>
+    <td class="tabdata" > Tablespace    </td>    <td class="tabdata" >     </td>  </tr>
+  <tr>
+    <td class="tabdata" > Using index tablespace (for Primary key)    </td>    <td class="tabdata" >    </td>  </tr>
+</table>
+
+ <br><br> 
+<a name = "Table_23"></a>
+<div class="caption1">CMS_CONTENIDO</div>
+<div class="caption2">Columns</div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+ 
+  <tr>
+    <td class="tabhead" > Key    </td>    <td class="tabhead" > Column name    </td>    <td class="tabhead" > Domain    </td>    <td class="tabhead" > Data type    </td>    <td class="tabhead" > Not null    </td>    <td class="tabhead" > Unique    </td>    <td class="tabhead" > Check    </td>    <td class="tabhead"  colspan="3"> Default    </td>  </tr>
+  <tr>
+    <td class="tabdata" > PK    </td>    <td class="tabdata" > ID_CONTENIDO    </td>    <td class="tabdata" >     </td>    <td class="tabdata" > BigSerial    </td>    <td class="tabdata" > YES    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" >     </td>    <td class="tabdata"  colspan="3">     </td>  </tr>
+  <tr>
+    <td class="tabdata" >     </td>    <td class="tabdata" > TITULO    </td>    <td class="tabdata" >     </td>    <td class="tabdata" > Varchar (255)    </td>    <td class="tabdata" > YES    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" >     </td>    <td class="tabdata"  colspan="3">     </td>  </tr>
+  <tr>
+    <td class="tabdata" >     </td>    <td class="tabdata" > CONTENIDO    </td>    <td class="tabdata" >     </td>    <td class="tabdata" > Text    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" >     </td>    <td class="tabdata"  colspan="3">     </td>  </tr>
+  <tr>
+    <td class="tabdata" > FK    </td>    <td class="tabdata" > DUENIO    </td>    <td class="tabdata" >     </td>    <td class="tabdata" > Varchar (40)    </td>    <td class="tabdata" > YES    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" >     </td>    <td class="tabdata"  colspan="3">     </td>  </tr>
+  <tr>
+    <td class="tabdata" >     </td>    <td class="tabdata" > ARCHIVO    </td>    <td class="tabdata" >     </td>    <td class="tabdata" > Varchar (1000)    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" >     </td>    <td class="tabdata"  colspan="3">     </td>  </tr>
+  <tr>
+    <td class="tabdata" >     </td>    <td class="tabdata" > YOUTUBE    </td>    <td class="tabdata" >     </td>    <td class="tabdata" > Varchar (255)    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" >     </td>    <td class="tabdata"  colspan="3">     </td>  </tr>
+  <tr>
+    <td class="tabdata" >     </td>    <td class="tabdata" > USUARIO_REG    </td>    <td class="tabdata" >     </td>    <td class="tabdata" > Varchar (100)    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" >     </td>    <td class="tabdata"  colspan="3">     </td>  </tr>
+  <tr>
+    <td class="tabdata" >     </td>    <td class="tabdata" > FECHA_REG    </td>    <td class="tabdata" >     </td>    <td class="tabdata" > Timestamp    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" >     </td>    <td class="tabdata"  colspan="3">     </td>  </tr>
+  <tr>
+    <td class="tabdata" >     </td>    <td class="tabdata" > USUARIO_MOD    </td>    <td class="tabdata" >     </td>    <td class="tabdata" > Varchar (100)    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" >     </td>    <td class="tabdata"  colspan="3">     </td>  </tr>
+  <tr>
+    <td class="tabdata" >     </td>    <td class="tabdata" > FECHA_MOD    </td>    <td class="tabdata" >     </td>    <td class="tabdata" > Timestamp    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" >     </td>    <td class="tabdata"  colspan="3">    </td>  </tr>
+</table>
+
+<div class="caption2">Relationships</div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+ 
+  <tr>
+    <td class="tabhead" > Constraint (relationship) name    </td>    <td class="tabhead" > Relationship type    </td>    <td class="tabhead" > Parent table    </td>    <td class="tabhead" > Child table    </td>    <td class="tabhead" > Card.    </td>  </tr>
+  <tr>
+    <td class="tabdata" > Rel74 (Rel74)    </td>    <td class="tabdata" > Non-identifying    </td>    <td class="tabdata" > PER_USUARIO    </td>    <td class="tabdata" > CMS_CONTENIDO    </td>    <td class="tabdata" > 1:N   </td>  </tr>
+</table>
+
+<div class="caption2">Indexes</div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+ 
+  <tr>
+    <td class="tabhead" > Index name    </td>    <td class="tabhead" > Columns    </td>    <td class="tabhead" > Unique    </td>    <td class="tabhead" > Descending    </td>    <td class="tabhead" > Clustered    </td>  </tr>
+  <tr>
+    <td class="tabdata" > IDX_CONTENIDO_DUENIO    </td>    <td class="tabdata" > DUENIO    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" > NO   </td>  </tr>
+</table>
+
+<div class="caption2">User-defined variables</div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+ 
+  <tr>
+    <td class="tabhead"  width="50%"> Name    </td>    <td class="tabhead"  width="50%"> Value    </td>  </tr>
+  <tr>
+    <td class="tabdata" > Temporary Table    </td>    <td class="tabdata" > No    </td>  </tr>
+  <tr>
+    <td class="tabdata" > Inherited Tables    </td>    <td class="tabdata" >     </td>  </tr>
+  <tr>
+    <td class="tabdata" > Without OIDs    </td>    <td class="tabdata" > Yes    </td>  </tr>
+  <tr>
+    <td class="tabdata" > Schema    </td>    <td class="tabdata" >     </td>  </tr>
+  <tr>
+    <td class="tabdata" > Tablespace    </td>    <td class="tabdata" >     </td>  </tr>
+  <tr>
+    <td class="tabdata" > Using index tablespace (for Primary key)    </td>    <td class="tabdata" >    </td>  </tr>
+</table>
+
+ <br><br> 
+<a name = "Table_4"></a>
+<div class="caption1">CMS_NODO</div>
+<div class="caption2">Columns</div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+ 
+  <tr>
+    <td class="tabhead" > Key    </td>    <td class="tabhead" > Column name    </td>    <td class="tabhead" > Domain    </td>    <td class="tabhead" > Data type    </td>    <td class="tabhead" > Not null    </td>    <td class="tabhead" > Unique    </td>    <td class="tabhead" > Check    </td>    <td class="tabhead" > Default    </td>    <td class="tabhead"  colspan="2"> Comments    </td>  </tr>
+  <tr>
+    <td class="tabdata" > PK    </td>    <td class="tabdata" > ID_NODO    </td>    <td class="tabdata" >     </td>    <td class="tabdata" > BigSerial    </td>    <td class="tabdata" > YES    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" >     </td>    <td class="tabdata"  colspan="3">     </td>  </tr>
+  <tr>
+    <td class="tabdata" > FK    </td>    <td class="tabdata" > ID_CMS_TIPO_NODO    </td>    <td class="tabdata" >     </td>    <td class="tabdata" > Bigint    </td>    <td class="tabdata" > YES    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" >     </td>    <td class="tabdata" >     </td>    <td class="tabdata"  colspan="2"> PAGINA<br> BIBLIOTECA<br> PROYECTO<br> OFERTA<br> ANUNCIO<br>     </td>  </tr>
+  <tr>
+    <td class="tabdata" >     </td>    <td class="tabdata" > TITULO    </td>    <td class="tabdata" >     </td>    <td class="tabdata" > Varchar (255)    </td>    <td class="tabdata" > YES    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" >     </td>    <td class="tabdata"  colspan="3">     </td>  </tr>
+  <tr>
+    <td class="tabdata" >     </td>    <td class="tabdata" > CONTENIDO    </td>    <td class="tabdata" >     </td>    <td class="tabdata" > Text    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" >     </td>    <td class="tabdata"  colspan="3">     </td>  </tr>
+  <tr>
+    <td class="tabdata" >     </td>    <td class="tabdata" > ACTIVO    </td>    <td class="tabdata" >     </td>    <td class="tabdata" > Char (1)    </td>    <td class="tabdata" > YES    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" >     </td>    <td class="tabdata" > 'S'    </td>    <td class="tabdata"  colspan="2"> S =&gt; Activo<br> N =&gt; Inactivo    </td>  </tr>
+  <tr>
+    <td class="tabdata" >     </td>    <td class="tabdata" > ENLACE    </td>    <td class="tabdata" >     </td>    <td class="tabdata" > Varchar (1000)    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" >     </td>    <td class="tabdata"  colspan="3">     </td>  </tr>
+  <tr>
+    <td class="tabdata" >     </td>    <td class="tabdata" > SISTEMA    </td>    <td class="tabdata" >     </td>    <td class="tabdata" > Char (1)    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" >     </td>    <td class="tabdata" > 'N'    </td>    <td class="tabdata"  colspan="2"> Es un nodo de sistema? S/N    </td>  </tr>
+  <tr>
+    <td class="tabdata" >     </td>    <td class="tabdata" > USUARIO_REG    </td>    <td class="tabdata" >     </td>    <td class="tabdata" > Varchar (100)    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" >     </td>    <td class="tabdata"  colspan="3">     </td>  </tr>
+  <tr>
+    <td class="tabdata" >     </td>    <td class="tabdata" > FECHA_REG    </td>    <td class="tabdata" >     </td>    <td class="tabdata" > Timestamp    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" >     </td>    <td class="tabdata"  colspan="3">     </td>  </tr>
+  <tr>
+    <td class="tabdata" >     </td>    <td class="tabdata" > USUARIO_MOD    </td>    <td class="tabdata" >     </td>    <td class="tabdata" > Varchar (100)    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" >     </td>    <td class="tabdata"  colspan="3">     </td>  </tr>
+  <tr>
+    <td class="tabdata" >     </td>    <td class="tabdata" > FECHA_MOD    </td>    <td class="tabdata" >     </td>    <td class="tabdata" > Timestamp    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" >     </td>    <td class="tabdata"  colspan="3">    </td>  </tr>
+</table>
+
+<div class="caption2">Relationships</div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+ 
+  <tr>
+    <td class="tabhead" > Constraint (relationship) name    </td>    <td class="tabhead" > Relationship type    </td>    <td class="tabhead" > Parent table    </td>    <td class="tabhead" > Child table    </td>    <td class="tabhead" > Card.    </td>  </tr>
+  <tr>
+    <td class="tabdata" > Rel43 (Rel43)    </td>    <td class="tabdata" > Non-identifying    </td>    <td class="tabdata" > CAT_MAESTRO    </td>    <td class="tabdata" > CMS_NODO    </td>    <td class="tabdata" > 1:N    </td>  </tr>
+  <tr>
+    <td class="tabdata" > Rel59 (Rel59)    </td>    <td class="tabdata" > Non-identifying    </td>    <td class="tabdata" > CMS_NODO    </td>    <td class="tabdata" > CMS_ARCHIVO    </td>    <td class="tabdata" > 1:N   </td>  </tr>
+</table>
+
+<div class="caption2">Indexes</div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+ 
+  <tr>
+    <td class="tabhead" > Index name    </td>    <td class="tabhead" > Columns    </td>    <td class="tabhead" > Unique    </td>    <td class="tabhead" > Descending    </td>    <td class="tabhead" > Clustered    </td>  </tr>
+  <tr>
+    <td class="tabdata" > IDX_CMS_NODO_TITULO    </td>    <td class="tabdata" > ACTIVO, TITULO    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" > NO    </td>  </tr>
+  <tr>
+    <td class="tabdata" > IDX_CMS_TIPO_NODO    </td>    <td class="tabdata" > ID_CMS_TIPO_NODO    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" > NO   </td>  </tr>
+</table>
+
+<div class="caption2">User-defined variables</div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+ 
+  <tr>
+    <td class="tabhead"  width="50%"> Name    </td>    <td class="tabhead"  width="50%"> Value    </td>  </tr>
+  <tr>
+    <td class="tabdata" > Temporary Table    </td>    <td class="tabdata" > No    </td>  </tr>
+  <tr>
+    <td class="tabdata" > Inherited Tables    </td>    <td class="tabdata" >     </td>  </tr>
+  <tr>
+    <td class="tabdata" > Without OIDs    </td>    <td class="tabdata" > Yes    </td>  </tr>
+  <tr>
+    <td class="tabdata" > Schema    </td>    <td class="tabdata" >     </td>  </tr>
+  <tr>
+    <td class="tabdata" > Tablespace    </td>    <td class="tabdata" >     </td>  </tr>
+  <tr>
+    <td class="tabdata" > Using index tablespace (for Primary key)    </td>    <td class="tabdata" >    </td>  </tr>
+</table>
+
+ <br><br> 
+<a name = "Table_15"></a>
+<div class="caption1">OFT_OFERTA</div>
+<div class="caption2">Columns</div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+ 
+  <tr>
+    <td class="tabhead" > Key    </td>    <td class="tabhead" > Column name    </td>    <td class="tabhead" > Domain    </td>    <td class="tabhead" > Data type    </td>    <td class="tabhead" > Not null    </td>    <td class="tabhead" > Unique    </td>    <td class="tabhead" > Check    </td>    <td class="tabhead" > Default    </td>    <td class="tabhead"  colspan="2"> Comments    </td>  </tr>
+  <tr>
+    <td class="tabdata" > PK    </td>    <td class="tabdata" > ID_OFERTA    </td>    <td class="tabdata" >     </td>    <td class="tabdata" > BigSerial    </td>    <td class="tabdata" > YES    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" >     </td>    <td class="tabdata"  colspan="3">     </td>  </tr>
+  <tr>
+    <td class="tabdata" > FK    </td>    <td class="tabdata" > DUENIO    </td>    <td class="tabdata" >     </td>    <td class="tabdata" > Varchar (40)    </td>    <td class="tabdata" > YES    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" >     </td>    <td class="tabdata"  colspan="3">     </td>  </tr>
+  <tr>
+    <td class="tabdata" >     </td>    <td class="tabdata" > TITULO    </td>    <td class="tabdata" >     </td>    <td class="tabdata" > Varchar (255)    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" >     </td>    <td class="tabdata"  colspan="3">     </td>  </tr>
+  <tr>
+    <td class="tabdata" >     </td>    <td class="tabdata" > CONTENIDO    </td>    <td class="tabdata" >     </td>    <td class="tabdata" > Text    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" >     </td>    <td class="tabdata"  colspan="3">     </td>  </tr>
+  <tr>
+    <td class="tabdata" >     </td>    <td class="tabdata" > INICIO    </td>    <td class="tabdata" >     </td>    <td class="tabdata" > Date    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" >     </td>    <td class="tabdata"  colspan="3">     </td>  </tr>
+  <tr>
+    <td class="tabdata" >     </td>    <td class="tabdata" > FIN    </td>    <td class="tabdata" >     </td>    <td class="tabdata" > Date    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" >     </td>    <td class="tabdata"  colspan="3">     </td>  </tr>
+  <tr>
+    <td class="tabdata" >     </td>    <td class="tabdata" > LIMITE_CANTIDAD    </td>    <td class="tabdata" >     </td>    <td class="tabdata" > Integer    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" >     </td>    <td class="tabdata"  colspan="3">     </td>  </tr>
+  <tr>
+    <td class="tabdata" >     </td>    <td class="tabdata" > ARCHIVO1    </td>    <td class="tabdata" >     </td>    <td class="tabdata" > Varchar (1000)    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" >     </td>    <td class="tabdata"  colspan="3">     </td>  </tr>
+  <tr>
+    <td class="tabdata" >     </td>    <td class="tabdata" > ARCHIVO2    </td>    <td class="tabdata" >     </td>    <td class="tabdata" > Varchar (1000)    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" >     </td>    <td class="tabdata"  colspan="3">     </td>  </tr>
+  <tr>
+    <td class="tabdata" >     </td>    <td class="tabdata" > ARCHIVO3    </td>    <td class="tabdata" >     </td>    <td class="tabdata" > Varchar (1000)    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" >     </td>    <td class="tabdata"  colspan="3">     </td>  </tr>
+  <tr>
+    <td class="tabdata" >     </td>    <td class="tabdata" > ACTIVO    </td>    <td class="tabdata" >     </td>    <td class="tabdata" > Char (1)    </td>    <td class="tabdata" > YES    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" >     </td>    <td class="tabdata" > 'S'    </td>    <td class="tabdata"  colspan="2"> S =&gt; Activo<br> N =&gt; Inactivo    </td>  </tr>
+  <tr>
+    <td class="tabdata" >     </td>    <td class="tabdata" > USUARIO_REG    </td>    <td class="tabdata" >     </td>    <td class="tabdata" > Varchar (100)    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" >     </td>    <td class="tabdata"  colspan="3">     </td>  </tr>
+  <tr>
+    <td class="tabdata" >     </td>    <td class="tabdata" > FECHA_REG    </td>    <td class="tabdata" >     </td>    <td class="tabdata" > Timestamp    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" >     </td>    <td class="tabdata"  colspan="3">     </td>  </tr>
+  <tr>
+    <td class="tabdata" >     </td>    <td class="tabdata" > USUARIO_MOD    </td>    <td class="tabdata" >     </td>    <td class="tabdata" > Varchar (100)    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" >     </td>    <td class="tabdata"  colspan="3">     </td>  </tr>
+  <tr>
+    <td class="tabdata" >     </td>    <td class="tabdata" > FECHA_MOD    </td>    <td class="tabdata" >     </td>    <td class="tabdata" > Timestamp    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" >     </td>    <td class="tabdata"  colspan="3">    </td>  </tr>
+</table>
+
+<div class="caption2">Relationships</div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+ 
+  <tr>
+    <td class="tabhead" > Constraint (relationship) name    </td>    <td class="tabhead" > Relationship type    </td>    <td class="tabhead" > Parent table    </td>    <td class="tabhead" > Child table    </td>    <td class="tabhead" > Card.    </td>  </tr>
+  <tr>
+    <td class="tabdata" > Rel71 (Rel71)    </td>    <td class="tabdata" > Non-identifying    </td>    <td class="tabdata" > PER_USUARIO    </td>    <td class="tabdata" > OFT_OFERTA    </td>    <td class="tabdata" > 1:N    </td>  </tr>
+  <tr>
+    <td class="tabdata" > Rel72 (Rel72)    </td>    <td class="tabdata" > Non-identifying    </td>    <td class="tabdata" > OFT_OFERTA    </td>    <td class="tabdata" > OFT_USAR_OFERTA    </td>    <td class="tabdata" > 1:N   </td>  </tr>
+</table>
+
+<div class="caption2">Indexes</div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+ 
+  <tr>
+    <td class="tabhead" > Index name    </td>    <td class="tabhead" > Columns    </td>    <td class="tabhead" > Unique    </td>    <td class="tabhead" > Descending    </td>    <td class="tabhead" > Clustered    </td>  </tr>
+  <tr>
+    <td class="tabdata" > IDX_OFERTA_INICIO    </td>    <td class="tabdata" > ACTIVO, INICIO    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" > NO    </td>  </tr>
+  <tr>
+    <td class="tabdata" > IDX_OFERTA_FIN    </td>    <td class="tabdata" > ACTIVO, FIN    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" > NO   </td>  </tr>
+</table>
+
+<div class="caption2">User-defined variables</div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+ 
+  <tr>
+    <td class="tabhead"  width="50%"> Name    </td>    <td class="tabhead"  width="50%"> Value    </td>  </tr>
+  <tr>
+    <td class="tabdata" > Temporary Table    </td>    <td class="tabdata" > No    </td>  </tr>
+  <tr>
+    <td class="tabdata" > Inherited Tables    </td>    <td class="tabdata" >     </td>  </tr>
+  <tr>
+    <td class="tabdata" > Without OIDs    </td>    <td class="tabdata" > Yes    </td>  </tr>
+  <tr>
+    <td class="tabdata" > Schema    </td>    <td class="tabdata" >     </td>  </tr>
+  <tr>
+    <td class="tabdata" > Tablespace    </td>    <td class="tabdata" >     </td>  </tr>
+  <tr>
+    <td class="tabdata" > Using index tablespace (for Primary key)    </td>    <td class="tabdata" >    </td>  </tr>
+</table>
+
+ <br><br> 
+<a name = "Table_16"></a>
+<div class="caption1">OFT_USAR_OFERTA</div>
+<div class="caption2">Columns</div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+ 
+  <tr>
+    <td class="tabhead" > Key    </td>    <td class="tabhead" > Column name    </td>    <td class="tabhead" > Domain    </td>    <td class="tabhead" > Data type    </td>    <td class="tabhead" > Not null    </td>    <td class="tabhead" > Unique    </td>    <td class="tabhead" > Check    </td>    <td class="tabhead"  colspan="3"> Default    </td>  </tr>
+  <tr>
+    <td class="tabdata" > PK    </td>    <td class="tabdata" > ID_USAR_OFERTA    </td>    <td class="tabdata" >     </td>    <td class="tabdata" > BigSerial    </td>    <td class="tabdata" > YES    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" >     </td>    <td class="tabdata"  colspan="3">     </td>  </tr>
+  <tr>
+    <td class="tabdata" > FK    </td>    <td class="tabdata" > ID_OFERTA    </td>    <td class="tabdata" >     </td>    <td class="tabdata" > Bigint    </td>    <td class="tabdata" > YES    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" >     </td>    <td class="tabdata"  colspan="3">     </td>  </tr>
+  <tr>
+    <td class="tabdata" > FK    </td>    <td class="tabdata" > ID_USUARIO    </td>    <td class="tabdata" >     </td>    <td class="tabdata" > Varchar (40)    </td>    <td class="tabdata" > YES    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" >     </td>    <td class="tabdata"  colspan="3">     </td>  </tr>
+  <tr>
+    <td class="tabdata" >     </td>    <td class="tabdata" > CODIGO    </td>    <td class="tabdata" >     </td>    <td class="tabdata" > Varchar (255)    </td>    <td class="tabdata" > YES    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" >     </td>    <td class="tabdata"  colspan="3">     </td>  </tr>
+  <tr>
+    <td class="tabdata" >     </td>    <td class="tabdata" > USUARIO_REG    </td>    <td class="tabdata" >     </td>    <td class="tabdata" > Varchar (100)    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" >     </td>    <td class="tabdata"  colspan="3">     </td>  </tr>
+  <tr>
+    <td class="tabdata" >     </td>    <td class="tabdata" > FECHA_REG    </td>    <td class="tabdata" >     </td>    <td class="tabdata" > Timestamp    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" >     </td>    <td class="tabdata"  colspan="3">     </td>  </tr>
+  <tr>
+    <td class="tabdata" >     </td>    <td class="tabdata" > USUARIO_MOD    </td>    <td class="tabdata" >     </td>    <td class="tabdata" > Varchar (100)    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" >     </td>    <td class="tabdata"  colspan="3">     </td>  </tr>
+  <tr>
+    <td class="tabdata" >     </td>    <td class="tabdata" > FECHA_MOD    </td>    <td class="tabdata" >     </td>    <td class="tabdata" > Timestamp    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" >     </td>    <td class="tabdata"  colspan="3">    </td>  </tr>
+</table>
+
+<div class="caption2">Relationships</div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+ 
+  <tr>
+    <td class="tabhead" > Constraint (relationship) name    </td>    <td class="tabhead" > Relationship type    </td>    <td class="tabhead" > Parent table    </td>    <td class="tabhead" > Child table    </td>    <td class="tabhead" > Card.    </td>  </tr>
+  <tr>
+    <td class="tabdata" > Rel33 (Rel33)    </td>    <td class="tabdata" > Non-identifying    </td>    <td class="tabdata" > PER_USUARIO    </td>    <td class="tabdata" > OFT_USAR_OFERTA    </td>    <td class="tabdata" > 1:N    </td>  </tr>
+  <tr>
+    <td class="tabdata" > Rel72 (Rel72)    </td>    <td class="tabdata" > Non-identifying    </td>    <td class="tabdata" > OFT_OFERTA    </td>    <td class="tabdata" > OFT_USAR_OFERTA    </td>    <td class="tabdata" > 1:N   </td>  </tr>
+</table>
+
+<div class="caption2">Indexes</div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+ 
+  <tr>
+    <td class="tabhead" > Index name    </td>    <td class="tabhead" > Columns    </td>    <td class="tabhead" > Unique    </td>    <td class="tabhead" > Descending    </td>    <td class="tabhead" > Clustered    </td>  </tr>
+  <tr>
+    <td class="tabdata" > IDX_UNIQ    </td>    <td class="tabdata" > ID_OFERTA, ID_USUARIO    </td>    <td class="tabdata" > YES    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" > NO    </td>  </tr>
+  <tr>
+    <td class="tabdata" > IDX_CODIGO    </td>    <td class="tabdata" > CODIGO    </td>    <td class="tabdata" > YES    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" > NO   </td>  </tr>
+</table>
+
+<div class="caption2">User-defined variables</div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+ 
+  <tr>
+    <td class="tabhead"  width="50%"> Name    </td>    <td class="tabhead"  width="50%"> Value    </td>  </tr>
+  <tr>
+    <td class="tabdata" > Temporary Table    </td>    <td class="tabdata" > No    </td>  </tr>
+  <tr>
+    <td class="tabdata" > Inherited Tables    </td>    <td class="tabdata" >     </td>  </tr>
+  <tr>
+    <td class="tabdata" > Without OIDs    </td>    <td class="tabdata" > Yes    </td>  </tr>
+  <tr>
+    <td class="tabdata" > Schema    </td>    <td class="tabdata" >     </td>  </tr>
+  <tr>
+    <td class="tabdata" > Tablespace    </td>    <td class="tabdata" >     </td>  </tr>
+  <tr>
+    <td class="tabdata" > Using index tablespace (for Primary key)    </td>    <td class="tabdata" >    </td>  </tr>
+</table>
+
+ <br><br> 
+<a name = "Table_18"></a>
+<div class="caption1">PER_CALIFICACION</div>
+<div class="caption2">Columns</div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+ 
+  <tr>
+    <td class="tabhead" > Key    </td>    <td class="tabhead" > Column name    </td>    <td class="tabhead" > Domain    </td>    <td class="tabhead" > Data type    </td>    <td class="tabhead" > Not null    </td>    <td class="tabhead" > Unique    </td>    <td class="tabhead" > Check    </td>    <td class="tabhead" > Default    </td>    <td class="tabhead"  colspan="2"> Comments    </td>  </tr>
+  <tr>
+    <td class="tabdata" > PK    </td>    <td class="tabdata" > ID_CALIFICACION    </td>    <td class="tabdata" >     </td>    <td class="tabdata" > BigSerial    </td>    <td class="tabdata" > YES    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" >     </td>    <td class="tabdata"  colspan="3">     </td>  </tr>
+  <tr>
+    <td class="tabdata" >     </td>    <td class="tabdata" > PUNTAJE    </td>    <td class="tabdata" >     </td>    <td class="tabdata" > Integer    </td>    <td class="tabdata" > YES    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" >     </td>    <td class="tabdata"  colspan="3"> 0    </td>  </tr>
+  <tr>
+    <td class="tabdata" >     </td>    <td class="tabdata" > COMENTARIO    </td>    <td class="tabdata" >     </td>    <td class="tabdata" > Text    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" >     </td>    <td class="tabdata"  colspan="3">     </td>  </tr>
+  <tr>
+    <td class="tabdata" > FK    </td>    <td class="tabdata" > ID_PROVEEDOR    </td>    <td class="tabdata" >     </td>    <td class="tabdata" > Varchar (40)    </td>    <td class="tabdata" > YES    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" >     </td>    <td class="tabdata" >     </td>    <td class="tabdata"  colspan="2"> USUARIO (PROVEEDOR) A CALIFICAR    </td>  </tr>
+  <tr>
+    <td class="tabdata" > FK    </td>    <td class="tabdata" > ID_AUTOR    </td>    <td class="tabdata" >     </td>    <td class="tabdata" > Varchar (40)    </td>    <td class="tabdata" > YES    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" >     </td>    <td class="tabdata"  colspan="3">     </td>  </tr>
+  <tr>
+    <td class="tabdata" > FK    </td>    <td class="tabdata" > USUARIO_REG    </td>    <td class="tabdata" >     </td>    <td class="tabdata" > Varchar (40)    </td>    <td class="tabdata" > YES    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" >     </td>    <td class="tabdata"  colspan="3">     </td>  </tr>
+  <tr>
+    <td class="tabdata" >     </td>    <td class="tabdata" > FECHA_REG    </td>    <td class="tabdata" >     </td>    <td class="tabdata" > Timestamp    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" >     </td>    <td class="tabdata"  colspan="3">     </td>  </tr>
+  <tr>
+    <td class="tabdata" >     </td>    <td class="tabdata" > USUARIO_MOD    </td>    <td class="tabdata" >     </td>    <td class="tabdata" > Varchar (100)    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" >     </td>    <td class="tabdata"  colspan="3">     </td>  </tr>
+  <tr>
+    <td class="tabdata" >     </td>    <td class="tabdata" > FECHA_MOD    </td>    <td class="tabdata" >     </td>    <td class="tabdata" > Timestamp    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" >     </td>    <td class="tabdata"  colspan="3">    </td>  </tr>
+</table>
+
+<div class="caption2">Relationships</div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+ 
+  <tr>
+    <td class="tabhead" > Constraint (relationship) name    </td>    <td class="tabhead" > Relationship type    </td>    <td class="tabhead" > Parent table    </td>    <td class="tabhead" > Child table    </td>    <td class="tabhead" > Card.    </td>  </tr>
+  <tr>
+    <td class="tabdata" > Rel40 (Rel40)    </td>    <td class="tabdata" > Non-identifying    </td>    <td class="tabdata" > PER_USUARIO    </td>    <td class="tabdata" > PER_CALIFICACION    </td>    <td class="tabdata" > 1:N    </td>  </tr>
+  <tr>
+    <td class="tabdata" > Rel41 (Rel41)    </td>    <td class="tabdata" > Non-identifying    </td>    <td class="tabdata" > PER_USUARIO    </td>    <td class="tabdata" > PER_CALIFICACION    </td>    <td class="tabdata" > 1:N    </td>  </tr>
+  <tr>
+    <td class="tabdata" > Relationship73 (Relationship73)    </td>    <td class="tabdata" > Non-identifying    </td>    <td class="tabdata" > PER_USUARIO    </td>    <td class="tabdata" > PER_CALIFICACION    </td>    <td class="tabdata" > 1:N   </td>  </tr>
+</table>
+
+<div class="caption2">Indexes</div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+ 
+  <tr>
+    <td class="tabhead" > Index name    </td>    <td class="tabhead" > Columns    </td>    <td class="tabhead" > Unique    </td>    <td class="tabhead" > Descending    </td>    <td class="tabhead" > Clustered    </td>  </tr>
+  <tr>
+    <td class="tabdata" > IDX_PER_CAL_USUARIO    </td>    <td class="tabdata" > ID_PROVEEDOR    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" > NO   </td>  </tr>
+</table>
+
+<div class="caption2">User-defined variables</div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+ 
+  <tr>
+    <td class="tabhead"  width="50%"> Name    </td>    <td class="tabhead"  width="50%"> Value    </td>  </tr>
+  <tr>
+    <td class="tabdata" > Temporary Table    </td>    <td class="tabdata" > No    </td>  </tr>
+  <tr>
+    <td class="tabdata" > Inherited Tables    </td>    <td class="tabdata" >     </td>  </tr>
+  <tr>
+    <td class="tabdata" > Without OIDs    </td>    <td class="tabdata" > Yes    </td>  </tr>
+  <tr>
+    <td class="tabdata" > Schema    </td>    <td class="tabdata" >     </td>  </tr>
+  <tr>
+    <td class="tabdata" > Tablespace    </td>    <td class="tabdata" >     </td>  </tr>
+  <tr>
+    <td class="tabdata" > Using index tablespace (for Primary key)    </td>    <td class="tabdata" >    </td>  </tr>
+</table>
+
+ <br><br> 
+<a name = "Table_8"></a>
+<div class="caption1">PER_DIRECCION</div>
+<div class="caption2">Columns</div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+ 
+  <tr>
+    <td class="tabhead" > Key    </td>    <td class="tabhead" > Column name    </td>    <td class="tabhead" > Domain    </td>    <td class="tabhead" > Data type    </td>    <td class="tabhead" > Not null    </td>    <td class="tabhead" > Unique    </td>    <td class="tabhead" > Check    </td>    <td class="tabhead"  colspan="3"> Default    </td>  </tr>
+  <tr>
+    <td class="tabdata" > PK    </td>    <td class="tabdata" > ID_DIRECCION    </td>    <td class="tabdata" >     </td>    <td class="tabdata" > BigSerial    </td>    <td class="tabdata" > YES    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" >     </td>    <td class="tabdata"  colspan="3">     </td>  </tr>
+  <tr>
+    <td class="tabdata" > FK    </td>    <td class="tabdata" > ID_USUARIO    </td>    <td class="tabdata" >     </td>    <td class="tabdata" > Varchar (40)    </td>    <td class="tabdata" > YES    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" >     </td>    <td class="tabdata"  colspan="3">     </td>  </tr>
+  <tr>
+    <td class="tabdata" >     </td>    <td class="tabdata" > NOMBRE    </td>    <td class="tabdata" >     </td>    <td class="tabdata" > Varchar (255)    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" >     </td>    <td class="tabdata"  colspan="3">     </td>  </tr>
+  <tr>
+    <td class="tabdata" >     </td>    <td class="tabdata" > DIRECCION    </td>    <td class="tabdata" >     </td>    <td class="tabdata" > Text    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" >     </td>    <td class="tabdata"  colspan="3">     </td>  </tr>
+  <tr>
+    <td class="tabdata" > FK    </td>    <td class="tabdata" > ID_LOCALIDAD    </td>    <td class="tabdata" >     </td>    <td class="tabdata" > Bigint    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" >     </td>    <td class="tabdata"  colspan="3">     </td>  </tr>
+  <tr>
+    <td class="tabdata" >     </td>    <td class="tabdata" > LATITUD    </td>    <td class="tabdata" >     </td>    <td class="tabdata" > Double precision    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" >     </td>    <td class="tabdata"  colspan="3">     </td>  </tr>
+  <tr>
+    <td class="tabdata" >     </td>    <td class="tabdata" > LONGITUD    </td>    <td class="tabdata" >     </td>    <td class="tabdata" > Double precision    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" >     </td>    <td class="tabdata"  colspan="3">     </td>  </tr>
+  <tr>
+    <td class="tabdata" >     </td>    <td class="tabdata" > USUARIO_REG    </td>    <td class="tabdata" >     </td>    <td class="tabdata" > Varchar (100)    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" >     </td>    <td class="tabdata"  colspan="3">     </td>  </tr>
+  <tr>
+    <td class="tabdata" >     </td>    <td class="tabdata" > FECHA_REG    </td>    <td class="tabdata" >     </td>    <td class="tabdata" > Timestamp    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" >     </td>    <td class="tabdata"  colspan="3">     </td>  </tr>
+  <tr>
+    <td class="tabdata" >     </td>    <td class="tabdata" > USUARIO_MOD    </td>    <td class="tabdata" >     </td>    <td class="tabdata" > Varchar (100)    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" >     </td>    <td class="tabdata"  colspan="3">     </td>  </tr>
+  <tr>
+    <td class="tabdata" >     </td>    <td class="tabdata" > FECHA_MOD    </td>    <td class="tabdata" >     </td>    <td class="tabdata" > Timestamp    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" >     </td>    <td class="tabdata"  colspan="3">    </td>  </tr>
+</table>
+
+<div class="caption2">Relationships</div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+ 
+  <tr>
+    <td class="tabhead" > Constraint (relationship) name    </td>    <td class="tabhead" > Relationship type    </td>    <td class="tabhead" > Parent table    </td>    <td class="tabhead" > Child table    </td>    <td class="tabhead" > Card.    </td>  </tr>
+  <tr>
+    <td class="tabdata" > Rel7 (Rel7)    </td>    <td class="tabdata" > Non-identifying    </td>    <td class="tabdata" > PER_USUARIO    </td>    <td class="tabdata" > PER_DIRECCION    </td>    <td class="tabdata" > 1:N    </td>  </tr>
+  <tr>
+    <td class="tabdata" > Rel63 (Rel63)    </td>    <td class="tabdata" > Non-identifying    </td>    <td class="tabdata" > CAT_MAESTRO    </td>    <td class="tabdata" > PER_DIRECCION    </td>    <td class="tabdata" > 1:N   </td>  </tr>
+</table>
+
+<div class="caption2">Indexes</div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+ 
+  <tr>
+    <td class="tabhead" > Index name    </td>    <td class="tabhead" > Columns    </td>    <td class="tabhead" > Unique    </td>    <td class="tabhead" > Descending    </td>    <td class="tabhead" > Clustered    </td>  </tr>
+  <tr>
+    <td class="tabdata" > IDX_PER_DIRECCION_USUARIO    </td>    <td class="tabdata" > ID_USUARIO    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" > NO   </td>  </tr>
+</table>
+
+<div class="caption2">User-defined variables</div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+ 
+  <tr>
+    <td class="tabhead"  width="50%"> Name    </td>    <td class="tabhead"  width="50%"> Value    </td>  </tr>
+  <tr>
+    <td class="tabdata" > Temporary Table    </td>    <td class="tabdata" > No    </td>  </tr>
+  <tr>
+    <td class="tabdata" > Inherited Tables    </td>    <td class="tabdata" >     </td>  </tr>
+  <tr>
+    <td class="tabdata" > Without OIDs    </td>    <td class="tabdata" > Yes    </td>  </tr>
+  <tr>
+    <td class="tabdata" > Schema    </td>    <td class="tabdata" >     </td>  </tr>
+  <tr>
+    <td class="tabdata" > Tablespace    </td>    <td class="tabdata" >     </td>  </tr>
+  <tr>
+    <td class="tabdata" > Using index tablespace (for Primary key)    </td>    <td class="tabdata" >    </td>  </tr>
+</table>
+
+ <br><br> 
+<a name = "Table_2"></a>
+<div class="caption1">PER_USUARIO</div>
+<div class="caption2">Columns</div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+ 
+  <tr>
+    <td class="tabhead" > Key    </td>    <td class="tabhead" > Column name    </td>    <td class="tabhead" > Domain    </td>    <td class="tabhead" > Data type    </td>    <td class="tabhead" > Not null    </td>    <td class="tabhead" > Unique    </td>    <td class="tabhead" > Check    </td>    <td class="tabhead" > Default    </td>    <td class="tabhead"  colspan="2"> Comments    </td>  </tr>
+  <tr>
+    <td class="tabdata" > PK    </td>    <td class="tabdata" > ID_USUARIO    </td>    <td class="tabdata" >     </td>    <td class="tabdata" > Varchar (40)    </td>    <td class="tabdata" > YES    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" >     </td>    <td class="tabdata"  colspan="3">     </td>  </tr>
+  <tr>
+    <td class="tabdata" >     </td>    <td class="tabdata" > CORREO    </td>    <td class="tabdata" >     </td>    <td class="tabdata" > Varchar (100)    </td>    <td class="tabdata" > YES    </td>    <td class="tabdata" > YES    </td>    <td class="tabdata" >     </td>    <td class="tabdata"  colspan="3">     </td>  </tr>
+  <tr>
+    <td class="tabdata" >     </td>    <td class="tabdata" > CLAVE    </td>    <td class="tabdata" >     </td>    <td class="tabdata" > Varchar (100)    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" >     </td>    <td class="tabdata"  colspan="3">     </td>  </tr>
+  <tr>
+    <td class="tabdata" >     </td>    <td class="tabdata" > ACTIVO    </td>    <td class="tabdata" >     </td>    <td class="tabdata" > Char (1)    </td>    <td class="tabdata" > YES    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" >     </td>    <td class="tabdata" > 'N'    </td>    <td class="tabdata"  colspan="2"> S =&gt; Activo<br> N =&gt; Inactivo    </td>  </tr>
+  <tr>
+    <td class="tabdata" >     </td>    <td class="tabdata" > CODIGO_ACTIVACION    </td>    <td class="tabdata" >     </td>    <td class="tabdata" > Varchar (255)    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" >     </td>    <td class="tabdata"  colspan="3">     </td>  </tr>
+  <tr>
+    <td class="tabdata" >     </td>    <td class="tabdata" > NOMBRES    </td>    <td class="tabdata" >     </td>    <td class="tabdata" > Varchar (255)    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" >     </td>    <td class="tabdata"  colspan="3">     </td>  </tr>
+  <tr>
+    <td class="tabdata" >     </td>    <td class="tabdata" > FECHA_NAC    </td>    <td class="tabdata" >     </td>    <td class="tabdata" > Date    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" >     </td>    <td class="tabdata"  colspan="3">     </td>  </tr>
+  <tr>
+    <td class="tabdata" >     </td>    <td class="tabdata" > SEXO    </td>    <td class="tabdata" >     </td>    <td class="tabdata" > Char (1)    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" >     </td>    <td class="tabdata" >     </td>    <td class="tabdata"  colspan="2"> Masculino (M)<br> Femenido (F)    </td>  </tr>
+  <tr>
+    <td class="tabdata" >     </td>    <td class="tabdata" > CONTACTO    </td>    <td class="tabdata" >     </td>    <td class="tabdata" > Varchar (255)    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" >     </td>    <td class="tabdata"  colspan="3">     </td>  </tr>
+  <tr>
+    <td class="tabdata" >     </td>    <td class="tabdata" > TELEFONOS    </td>    <td class="tabdata" >     </td>    <td class="tabdata" > Varchar (255)    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" >     </td>    <td class="tabdata"  colspan="3">     </td>  </tr>
+  <tr>
+    <td class="tabdata" >     </td>    <td class="tabdata" > DIRECCION_FISICA    </td>    <td class="tabdata" >     </td>    <td class="tabdata" > Text    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" >     </td>    <td class="tabdata"  colspan="3">     </td>  </tr>
+  <tr>
+    <td class="tabdata" >     </td>    <td class="tabdata" > FACEBOOK    </td>    <td class="tabdata" >     </td>    <td class="tabdata" > Varchar (300)    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" >     </td>    <td class="tabdata"  colspan="3">     </td>  </tr>
+  <tr>
+    <td class="tabdata" >     </td>    <td class="tabdata" > TWITTER    </td>    <td class="tabdata" >     </td>    <td class="tabdata" > Varchar (300)    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" >     </td>    <td class="tabdata"  colspan="3">     </td>  </tr>
+  <tr>
+    <td class="tabdata" >     </td>    <td class="tabdata" > WHATSAPP    </td>    <td class="tabdata" >     </td>    <td class="tabdata" > Varchar (255)    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" >     </td>    <td class="tabdata"  colspan="3">     </td>  </tr>
+  <tr>
+    <td class="tabdata" >     </td>    <td class="tabdata" > SITIO_WEB    </td>    <td class="tabdata" >     </td>    <td class="tabdata" > Varchar (255)    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" >     </td>    <td class="tabdata"  colspan="3">     </td>  </tr>
+  <tr>
+    <td class="tabdata" >     </td>    <td class="tabdata" > IR_PERFIL    </td>    <td class="tabdata" >     </td>    <td class="tabdata" > Char (1)    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" >     </td>    <td class="tabdata" > 'N'    </td>    <td class="tabdata"  colspan="2"> S o N    </td>  </tr>
+  <tr>
+    <td class="tabdata" >     </td>    <td class="tabdata" > AVATAR    </td>    <td class="tabdata" >     </td>    <td class="tabdata" > Varchar (255)    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" >     </td>    <td class="tabdata"  colspan="3">     </td>  </tr>
+  <tr>
+    <td class="tabdata" >     </td>    <td class="tabdata" > USUARIO_REG    </td>    <td class="tabdata" >     </td>    <td class="tabdata" > Varchar (100)    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" >     </td>    <td class="tabdata"  colspan="3">     </td>  </tr>
+  <tr>
+    <td class="tabdata" >     </td>    <td class="tabdata" > FECHA_REG    </td>    <td class="tabdata" >     </td>    <td class="tabdata" > Timestamp    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" >     </td>    <td class="tabdata"  colspan="3">     </td>  </tr>
+  <tr>
+    <td class="tabdata" >     </td>    <td class="tabdata" > USUARIO_MOD    </td>    <td class="tabdata" >     </td>    <td class="tabdata" > Varchar (100)    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" >     </td>    <td class="tabdata"  colspan="3">     </td>  </tr>
+  <tr>
+    <td class="tabdata" >     </td>    <td class="tabdata" > FECHA_MOD    </td>    <td class="tabdata" >     </td>    <td class="tabdata" > Timestamp    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" >     </td>    <td class="tabdata"  colspan="3">    </td>  </tr>
+</table>
+
+<div class="caption2">Relationships</div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+ 
+  <tr>
+    <td class="tabhead" > Constraint (relationship) name    </td>    <td class="tabhead" > Relationship type    </td>    <td class="tabhead" > Parent table    </td>    <td class="tabhead" > Child table    </td>    <td class="tabhead" > Card.    </td>  </tr>
+  <tr>
+    <td class="tabdata" > R122 (R122)    </td>    <td class="tabdata" > Identifying    </td>    <td class="tabdata" > PER_USUARIO    </td>    <td class="tabdata" > SEG_ROL_USUARIO    </td>    <td class="tabdata" > 1:N    </td>  </tr>
+  <tr>
+    <td class="tabdata" > Rel7 (Rel7)    </td>    <td class="tabdata" > Non-identifying    </td>    <td class="tabdata" > PER_USUARIO    </td>    <td class="tabdata" > PER_DIRECCION    </td>    <td class="tabdata" > 1:N    </td>  </tr>
+  <tr>
+    <td class="tabdata" > Rel33 (Rel33)    </td>    <td class="tabdata" > Non-identifying    </td>    <td class="tabdata" > PER_USUARIO    </td>    <td class="tabdata" > OFT_USAR_OFERTA    </td>    <td class="tabdata" > 1:N    </td>  </tr>
+  <tr>
+    <td class="tabdata" > Rel40 (Rel40)    </td>    <td class="tabdata" > Non-identifying    </td>    <td class="tabdata" > PER_USUARIO    </td>    <td class="tabdata" > PER_CALIFICACION    </td>    <td class="tabdata" > 1:N    </td>  </tr>
+  <tr>
+    <td class="tabdata" > Rel41 (Rel41)    </td>    <td class="tabdata" > Non-identifying    </td>    <td class="tabdata" > PER_USUARIO    </td>    <td class="tabdata" > PER_CALIFICACION    </td>    <td class="tabdata" > 1:N    </td>  </tr>
+  <tr>
+    <td class="tabdata" > Rel47 (Rel47)    </td>    <td class="tabdata" > Non-identifying    </td>    <td class="tabdata" > PER_USUARIO    </td>    <td class="tabdata" > PRY_PROYECTO    </td>    <td class="tabdata" > 1:N    </td>  </tr>
+  <tr>
+    <td class="tabdata" > Rel67 (Rel67)    </td>    <td class="tabdata" > Non-identifying    </td>    <td class="tabdata" > PER_USUARIO    </td>    <td class="tabdata" > PRY_PROYECTO    </td>    <td class="tabdata" > 1:N    </td>  </tr>
+  <tr>
+    <td class="tabdata" > Rel68 (Rel68)    </td>    <td class="tabdata" > Non-identifying    </td>    <td class="tabdata" > PER_USUARIO    </td>    <td class="tabdata" > PRY_COMENTARIO    </td>    <td class="tabdata" > 1:N    </td>  </tr>
+  <tr>
+    <td class="tabdata" > Rel71 (Rel71)    </td>    <td class="tabdata" > Non-identifying    </td>    <td class="tabdata" > PER_USUARIO    </td>    <td class="tabdata" > OFT_OFERTA    </td>    <td class="tabdata" > 1:N    </td>  </tr>
+  <tr>
+    <td class="tabdata" > Relationship73 (Relationship73)    </td>    <td class="tabdata" > Non-identifying    </td>    <td class="tabdata" > PER_USUARIO    </td>    <td class="tabdata" > PER_CALIFICACION    </td>    <td class="tabdata" > 1:N    </td>  </tr>
+  <tr>
+    <td class="tabdata" > Rel74 (Rel74)    </td>    <td class="tabdata" > Non-identifying    </td>    <td class="tabdata" > PER_USUARIO    </td>    <td class="tabdata" > CMS_CONTENIDO    </td>    <td class="tabdata" > 1:N   </td>  </tr>
+</table>
+
+<div class="caption2">Indexes</div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+ 
+  <tr>
+    <td class="tabhead" > Index name    </td>    <td class="tabhead" > Columns    </td>    <td class="tabhead" > Unique    </td>    <td class="tabhead" > Descending    </td>    <td class="tabhead" > Clustered    </td>  </tr>
+  <tr>
+    <td class="tabdata" > IDX_PER_USR_COD_A    </td>    <td class="tabdata" > CODIGO_ACTIVACION    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" > NO    </td>  </tr>
+  <tr>
+    <td class="tabdata" > IDX_PER_USR_ACTIVO    </td>    <td class="tabdata" > ACTIVO, ID_USUARIO    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" > NO   </td>  </tr>
+</table>
+
+<div class="caption2">Comments</div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+ 
+  <tr>
+    <td class="tabdata" > Cada usuario cuenta con un folder para sus archivos.   </td>  </tr>
+</table>
+
+<div class="caption2">User-defined variables</div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+ 
+  <tr>
+    <td class="tabhead"  width="50%"> Name    </td>    <td class="tabhead"  width="50%"> Value    </td>  </tr>
+  <tr>
+    <td class="tabdata" > Temporary Table    </td>    <td class="tabdata" > No    </td>  </tr>
+  <tr>
+    <td class="tabdata" > Inherited Tables    </td>    <td class="tabdata" >     </td>  </tr>
+  <tr>
+    <td class="tabdata" > Without OIDs    </td>    <td class="tabdata" > Yes    </td>  </tr>
+  <tr>
+    <td class="tabdata" > Schema    </td>    <td class="tabdata" >     </td>  </tr>
+  <tr>
+    <td class="tabdata" > Tablespace    </td>    <td class="tabdata" >     </td>  </tr>
+  <tr>
+    <td class="tabdata" > Using index tablespace (for Primary key)    </td>    <td class="tabdata" >    </td>  </tr>
+</table>
+
+ <br><br> 
+<a name = "Table_14"></a>
+<div class="caption1">PRY_COMENTARIO</div>
+<div class="caption2">Columns</div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+ 
+  <tr>
+    <td class="tabhead" > Key    </td>    <td class="tabhead" > Column name    </td>    <td class="tabhead" > Domain    </td>    <td class="tabhead" > Data type    </td>    <td class="tabhead" > Not null    </td>    <td class="tabhead" > Unique    </td>    <td class="tabhead" > Check    </td>    <td class="tabhead"  colspan="3"> Default    </td>  </tr>
+  <tr>
+    <td class="tabdata" > PK    </td>    <td class="tabdata" > ID_COMENTARIO    </td>    <td class="tabdata" >     </td>    <td class="tabdata" > BigSerial    </td>    <td class="tabdata" > YES    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" >     </td>    <td class="tabdata"  colspan="3">     </td>  </tr>
+  <tr>
+    <td class="tabdata" > FK    </td>    <td class="tabdata" > ID_PROYECTO    </td>    <td class="tabdata" >     </td>    <td class="tabdata" > Bigint    </td>    <td class="tabdata" > YES    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" >     </td>    <td class="tabdata"  colspan="3">     </td>  </tr>
+  <tr>
+    <td class="tabdata" >     </td>    <td class="tabdata" > CONTENIDO    </td>    <td class="tabdata" >     </td>    <td class="tabdata" > Text    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" >     </td>    <td class="tabdata"  colspan="3">     </td>  </tr>
+  <tr>
+    <td class="tabdata" >     </td>    <td class="tabdata" > ACTIVO    </td>    <td class="tabdata" >     </td>    <td class="tabdata" > Char (1)    </td>    <td class="tabdata" > YES    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" >     </td>    <td class="tabdata"  colspan="3"> 'S'    </td>  </tr>
+  <tr>
+    <td class="tabdata" > FK    </td>    <td class="tabdata" > ID_COMENTARISTA    </td>    <td class="tabdata" >     </td>    <td class="tabdata" > Varchar (40)    </td>    <td class="tabdata" > YES    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" >     </td>    <td class="tabdata"  colspan="3">     </td>  </tr>
+  <tr>
+    <td class="tabdata" >     </td>    <td class="tabdata" > USUARIO_REG    </td>    <td class="tabdata" >     </td>    <td class="tabdata" > Varchar (100)    </td>    <td class="tabdata" > YES    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" >     </td>    <td class="tabdata"  colspan="3">     </td>  </tr>
+  <tr>
+    <td class="tabdata" >     </td>    <td class="tabdata" > FECHA_REG    </td>    <td class="tabdata" >     </td>    <td class="tabdata" > Timestamp    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" >     </td>    <td class="tabdata"  colspan="3">     </td>  </tr>
+  <tr>
+    <td class="tabdata" >     </td>    <td class="tabdata" > USUARIO_MOD    </td>    <td class="tabdata" >     </td>    <td class="tabdata" > Varchar (100)    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" >     </td>    <td class="tabdata"  colspan="3">     </td>  </tr>
+  <tr>
+    <td class="tabdata" >     </td>    <td class="tabdata" > FECHA_MOD    </td>    <td class="tabdata" >     </td>    <td class="tabdata" > Timestamp    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" >     </td>    <td class="tabdata"  colspan="3">    </td>  </tr>
+</table>
+
+<div class="caption2">Relationships</div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+ 
+  <tr>
+    <td class="tabhead" > Constraint (relationship) name    </td>    <td class="tabhead" > Relationship type    </td>    <td class="tabhead" > Parent table    </td>    <td class="tabhead" > Child table    </td>    <td class="tabhead" > Card.    </td>  </tr>
+  <tr>
+    <td class="tabdata" > Rel23 (Rel23)    </td>    <td class="tabdata" > Non-identifying    </td>    <td class="tabdata" > PRY_PROYECTO    </td>    <td class="tabdata" > PRY_COMENTARIO    </td>    <td class="tabdata" > 1:N    </td>  </tr>
+  <tr>
+    <td class="tabdata" > Rel68 (Rel68)    </td>    <td class="tabdata" > Non-identifying    </td>    <td class="tabdata" > PER_USUARIO    </td>    <td class="tabdata" > PRY_COMENTARIO    </td>    <td class="tabdata" > 1:N   </td>  </tr>
+</table>
+
+<div class="caption2">Indexes</div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+ 
+  <tr>
+    <td class="tabhead" > Index name    </td>    <td class="tabhead" > Columns    </td>    <td class="tabhead" > Unique    </td>    <td class="tabhead" > Descending    </td>    <td class="tabhead" > Clustered    </td>  </tr>
+  <tr>
+    <td class="tabdata" > IDX_PRY_COMENT_PRY    </td>    <td class="tabdata" > ID_PROYECTO, ACTIVO    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" > NO   </td>  </tr>
+</table>
+
+<div class="caption2">User-defined variables</div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+ 
+  <tr>
+    <td class="tabhead"  width="50%"> Name    </td>    <td class="tabhead"  width="50%"> Value    </td>  </tr>
+  <tr>
+    <td class="tabdata" > Temporary Table    </td>    <td class="tabdata" > No    </td>  </tr>
+  <tr>
+    <td class="tabdata" > Inherited Tables    </td>    <td class="tabdata" >     </td>  </tr>
+  <tr>
+    <td class="tabdata" > Without OIDs    </td>    <td class="tabdata" > Yes    </td>  </tr>
+  <tr>
+    <td class="tabdata" > Schema    </td>    <td class="tabdata" >     </td>  </tr>
+  <tr>
+    <td class="tabdata" > Tablespace    </td>    <td class="tabdata" >     </td>  </tr>
+  <tr>
+    <td class="tabdata" > Using index tablespace (for Primary key)    </td>    <td class="tabdata" >    </td>  </tr>
+</table>
+
+ <br><br> 
+<a name = "Table_9"></a>
+<div class="caption1">PRY_PROYECTO</div>
+<div class="caption2">Columns</div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+ 
+  <tr>
+    <td class="tabhead" > Key    </td>    <td class="tabhead" > Column name    </td>    <td class="tabhead" > Domain    </td>    <td class="tabhead" > Data type    </td>    <td class="tabhead" > Not null    </td>    <td class="tabhead" > Unique    </td>    <td class="tabhead" > Check    </td>    <td class="tabhead"  colspan="3"> Default    </td>  </tr>
+  <tr>
+    <td class="tabdata" > PK    </td>    <td class="tabdata" > ID_PROYECTO    </td>    <td class="tabdata" >     </td>    <td class="tabdata" > BigSerial    </td>    <td class="tabdata" > YES    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" >     </td>    <td class="tabdata"  colspan="3">     </td>  </tr>
+  <tr>
+    <td class="tabdata" >     </td>    <td class="tabdata" > DESCRIPCION    </td>    <td class="tabdata" >     </td>    <td class="tabdata" > Text    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" >     </td>    <td class="tabdata"  colspan="3">     </td>  </tr>
+  <tr>
+    <td class="tabdata" > FK    </td>    <td class="tabdata" > ID_PRY_FORMA_PAGO    </td>    <td class="tabdata" >     </td>    <td class="tabdata" > Bigint    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" >     </td>    <td class="tabdata"  colspan="3">     </td>  </tr>
+  <tr>
+    <td class="tabdata" > FK    </td>    <td class="tabdata" > ID_BANCO    </td>    <td class="tabdata" >     </td>    <td class="tabdata" > Bigint    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" >     </td>    <td class="tabdata"  colspan="3">     </td>  </tr>
+  <tr>
+    <td class="tabdata" >     </td>    <td class="tabdata" > FECHA_PAGO    </td>    <td class="tabdata" >     </td>    <td class="tabdata" > Date    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" >     </td>    <td class="tabdata"  colspan="3">     </td>  </tr>
+  <tr>
+    <td class="tabdata" >     </td>    <td class="tabdata" > COMPROBANTE    </td>    <td class="tabdata" >     </td>    <td class="tabdata" > Varchar (255)    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" >     </td>    <td class="tabdata"  colspan="3">     </td>  </tr>
+  <tr>
+    <td class="tabdata" >     </td>    <td class="tabdata" > ESPACIOS_MEJORA    </td>    <td class="tabdata" >     </td>    <td class="tabdata" > Text    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" >     </td>    <td class="tabdata"  colspan="3">     </td>  </tr>
+  <tr>
+    <td class="tabdata" >     </td>    <td class="tabdata" > MATERIALES_MEJORA    </td>    <td class="tabdata" >     </td>    <td class="tabdata" > Text    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" >     </td>    <td class="tabdata"  colspan="3">     </td>  </tr>
+  <tr>
+    <td class="tabdata" >     </td>    <td class="tabdata" > PRESUPUESTO    </td>    <td class="tabdata" >     </td>    <td class="tabdata" > Char (1)    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" >     </td>    <td class="tabdata"  colspan="3">     </td>  </tr>
+  <tr>
+    <td class="tabdata" >     </td>    <td class="tabdata" > MONTO_PRESUPUESTO    </td>    <td class="tabdata" >     </td>    <td class="tabdata" > Numeric (30,2)    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" >     </td>    <td class="tabdata"  colspan="3">     </td>  </tr>
+  <tr>
+    <td class="tabdata" > FK    </td>    <td class="tabdata" > ID_MONEDA    </td>    <td class="tabdata" >     </td>    <td class="tabdata" > Bigint    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" >     </td>    <td class="tabdata"  colspan="3">     </td>  </tr>
+  <tr>
+    <td class="tabdata" >     </td>    <td class="tabdata" > TIENE_ALBANIL    </td>    <td class="tabdata" >     </td>    <td class="tabdata" > Char (1)    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" >     </td>    <td class="tabdata"  colspan="3">     </td>  </tr>
+  <tr>
+    <td class="tabdata" >     </td>    <td class="tabdata" > PRESENTE_VISITA    </td>    <td class="tabdata" >     </td>    <td class="tabdata" > Char (1)    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" >     </td>    <td class="tabdata"  colspan="3">     </td>  </tr>
+  <tr>
+    <td class="tabdata" >     </td>    <td class="tabdata" > NOMBRE_PER_ATENCION_VISITA    </td>    <td class="tabdata" >     </td>    <td class="tabdata" > Varchar (255)    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" >     </td>    <td class="tabdata"  colspan="3">     </td>  </tr>
+  <tr>
+    <td class="tabdata" >     </td>    <td class="tabdata" > FECHA_HORA_DISPONIBLE    </td>    <td class="tabdata" >     </td>    <td class="tabdata" > Text    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" >     </td>    <td class="tabdata"  colspan="3">     </td>  </tr>
+  <tr>
+    <td class="tabdata" > FK    </td>    <td class="tabdata" > ID_ESTADO    </td>    <td class="tabdata" >     </td>    <td class="tabdata" > Bigint    </td>    <td class="tabdata" > YES    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" >     </td>    <td class="tabdata"  colspan="3">     </td>  </tr>
+  <tr>
+    <td class="tabdata" > FK    </td>    <td class="tabdata" > ID_PRY_TIPO_SERVICIO    </td>    <td class="tabdata" >     </td>    <td class="tabdata" > Bigint    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" >     </td>    <td class="tabdata"  colspan="3">     </td>  </tr>
+  <tr>
+    <td class="tabdata" > FK    </td>    <td class="tabdata" > USUARIO_DUENIO    </td>    <td class="tabdata" >     </td>    <td class="tabdata" > Varchar (40)    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" >     </td>    <td class="tabdata"  colspan="3">     </td>  </tr>
+  <tr>
+    <td class="tabdata" > FK    </td>    <td class="tabdata" > USUARIO_TECNICO    </td>    <td class="tabdata" >     </td>    <td class="tabdata" > Varchar (40)    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" >     </td>    <td class="tabdata"  colspan="3">     </td>  </tr>
+  <tr>
+    <td class="tabdata" >     </td>    <td class="tabdata" > USUARIO_REG    </td>    <td class="tabdata" >     </td>    <td class="tabdata" > Varchar (100)    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" >     </td>    <td class="tabdata"  colspan="3">     </td>  </tr>
+  <tr>
+    <td class="tabdata" >     </td>    <td class="tabdata" > FECHA_REG    </td>    <td class="tabdata" >     </td>    <td class="tabdata" > Timestamp    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" >     </td>    <td class="tabdata"  colspan="3">     </td>  </tr>
+  <tr>
+    <td class="tabdata" >     </td>    <td class="tabdata" > USUARIO_MOD    </td>    <td class="tabdata" >     </td>    <td class="tabdata" > Varchar (100)    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" >     </td>    <td class="tabdata"  colspan="3">     </td>  </tr>
+  <tr>
+    <td class="tabdata" >     </td>    <td class="tabdata" > FECHA_MOD    </td>    <td class="tabdata" >     </td>    <td class="tabdata" > Timestamp    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" >     </td>    <td class="tabdata"  colspan="3">    </td>  </tr>
+</table>
+
+<div class="caption2">Relationships</div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+ 
+  <tr>
+    <td class="tabhead" > Constraint (relationship) name    </td>    <td class="tabhead" > Relationship type    </td>    <td class="tabhead" > Parent table    </td>    <td class="tabhead" > Child table    </td>    <td class="tabhead" > Card.    </td>  </tr>
+  <tr>
+    <td class="tabdata" > Rel701 (Rel701)    </td>    <td class="tabdata" > Non-identifying    </td>    <td class="tabdata" > CAT_MAESTRO    </td>    <td class="tabdata" > PRY_PROYECTO    </td>    <td class="tabdata" > 1:N    </td>  </tr>
+  <tr>
+    <td class="tabdata" > Rel23 (Rel23)    </td>    <td class="tabdata" > Non-identifying    </td>    <td class="tabdata" > PRY_PROYECTO    </td>    <td class="tabdata" > PRY_COMENTARIO    </td>    <td class="tabdata" > 1:N    </td>  </tr>
+  <tr>
+    <td class="tabdata" > Rel702 (Rel702)    </td>    <td class="tabdata" > Non-identifying    </td>    <td class="tabdata" > CAT_MAESTRO    </td>    <td class="tabdata" > PRY_PROYECTO    </td>    <td class="tabdata" > 1:N    </td>  </tr>
+  <tr>
+    <td class="tabdata" > Rel47 (Rel47)    </td>    <td class="tabdata" > Non-identifying    </td>    <td class="tabdata" > PER_USUARIO    </td>    <td class="tabdata" > PRY_PROYECTO    </td>    <td class="tabdata" > 1:N    </td>  </tr>
+  <tr>
+    <td class="tabdata" > Relationship64 (Relationship64)    </td>    <td class="tabdata" > Non-identifying    </td>    <td class="tabdata" > CAT_MAESTRO    </td>    <td class="tabdata" > PRY_PROYECTO    </td>    <td class="tabdata" > 1:N    </td>  </tr>
+  <tr>
+    <td class="tabdata" > Relationship65 (Relationship65)    </td>    <td class="tabdata" > Non-identifying    </td>    <td class="tabdata" > CAT_MAESTRO    </td>    <td class="tabdata" > PRY_PROYECTO    </td>    <td class="tabdata" > 1:N    </td>  </tr>
+  <tr>
+    <td class="tabdata" > Relationship66 (Relationship66)    </td>    <td class="tabdata" > Non-identifying    </td>    <td class="tabdata" > CAT_MAESTRO    </td>    <td class="tabdata" > PRY_PROYECTO    </td>    <td class="tabdata" > 1:N    </td>  </tr>
+  <tr>
+    <td class="tabdata" > Rel67 (Rel67)    </td>    <td class="tabdata" > Non-identifying    </td>    <td class="tabdata" > PER_USUARIO    </td>    <td class="tabdata" > PRY_PROYECTO    </td>    <td class="tabdata" > 1:N    </td>  </tr>
+  <tr>
+    <td class="tabdata" > Rel69 (Rel69)    </td>    <td class="tabdata" > Non-identifying    </td>    <td class="tabdata" > PRY_PROYECTO    </td>    <td class="tabdata" > CMS_ARCHIVO    </td>    <td class="tabdata" > 1:N   </td>  </tr>
+</table>
+
+<div class="caption2">Indexes</div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+ 
+  <tr>
+    <td class="tabhead" > Index name    </td>    <td class="tabhead" > Columns    </td>    <td class="tabhead" > Unique    </td>    <td class="tabhead" > Descending    </td>    <td class="tabhead" > Clustered    </td>  </tr>
+  <tr>
+    <td class="tabdata" > IDX_PRY_USUARIO    </td>    <td class="tabdata" > USUARIO_DUENIO    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" > NO    </td>  </tr>
+  <tr>
+    <td class="tabdata" > IDX_PRY_TECNICO    </td>    <td class="tabdata" > USUARIO_TECNICO    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" > NO   </td>  </tr>
+</table>
+
+<div class="caption2">User-defined variables</div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+ 
+  <tr>
+    <td class="tabhead"  width="50%"> Name    </td>    <td class="tabhead"  width="50%"> Value    </td>  </tr>
+  <tr>
+    <td class="tabdata" > Temporary Table    </td>    <td class="tabdata" > No    </td>  </tr>
+  <tr>
+    <td class="tabdata" > Inherited Tables    </td>    <td class="tabdata" >     </td>  </tr>
+  <tr>
+    <td class="tabdata" > Without OIDs    </td>    <td class="tabdata" > Yes    </td>  </tr>
+  <tr>
+    <td class="tabdata" > Schema    </td>    <td class="tabdata" >     </td>  </tr>
+  <tr>
+    <td class="tabdata" > Tablespace    </td>    <td class="tabdata" >     </td>  </tr>
+  <tr>
+    <td class="tabdata" > Using index tablespace (for Primary key)    </td>    <td class="tabdata" >    </td>  </tr>
+</table>
+
+ <br><br> 
+<a name = "Table_20"></a>
+<div class="caption1">PUB_PUBLICIDAD</div>
+<div class="caption2">Columns</div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+ 
+  <tr>
+    <td class="tabhead" > Key    </td>    <td class="tabhead" > Column name    </td>    <td class="tabhead" > Domain    </td>    <td class="tabhead" > Data type    </td>    <td class="tabhead" > Not null    </td>    <td class="tabhead" > Unique    </td>    <td class="tabhead" > Check    </td>    <td class="tabhead" > Default    </td>    <td class="tabhead"  colspan="2"> Comments    </td>  </tr>
+  <tr>
+    <td class="tabdata" > PK    </td>    <td class="tabdata" > ID_ANUNCIO    </td>    <td class="tabdata" >     </td>    <td class="tabdata" > BigSerial    </td>    <td class="tabdata" > YES    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" >     </td>    <td class="tabdata"  colspan="3">     </td>  </tr>
+  <tr>
+    <td class="tabdata" > FK    </td>    <td class="tabdata" > ID_UBICACION_ANUNCIO    </td>    <td class="tabdata" >     </td>    <td class="tabdata" > Bigint    </td>    <td class="tabdata" > YES    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" >     </td>    <td class="tabdata"  colspan="3">     </td>  </tr>
+  <tr>
+    <td class="tabdata" >     </td>    <td class="tabdata" > INICIO    </td>    <td class="tabdata" >     </td>    <td class="tabdata" > Date    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" >     </td>    <td class="tabdata"  colspan="3">     </td>  </tr>
+  <tr>
+    <td class="tabdata" >     </td>    <td class="tabdata" > FIN    </td>    <td class="tabdata" >     </td>    <td class="tabdata" > Date    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" >     </td>    <td class="tabdata"  colspan="3">     </td>  </tr>
+  <tr>
+    <td class="tabdata" >     </td>    <td class="tabdata" > IMPRESIONES    </td>    <td class="tabdata" >     </td>    <td class="tabdata" > Bigint    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" >     </td>    <td class="tabdata"  colspan="3"> 0    </td>  </tr>
+  <tr>
+    <td class="tabdata" >     </td>    <td class="tabdata" > MAX_IMPRESIONES    </td>    <td class="tabdata" >     </td>    <td class="tabdata" > Bigint    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" >     </td>    <td class="tabdata"  colspan="3"> 0    </td>  </tr>
+  <tr>
+    <td class="tabdata" >     </td>    <td class="tabdata" > CLICKS    </td>    <td class="tabdata" >     </td>    <td class="tabdata" > Bigint    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" >     </td>    <td class="tabdata"  colspan="3"> 0    </td>  </tr>
+  <tr>
+    <td class="tabdata" >     </td>    <td class="tabdata" > MAX_CLICKS    </td>    <td class="tabdata" >     </td>    <td class="tabdata" > Bigint    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" >     </td>    <td class="tabdata"  colspan="3"> 0    </td>  </tr>
+  <tr>
+    <td class="tabdata" >     </td>    <td class="tabdata" > ACTIVO    </td>    <td class="tabdata" >     </td>    <td class="tabdata" > Char (1)    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" >     </td>    <td class="tabdata" > 'N'    </td>    <td class="tabdata"  colspan="2"> S/N    </td>  </tr>
+  <tr>
+    <td class="tabdata" >     </td>    <td class="tabdata" > ENLACE    </td>    <td class="tabdata" >     </td>    <td class="tabdata" > Varchar (1000)    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" >     </td>    <td class="tabdata"  colspan="3">     </td>  </tr>
+  <tr>
+    <td class="tabdata" >     </td>    <td class="tabdata" > ARCHIVO1    </td>    <td class="tabdata" >     </td>    <td class="tabdata" > Varchar (1000)    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" >     </td>    <td class="tabdata"  colspan="3">     </td>  </tr>
+  <tr>
+    <td class="tabdata" >     </td>    <td class="tabdata" > ARCHIVO2    </td>    <td class="tabdata" >     </td>    <td class="tabdata" > Varchar (1000)    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" >     </td>    <td class="tabdata"  colspan="3">     </td>  </tr>
+  <tr>
+    <td class="tabdata" >     </td>    <td class="tabdata" > ARCHIVO3    </td>    <td class="tabdata" >     </td>    <td class="tabdata" > Varchar (1000)    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" >     </td>    <td class="tabdata"  colspan="3">     </td>  </tr>
+  <tr>
+    <td class="tabdata" >     </td>    <td class="tabdata" > USUARIO_REG    </td>    <td class="tabdata" >     </td>    <td class="tabdata" > Varchar (100)    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" >     </td>    <td class="tabdata"  colspan="3">     </td>  </tr>
+  <tr>
+    <td class="tabdata" >     </td>    <td class="tabdata" > FECHA_REG    </td>    <td class="tabdata" >     </td>    <td class="tabdata" > Timestamp    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" >     </td>    <td class="tabdata"  colspan="3">     </td>  </tr>
+  <tr>
+    <td class="tabdata" >     </td>    <td class="tabdata" > USUARIO_MOD    </td>    <td class="tabdata" >     </td>    <td class="tabdata" > Varchar (100)    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" >     </td>    <td class="tabdata"  colspan="3">     </td>  </tr>
+  <tr>
+    <td class="tabdata" >     </td>    <td class="tabdata" > FECHA_MOD    </td>    <td class="tabdata" >     </td>    <td class="tabdata" > Timestamp    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" >     </td>    <td class="tabdata"  colspan="3">    </td>  </tr>
+</table>
+
+<div class="caption2">Relationships</div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+ 
+  <tr>
+    <td class="tabhead" > Constraint (relationship) name    </td>    <td class="tabhead" > Relationship type    </td>    <td class="tabhead" > Parent table    </td>    <td class="tabhead" > Child table    </td>    <td class="tabhead" > Card.    </td>  </tr>
+  <tr>
+    <td class="tabdata" > Rel53 (Rel53)    </td>    <td class="tabdata" > Non-identifying    </td>    <td class="tabdata" > CAT_MAESTRO    </td>    <td class="tabdata" > PUB_PUBLICIDAD    </td>    <td class="tabdata" > 1:N   </td>  </tr>
+</table>
+
+<div class="caption2">Indexes</div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+ 
+  <tr>
+    <td class="tabhead" > Index name    </td>    <td class="tabhead" > Columns    </td>    <td class="tabhead" > Unique    </td>    <td class="tabhead" > Descending    </td>    <td class="tabhead" > Clustered    </td>  </tr>
+  <tr>
+    <td class="tabdata" > IDX_ANUNCIO_INICIO    </td>    <td class="tabdata" > ACTIVO, INICIO, ID_UBICACION_ANUNCIO    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" > NO    </td>  </tr>
+  <tr>
+    <td class="tabdata" > IDX_ANUNCIO_FIN    </td>    <td class="tabdata" > ACTIVO, FIN, ID_UBICACION_ANUNCIO    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" > NO   </td>  </tr>
+</table>
+
+<div class="caption2">User-defined variables</div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+ 
+  <tr>
+    <td class="tabhead"  width="50%"> Name    </td>    <td class="tabhead"  width="50%"> Value    </td>  </tr>
+  <tr>
+    <td class="tabdata" > Temporary Table    </td>    <td class="tabdata" > No    </td>  </tr>
+  <tr>
+    <td class="tabdata" > Inherited Tables    </td>    <td class="tabdata" >     </td>  </tr>
+  <tr>
+    <td class="tabdata" > Without OIDs    </td>    <td class="tabdata" > Yes    </td>  </tr>
+  <tr>
+    <td class="tabdata" > Schema    </td>    <td class="tabdata" >     </td>  </tr>
+  <tr>
+    <td class="tabdata" > Tablespace    </td>    <td class="tabdata" >     </td>  </tr>
+  <tr>
+    <td class="tabdata" > Using index tablespace (for Primary key)    </td>    <td class="tabdata" >    </td>  </tr>
+</table>
+
+ <br><br> 
+<a name = "Table_19"></a>
+<div class="caption1">SEG_LOGIN</div>
+<div class="caption2">Columns</div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+ 
+  <tr>
+    <td class="tabhead" > Key    </td>    <td class="tabhead" > Column name    </td>    <td class="tabhead" > Domain    </td>    <td class="tabhead" > Data type    </td>    <td class="tabhead" > Not null    </td>    <td class="tabhead" > Unique    </td>    <td class="tabhead" > Check    </td>    <td class="tabhead" > Default    </td>    <td class="tabhead"  colspan="2"> Comments    </td>  </tr>
+  <tr>
+    <td class="tabdata" > PK    </td>    <td class="tabdata" > ID_LOGIN    </td>    <td class="tabdata" >     </td>    <td class="tabdata" > BigSerial    </td>    <td class="tabdata" > YES    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" >     </td>    <td class="tabdata"  colspan="3">     </td>  </tr>
+  <tr>
+    <td class="tabdata" >     </td>    <td class="tabdata" > FECHA    </td>    <td class="tabdata" >     </td>    <td class="tabdata" > Timestamp    </td>    <td class="tabdata" > YES    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" >     </td>    <td class="tabdata"  colspan="3">     </td>  </tr>
+  <tr>
+    <td class="tabdata" >     </td>    <td class="tabdata" > CORREO    </td>    <td class="tabdata" >     </td>    <td class="tabdata" > Varchar (100)    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" >     </td>    <td class="tabdata"  colspan="3">     </td>  </tr>
+  <tr>
+    <td class="tabdata" >     </td>    <td class="tabdata" > IP    </td>    <td class="tabdata" >     </td>    <td class="tabdata" > Varchar (100)    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" >     </td>    <td class="tabdata"  colspan="3">     </td>  </tr>
+  <tr>
+    <td class="tabdata" >     </td>    <td class="tabdata" > EXITOSO    </td>    <td class="tabdata" >     </td>    <td class="tabdata" > Char (1)    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" >     </td>    <td class="tabdata" > 'N'    </td>    <td class="tabdata"  colspan="2"> S/N   </td>  </tr>
+</table>
+
+<div class="caption2">Indexes</div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+ 
+  <tr>
+    <td class="tabhead" > Index name    </td>    <td class="tabhead" > Columns    </td>    <td class="tabhead" > Unique    </td>    <td class="tabhead" > Descending    </td>    <td class="tabhead" > Clustered    </td>  </tr>
+  <tr>
+    <td class="tabdata" > IDX_SEG_LOGIN_FECHA    </td>    <td class="tabdata" > FECHA, CORREO    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" > NO   </td>  </tr>
+</table>
+
+<div class="caption2">User-defined variables</div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+ 
+  <tr>
+    <td class="tabhead"  width="50%"> Name    </td>    <td class="tabhead"  width="50%"> Value    </td>  </tr>
+  <tr>
+    <td class="tabdata" > Temporary Table    </td>    <td class="tabdata" > No    </td>  </tr>
+  <tr>
+    <td class="tabdata" > Inherited Tables    </td>    <td class="tabdata" >     </td>  </tr>
+  <tr>
+    <td class="tabdata" > Without OIDs    </td>    <td class="tabdata" > Yes    </td>  </tr>
+  <tr>
+    <td class="tabdata" > Schema    </td>    <td class="tabdata" >     </td>  </tr>
+  <tr>
+    <td class="tabdata" > Tablespace    </td>    <td class="tabdata" >     </td>  </tr>
+  <tr>
+    <td class="tabdata" > Using index tablespace (for Primary key)    </td>    <td class="tabdata" >    </td>  </tr>
+</table>
+
+ <br><br> 
+<a name = "Table_3"></a>
+<div class="caption1">SEG_ROL</div>
+<div class="caption2">Columns</div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+ 
+  <tr>
+    <td class="tabhead" > Key    </td>    <td class="tabhead" > Column name    </td>    <td class="tabhead" > Domain    </td>    <td class="tabhead" > Data type    </td>    <td class="tabhead" > Not null    </td>    <td class="tabhead" > Unique    </td>    <td class="tabhead" > Check    </td>    <td class="tabhead"  colspan="3"> Default    </td>  </tr>
+  <tr>
+    <td class="tabdata" > PK    </td>    <td class="tabdata" > ROL    </td>    <td class="tabdata" >     </td>    <td class="tabdata" > Varchar (100)    </td>    <td class="tabdata" > YES    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" >     </td>    <td class="tabdata"  colspan="3">     </td>  </tr>
+  <tr>
+    <td class="tabdata" >     </td>    <td class="tabdata" > USUARIO_REG    </td>    <td class="tabdata" >     </td>    <td class="tabdata" > Varchar (100)    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" >     </td>    <td class="tabdata"  colspan="3">     </td>  </tr>
+  <tr>
+    <td class="tabdata" >     </td>    <td class="tabdata" > FECHA_REG    </td>    <td class="tabdata" >     </td>    <td class="tabdata" > Timestamp    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" >     </td>    <td class="tabdata"  colspan="3">     </td>  </tr>
+  <tr>
+    <td class="tabdata" >     </td>    <td class="tabdata" > USUARIO_MOD    </td>    <td class="tabdata" >     </td>    <td class="tabdata" > Varchar (100)    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" >     </td>    <td class="tabdata"  colspan="3">     </td>  </tr>
+  <tr>
+    <td class="tabdata" >     </td>    <td class="tabdata" > FECHA_MOD    </td>    <td class="tabdata" >     </td>    <td class="tabdata" > Timestamp    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" >     </td>    <td class="tabdata"  colspan="3">    </td>  </tr>
+</table>
+
+<div class="caption2">Relationships</div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+ 
+  <tr>
+    <td class="tabhead" > Constraint (relationship) name    </td>    <td class="tabhead" > Relationship type    </td>    <td class="tabhead" > Parent table    </td>    <td class="tabhead" > Child table    </td>    <td class="tabhead" > Card.    </td>  </tr>
+  <tr>
+    <td class="tabdata" > Rel50 (Rel50)    </td>    <td class="tabdata" > Identifying    </td>    <td class="tabdata" > SEG_ROL    </td>    <td class="tabdata" > SEG_ROL_USUARIO    </td>    <td class="tabdata" > 1:N   </td>  </tr>
+</table>
+
+<div class="caption2">User-defined variables</div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+ 
+  <tr>
+    <td class="tabhead"  width="50%"> Name    </td>    <td class="tabhead"  width="50%"> Value    </td>  </tr>
+  <tr>
+    <td class="tabdata" > Temporary Table    </td>    <td class="tabdata" > No    </td>  </tr>
+  <tr>
+    <td class="tabdata" > Inherited Tables    </td>    <td class="tabdata" >     </td>  </tr>
+  <tr>
+    <td class="tabdata" > Without OIDs    </td>    <td class="tabdata" > Yes    </td>  </tr>
+  <tr>
+    <td class="tabdata" > Schema    </td>    <td class="tabdata" >     </td>  </tr>
+  <tr>
+    <td class="tabdata" > Tablespace    </td>    <td class="tabdata" >     </td>  </tr>
+  <tr>
+    <td class="tabdata" > Using index tablespace (for Primary key)    </td>    <td class="tabdata" >    </td>  </tr>
+</table>
+
+ <br><br> 
+<a name = "Table_1"></a>
+<div class="caption1">SEG_ROL_USUARIO</div>
+<div class="caption2">Columns</div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+ 
+  <tr>
+    <td class="tabhead" > Key    </td>    <td class="tabhead" > Column name    </td>    <td class="tabhead" > Domain    </td>    <td class="tabhead" > Data type    </td>    <td class="tabhead" > Not null    </td>    <td class="tabhead" > Unique    </td>    <td class="tabhead" > Check    </td>    <td class="tabhead"  colspan="3"> Default    </td>  </tr>
+  <tr>
+    <td class="tabdata" > PFK    </td>    <td class="tabdata" > ID_USUARIO    </td>    <td class="tabdata" >     </td>    <td class="tabdata" > Varchar (40)    </td>    <td class="tabdata" > YES    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" >     </td>    <td class="tabdata"  colspan="3">     </td>  </tr>
+  <tr>
+    <td class="tabdata" > PFK    </td>    <td class="tabdata" > ROL    </td>    <td class="tabdata" >     </td>    <td class="tabdata" > Varchar (100)    </td>    <td class="tabdata" > YES    </td>    <td class="tabdata" > NO    </td>    <td class="tabdata" >     </td>    <td class="tabdata"  colspan="3">    </td>  </tr>
+</table>
+
+<div class="caption2">Relationships</div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+ 
+  <tr>
+    <td class="tabhead" > Constraint (relationship) name    </td>    <td class="tabhead" > Relationship type    </td>    <td class="tabhead" > Parent table    </td>    <td class="tabhead" > Child table    </td>    <td class="tabhead" > Card.    </td>  </tr>
+  <tr>
+    <td class="tabdata" > R122 (R122)    </td>    <td class="tabdata" > Identifying    </td>    <td class="tabdata" > PER_USUARIO    </td>    <td class="tabdata" > SEG_ROL_USUARIO    </td>    <td class="tabdata" > 1:N    </td>  </tr>
+  <tr>
+    <td class="tabdata" > Rel50 (Rel50)    </td>    <td class="tabdata" > Identifying    </td>    <td class="tabdata" > SEG_ROL    </td>    <td class="tabdata" > SEG_ROL_USUARIO    </td>    <td class="tabdata" > 1:N   </td>  </tr>
+</table>
+
+<div class="caption2">Comments</div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+ 
+  <tr>
+    <td class="tabdata" > Antes: UL_UP   </td>  </tr>
+</table>
+
+<div class="caption2">User-defined variables</div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+ 
+  <tr>
+    <td class="tabhead"  width="50%"> Name    </td>    <td class="tabhead"  width="50%"> Value    </td>  </tr>
+  <tr>
+    <td class="tabdata" > Temporary Table    </td>    <td class="tabdata" > No    </td>  </tr>
+  <tr>
+    <td class="tabdata" > Inherited Tables    </td>    <td class="tabdata" >     </td>  </tr>
+  <tr>
+    <td class="tabdata" > Without OIDs    </td>    <td class="tabdata" > Yes    </td>  </tr>
+  <tr>
+    <td class="tabdata" > Schema    </td>    <td class="tabdata" >     </td>  </tr>
+  <tr>
+    <td class="tabdata" > Tablespace    </td>    <td class="tabdata" >     </td>  </tr>
+  <tr>
+    <td class="tabdata" > Using index tablespace (for Primary key)    </td>    <td class="tabdata" >    </td>  </tr>
+</table>
+
+ <br><br> 
+</body></html>

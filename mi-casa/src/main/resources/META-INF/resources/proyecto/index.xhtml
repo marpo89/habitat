@@ -1,0 +1,40 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:b="http://bootsfaces.net/ui"
+	template="../plantillas/admin-lte.xhtml">
+
+	<ui:define name="uiTituloVista">#{contenidoMiProyecto.titulo}</ui:define>
+
+	<ui:define name="uiBreadCrumb">
+		<ol class="breadcrumb">
+			<li><a href="#{request.contextPath}/index.xhtml">Inicio</a></li>
+			<li class="active">Mi Proyecto</li>
+		</ol>
+	</ui:define>
+	
+	<ui:define name="uiContenido">
+		<div class="row">
+			<b:column col-md="8" styleClass="top-media" rendered="#{contenidoMiProyecto.renderYoutube}">
+				<div class="embed-responsive embed-responsive-16by9">
+					<iframe class="embed-responsive-item" src="https://www.youtube.com/embed/#{contenidoMiProyecto.archivo.youtube}?rel=0"
+						allowfullscreen="allowfullscreen"></iframe>
+				</div>
+			</b:column>
+			
+			<b:column col-md="8" styleClass="top-media" rendered="#{contenidoMiProyecto.renderInfografia}">
+				<b:image name="infografia" styleClass="img-responsive center-block" value="#{contenidoMiProyecto.archivo.enlaceWeb}" />
+			</b:column>
+			
+			<div class="col-md-4 mb-20 top-media">
+				<h:outputText escape="false" value="#{contenidoMiProyecto.enlaces}" />
+			</div>
+			
+		</div>
+		
+		<ui:include src="../plantillas/publicidad.xhtml" />
+	</ui:define>
+	
+</ui:composition>

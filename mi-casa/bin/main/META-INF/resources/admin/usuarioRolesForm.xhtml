@@ -1,0 +1,74 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:b="http://bootsfaces.net/ui"
+	template="../plantillas/admin-lte.xhtml">
+	
+	<ui:define name="uiTituloVista">#{usuariosVista.tituloPagina}</ui:define>
+	
+	<ui:define name="uiBreadCrumb">
+		<ol class="breadcrumb">
+			<li><a href="#{request.contextPath}/index.xhtml">Inicio</a></li>
+			<li><a href="#{usuariosVista.enlaceListado}">Usuarios</a></li>
+			<li><a href="#{usuariosVista.enlaceUsuario}">#{usuariosVista.segUsuario.correo}</a></li>						
+			<li class="active">Nuevo Rol</li>
+			
+		</ol>
+	</ui:define>
+	
+	<ui:define name="uiContenido">
+				
+		<h:panelGroup style="display: none;">
+			<h:inputHidden value="#{usuariosVista.idRolUsuario}" id="idRolUsuario" label="" />
+		</h:panelGroup>
+		
+		<div class="row formulario-datos">
+			<!-- left column -->
+        	<div class="col-md-12">
+        
+				<div class="box box-primary">
+					<div class="box-header with-border">
+						<h3 class="box-title">Rol</h3>
+        			</div>
+        		
+        			<div class="box-body">
+        			
+       					<b:formGroup>
+       						<label>Rol</label>
+       						<b:selectOneMenu value="#{usuariosVista.rol}" label="">
+       							<f:selectItem itemLabel="" itemValue="" />
+       							<f:selectItems value="#{usuariosVista.roles}" var="roles" itemLabel="#{roles.rol}" itemValue="#{roles}" />
+       						</b:selectOneMenu>
+       					</b:formGroup>
+       					              			
+          			</div>
+      			</div>
+			</div>	
+			
+			
+		</div>
+		
+		<div class="row">
+			<div class="col-md-12">
+				<div class="box-footer">
+				   <button type="button" class="btn btn-danger" onclick="irA('#{usuariosVista.enlaceUsuario}');">Cancelar</button>
+                <b:commandButton value="Guardar" icon="save" look="primary" ajax="true" styleClass="pull-right"
+					actionListener="#{usuariosVista.guardarRegistroRolUsuario}" onerror="" onsuccess="irA('#{usuariosVista.enlaceUsuario}');"/>
+			
+              </div>
+              
+			</div>
+		</div>
+		
+		<div class="row">
+			<div class="col-md-12">&#160;</div>
+		</div>
+		
+		
+  		
+	
+	</ui:define>
+
+</ui:composition>

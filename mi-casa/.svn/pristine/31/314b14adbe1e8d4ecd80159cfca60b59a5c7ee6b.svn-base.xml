@@ -1,0 +1,92 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:b="http://bootsfaces.net/ui"
+	template="../plantillas/admin-lte.xhtml">
+	
+	<ui:define name="uiTituloVista">#{proyectosVista.tituloPagina}</ui:define>
+	
+	<ui:define name="uiBreadCrumb">
+		<ol class="breadcrumb">
+			<li><a href="#{request.contextPath}/index.xhtml">Inicio</a></li>
+			<li class="active">Proyectos</li>
+		</ol>
+	</ui:define>
+	
+	<ui:define name="uiContenido">
+		
+		<h:panelGroup style="display: none;">
+			<h:inputHidden value="#{proyectosVista.idProyecto}" id="idProyecto" label="" />
+		</h:panelGroup>
+		
+		<div class="row lista-datos">
+			<div class="col-xs-12">
+				<div class="box box-primary">
+					<div class="box-header with-border">
+						<h3 class="box-title">Lista de proyectos</h3>
+					</div>
+					<!-- /.box-header -->
+					<div class="box-body">
+							<b:buttonToolbar>
+								<b:buttonGroup>
+									<b:button icon-awesome="fa-edit" title="Gestionar Seleccionado" value="Gestionar"
+										onclick="if(marcarRegistroSeleccionado('#frm-idProyecto', tablaMaestro)) {irA('#{request.contextPath}/gestion/proyectoForm.xhtml?', 'idProyecto');}" />
+								</b:buttonGroup>
+							</b:buttonToolbar>
+						
+							<table id="proyectos" class="display responsive table table-bordered table-striped"></table>
+							
+						</div>
+						<!-- /.box-body -->
+					</div>
+					<!-- /.box -->
+				</div>
+				<!-- /.col -->
+		</div>
+		<!-- /.row -->
+			
+	<script type="text/javascript">
+	//<![CDATA[
+	var tablaMaestro;
+	$(document).ready(function() {
+		
+		tablaMaestro = $('#proyectos').DataTable( {
+		    "language": {
+	            "url": "#{request.contextPath}/js/DataTables/Spanish.json"
+	        },
+	        "processing": true,
+	        "serverSide": true,
+	        "ajax": {
+	            url: "#{request.contextPath}/gestion/proyectos.json",
+	            type: "POST"
+	        },
+	        "responsive": true,
+	        "pageLength": 100,
+	        "autoWidth": false,
+	        "order": [[ 1, 'desc' ]],
+	        "columnDefs": [ {
+	            "orderable": false,
+	            "className": 'select-checkbox',
+	            "targets": 0
+	        } ],
+	        "select": {
+	            "style": 'single',
+	        },
+	        "rowId": "identificador",
+	        "columns": [
+	        	{ "title": "", "defaultContent": "" },
+	            { "title": "Id", "data": "idProyecto" },	            
+	            { "title": "Usuario", "data": "duenio.nombres" },
+	            { "title": "T&#233;cnico", "data": "tecnico.nombres", "defaultContent": "" },
+	            { "title": "Estado", "data": "estado.nombre" },
+	        ]
+	    } );
+	} );
+	//]]>
+	</script>
+	</ui:define>
+    
+    
+</ui:composition>

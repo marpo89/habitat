@@ -1,0 +1,189 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:b="http://bootsfaces.net/ui"
+	xmlns:p="http://primefaces.org/ui"
+	template="../plantillas/admin-lte.xhtml">
+	
+	<ui:define name="uiTituloVista">Mi perfil</ui:define>
+
+	<ui:define name="uiBreadCrumb">
+		<ol class="breadcrumb">
+			<li><a href="#{request.contextPath}/index.xhtml">Inicio</a></li>
+			<li class="active">Mi perfil</li>
+		</ol>
+	</ui:define>
+
+	<ui:define name="uiContenido">
+
+		<div class="row formulario-datos">
+			<div class="col-md-6">
+
+				<div class="box box-primary">
+					<div class="box-header with-border">
+						<h3 class="box-title">Cambiar contrase&#241;a</h3>
+					</div>
+
+					<div class="box-body">
+
+						<b:formGroup>
+							<label>Nueva contrase&#241;a</label>
+       						<b:inputSecret id = "pass1" value="#{miPerfilVista.clave}" label="" render-label="false" autocomplete="off"/>
+						</b:formGroup>
+
+						<b:formGroup>
+							<label>Repetir contrase&#241;a</label>
+       						<b:inputSecret id = "pass2" value="#{miPerfilVista.clave2}" label="" render-label="false" autocomplete="off" />
+						</b:formGroup>
+					</div>
+				</div>
+				
+				<div class="box box-primary">
+					<div class="box-header with-border">
+						<h3 class="box-title">Mi imagen</h3>
+					</div>
+
+					<div class="box-body">
+						<b:image value="#{miPerfilVista.rutaAvatar}" id="avatar" styleClass="img-responsive center-block" />
+						
+						<b:formGroup>
+							<label>Cambiar imagen</label>
+							
+							<p:fileUpload label="" 
+								skinSimple="true" mode="advanced" auto="true" dragDropSupport="false"
+								sizeLimit="#{plantillaUIVista.sizeLimitAvatar}" allowTypes="/(\.|\/)(jpe?g|png)$/" accept=".jpg,.jpeg,.png"
+								fileUploadListener="#{miPerfilVista.subirArchivoAvatar}" update="frm-avatar"/>
+							<b:label text="[400 x 400 px]" severity="warning"/>						
+						</b:formGroup>
+					</div>
+				</div>
+				
+				<h:panelGroup layout="block" styleClass="box box-primary" rendered="#{miPerfilVista.perUsuario.nivel1}">
+					<div class="box-header with-border">
+						<h3 class="box-title">Mi proyecto</h3>
+					</div>
+
+					<div class="box-body">
+						<b:formGroup >
+							<b:button value="Obtenga informaci&#243;n de su proyecto" look="primary" 
+								onclick="irA('#{request.contextPath}/infoMiProyecto');" />
+						</b:formGroup>
+					</div>
+				</h:panelGroup>
+				
+			</div>
+
+			<div class="col-md-6">
+
+				<div class="box box-primary">
+					<div class="box-header with-border">
+						<h3 class="box-title">Datos personales</h3>
+					</div>
+
+					<div class="box-body">
+					
+						<b:formGroup>
+							<label>Correo</label>
+							<b:inputText placeholder="Correo electr&#243;nico" value="#{miPerfilVista.perUsuario.correo}"
+								mask="email" disabled="true" label="" render-label="false" />
+						</b:formGroup>
+
+						<b:formGroup>
+							<label>#{miPerfilVista.labelNombreUsuario}</label>
+							<b:inputText placeholder="Nombre del Usuario" autocomplete="off"
+							value="#{miPerfilVista.perUsuario.nombres}" label="" render-label="false" />
+						</b:formGroup>
+       					
+						<b:formGroup rendered="#{miPerfilVista.perUsuario.nivel1}">
+							<label>Sexo</label>
+							<b:selectOneMenu value="#{miPerfilVista.perUsuario.sexo}" label="">
+								<f:selectItem itemLabel="" itemValue="" />
+								<f:selectItem itemLabel="Masculino" itemValue="M" />
+								<f:selectItem itemLabel="Femenino" itemValue="F" />
+							</b:selectOneMenu>
+						</b:formGroup>
+
+						<b:formGroup rendered="#{miPerfilVista.perUsuario.nivel1}">
+							<label>Fecha de nacimiento</label>
+							<b:dateTimePicker value="#{miPerfilVista.perUsuario.fechaNacString}"
+								format="DD/MM/YYYY" locale="es" label="" render-label="false">
+								<f:converter converterId="bootFacesDateTimePickerConverter" />
+							</b:dateTimePicker>
+					
+						</b:formGroup>
+					</div>
+				</div>
+				
+				<div class="box box-primary">
+					<div class="box-header with-border">
+						<h3 class="box-title">Datos de contacto</h3>
+					</div>
+
+					<div class="box-body">
+
+						<b:formGroup rendered="#{miPerfilVista.perUsuario.nivel2 or miPerfilVista.perUsuario.admin}">
+       						<label>Persona de contacto</label>
+       						<b:inputText placeholder="Persona de contacto" autocomplete="off" value="#{miPerfilVista.perUsuario.contacto}" label="" render-label="false"/>
+       					</b:formGroup>	
+						
+						<b:formGroup>
+							<label>Direcci&#243;n principal</label>
+							<b:inputTextarea maxlength="500" placeholder="Direcci&#243;n"
+								value="#{miPerfilVista.perUsuario.direccionFisica}" label="" render-label="false" />
+						</b:formGroup>
+
+						<b:formGroup>
+							<label>Tel&#233;fono</label>
+							<b:inputText placeholder="Tel&#233;fono" value="#{miPerfilVista.perUsuario.telefonos}" label="" render-label="false" />
+						</b:formGroup>
+
+						<b:formGroup rendered="#{miPerfilVista.perUsuario.nivel1}">
+							<label>
+							Aseg&#250;rese que los datos de contacto est&#233;n correctos 
+							para no tener inconvenientes al momento de comunicarnos con usted.
+							</label>
+						</b:formGroup>
+						
+						<b:formGroup rendered="#{miPerfilVista.perUsuario.nivel2 or miPerfilVista.perUsuario.admin}">
+       						<label>Sitio Web</label>
+							<b:inputText placeholder="Sitio Web Propio" value="#{miPerfilVista.perUsuario.sitioWeb}" label="" render-label="false"/>
+       					</b:formGroup>
+       					
+						<b:formGroup rendered="#{miPerfilVista.perUsuario.nivel2 or miPerfilVista.perUsuario.admin}">
+							<label>Facebook</label>
+							<b:inputText placeholder="Facebook" value="#{miPerfilVista.perUsuario.facebook}" label="" render-label="false" />
+						</b:formGroup>
+
+						<b:formGroup rendered="#{miPerfilVista.perUsuario.nivel2 or miPerfilVista.perUsuario.admin}">
+							<label>Twitter</label>
+							<b:inputText placeholder="Twitter" value="#{miPerfilVista.perUsuario.twitter}" label="" render-label="false" />
+						</b:formGroup>
+
+						<b:formGroup rendered="#{miPerfilVista.perUsuario.nivel2 or miPerfilVista.perUsuario.admin}">
+							<label>Whatsapp</label>
+							<b:inputText placeholder="Whatsapp" value="#{miPerfilVista.perUsuario.whatsapp}" label="" render-label="false" />
+						</b:formGroup>
+					</div>
+				</div>
+			</div>
+
+		</div>
+
+		<div class="row">
+			<div class="col-md-12">
+				<div class="box-footer">
+					<button type="button" class="btn btn-danger"
+						onclick="irA('#{request.contextPath}/index.xhtml');">Cancelar</button>
+
+					<b:commandButton value="Actualizar" icon="save" look="primary"
+						ajax="true" styleClass="pull-right" update="@form"
+						actionListener="#{miPerfilVista.actualizarRegistro}" />
+				</div>
+			</div>
+		</div>
+
+	</ui:define>
+
+</ui:composition>

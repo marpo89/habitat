@@ -1,0 +1,359 @@
+/*
+Created		8/19/2018
+Modified		8/7/2019
+Project		MI CASA
+Model			
+Company		Habitat Nicaragua
+Author		IDEMSA
+Version		1
+Database		PostgreSQL 8.1 
+*/
+
+
+/* Create Tables */
+
+
+Create table SEG_ROL_USUARIO
+(
+	ID_USUARIO Varchar(40) NOT NULL,
+	ROL Varchar(100) NOT NULL,
+ primary key (ID_USUARIO,ROL)
+) Without Oids;
+
+
+Create table PER_USUARIO
+(
+	ID_USUARIO Varchar(40) NOT NULL,
+	CORREO Varchar(100) NOT NULL UNIQUE,
+	CLAVE Varchar(100),
+	ACTIVO Char(1) NOT NULL Default 'N',
+	CODIGO_ACTIVACION Varchar(255),
+	NOMBRES Varchar(255),
+	FECHA_NAC Date,
+	SEXO Char(1),
+	CONTACTO Varchar(255),
+	TELEFONOS Varchar(255),
+	DIRECCION_FISICA Text,
+	FACEBOOK Varchar(300),
+	TWITTER Varchar(300),
+	WHATSAPP Varchar(255),
+	SITIO_WEB Varchar(255),
+	IR_PERFIL Char(1) Default 'N',
+	AVATAR Varchar(255),
+	USUARIO_REG Varchar(100),
+	FECHA_REG Timestamp,
+	USUARIO_MOD Varchar(100),
+	FECHA_MOD Timestamp,
+ primary key (ID_USUARIO)
+) Without Oids;
+
+
+Create table SEG_ROL
+(
+	ROL Varchar(100) NOT NULL,
+	USUARIO_REG Varchar(100),
+	FECHA_REG Timestamp,
+	USUARIO_MOD Varchar(100),
+	FECHA_MOD Timestamp,
+ primary key (ROL)
+) Without Oids;
+
+
+Create table CMS_NODO
+(
+	ID_NODO BigSerial NOT NULL,
+	ID_CMS_TIPO_NODO Bigint NOT NULL,
+	TITULO Varchar(255) NOT NULL,
+	CONTENIDO Text,
+	ACTIVO Char(1) NOT NULL Default 'S',
+	ENLACE Varchar(1000),
+	SISTEMA Char(1) Default 'N',
+	USUARIO_REG Varchar(100),
+	FECHA_REG Timestamp,
+	USUARIO_MOD Varchar(100),
+	FECHA_MOD Timestamp,
+ primary key (ID_NODO)
+) Without Oids;
+
+
+Create table PER_DIRECCION
+(
+	ID_DIRECCION BigSerial NOT NULL,
+	ID_USUARIO Varchar(40) NOT NULL,
+	NOMBRE Varchar(255),
+	DIRECCION Text,
+	ID_LOCALIDAD Bigint,
+	LATITUD Double precision,
+	LONGITUD Double precision,
+	USUARIO_REG Varchar(100),
+	FECHA_REG Timestamp,
+	USUARIO_MOD Varchar(100),
+	FECHA_MOD Timestamp,
+ primary key (ID_DIRECCION)
+) Without Oids;
+
+
+Create table PRY_PROYECTO
+(
+	ID_PROYECTO BigSerial NOT NULL,
+	DESCRIPCION Text,
+	ID_PRY_FORMA_PAGO Bigint,
+	ID_BANCO Bigint,
+	FECHA_PAGO Date,
+	COMPROBANTE Varchar(255),
+	ESPACIOS_MEJORA Text,
+	MATERIALES_MEJORA Text,
+	PRESUPUESTO Char(1),
+	MONTO_PRESUPUESTO Numeric(30,2),
+	ID_MONEDA Bigint,
+	TIENE_ALBANIL Char(1),
+	PRESENTE_VISITA Char(1),
+	NOMBRE_PER_ATENCION_VISITA Varchar(255),
+	FECHA_HORA_DISPONIBLE Text,
+	ID_ESTADO Bigint NOT NULL,
+	ID_PRY_TIPO_SERVICIO Bigint,
+	USUARIO_DUENIO Varchar(40),
+	USUARIO_TECNICO Varchar(40),
+	USUARIO_REG Varchar(100),
+	FECHA_REG Timestamp,
+	USUARIO_MOD Varchar(100),
+	FECHA_MOD Timestamp,
+ primary key (ID_PROYECTO)
+) Without Oids;
+
+
+Create table CMS_ARCHIVO
+(
+	ID_ARCHIVO BigSerial NOT NULL,
+	ID_CMS_TIPO_ARCHIVO Bigint NOT NULL,
+	ID_PROYECTO Bigint,
+	ID_NODO Bigint,
+	TITULO Varchar(255),
+	ORDEN Integer Default 0,
+	YOUTUBE Varchar(255),
+	RUTA Varchar(1000),
+	COMENTARIO Text,
+	ACTIVO Char(1) NOT NULL Default 'S',
+	USUARIO_REG Varchar(100),
+	FECHA_REG Timestamp,
+	USUARIO_MOD Varchar(100),
+	FECHA_MOD Timestamp,
+ primary key (ID_ARCHIVO)
+) Without Oids;
+
+
+Create table CAT_MAESTRO
+(
+	ID_CAT_MAESTRO BigSerial NOT NULL,
+	TIPO_CATALOGO Varchar(100) NOT NULL,
+	NOMBRE Varchar(255) NOT NULL,
+	DESCRIPCION Text,
+	ACTIVO Char(1) NOT NULL Default 'S',
+	ORDEN Integer Default 0,
+	USUARIO_REG Varchar(100),
+	FECHA_REG Timestamp,
+	USUARIO_MOD Varchar(100),
+	FECHA_MOD Timestamp,
+ primary key (ID_CAT_MAESTRO)
+) Without Oids;
+
+
+Create table PRY_COMENTARIO
+(
+	ID_COMENTARIO BigSerial NOT NULL,
+	ID_PROYECTO Bigint NOT NULL,
+	CONTENIDO Text,
+	ACTIVO Char(1) NOT NULL Default 'S',
+	ID_COMENTARISTA Varchar(40) NOT NULL,
+	USUARIO_REG Varchar(100) NOT NULL,
+	FECHA_REG Timestamp,
+	USUARIO_MOD Varchar(100),
+	FECHA_MOD Timestamp,
+	VISTO Char(1) NOT NULL Default 'N',
+ primary key (ID_COMENTARIO)
+) Without Oids;
+
+
+Create table OFT_OFERTA
+(
+	ID_OFERTA BigSerial NOT NULL,
+	DUENIO Varchar(40) NOT NULL,
+	TITULO Varchar(255),
+	CONTENIDO Text,
+	INICIO Date,
+	FIN Date,
+	LIMITE_CANTIDAD Integer,
+	ARCHIVO1 Varchar(1000),
+	ARCHIVO2 Varchar(1000),
+	ARCHIVO3 Varchar(1000),
+	ACTIVO Char(1) NOT NULL Default 'S',
+	USUARIO_REG Varchar(100),
+	FECHA_REG Timestamp,
+	USUARIO_MOD Varchar(100),
+	FECHA_MOD Timestamp,
+ primary key (ID_OFERTA)
+) Without Oids;
+
+
+Create table OFT_USAR_OFERTA
+(
+	ID_USAR_OFERTA BigSerial NOT NULL,
+	ID_OFERTA Bigint NOT NULL,
+	ID_USUARIO Varchar(40) NOT NULL,
+	CODIGO Varchar(255) NOT NULL,
+	UTILIZADO Char(1) NOT NULL Default 'N',
+	USUARIO_REG Varchar(100),
+	FECHA_REG Timestamp,
+	USUARIO_MOD Varchar(100),
+	FECHA_MOD Timestamp,
+ primary key (ID_USAR_OFERTA)
+) Without Oids;
+
+
+Create table PER_CALIFICACION
+(
+	ID_CALIFICACION BigSerial NOT NULL,
+	PUNTAJE Integer NOT NULL Default 0,
+	COMENTARIO Text,
+	ID_PROVEEDOR Varchar(40) NOT NULL,
+	ID_AUTOR Varchar(40) NOT NULL,
+	USUARIO_REG Varchar(40) NOT NULL,
+	FECHA_REG Timestamp,
+	USUARIO_MOD Varchar(100),
+	FECHA_MOD Timestamp,
+ primary key (ID_CALIFICACION)
+) Without Oids;
+
+
+Create table SEG_LOGIN
+(
+	ID_LOGIN BigSerial NOT NULL,
+	FECHA Timestamp NOT NULL,
+	CORREO Varchar(100),
+	IP Varchar(100),
+	EXITOSO Char(1) Default 'N',
+ primary key (ID_LOGIN)
+) Without Oids;
+
+
+Create table PUB_PUBLICIDAD
+(
+	ID_ANUNCIO BigSerial NOT NULL,
+	ID_UBICACION_ANUNCIO Bigint NOT NULL,
+	INICIO Date,
+	FIN Date,
+	IMPRESIONES Bigint Default 0,
+	MAX_IMPRESIONES Bigint Default 0,
+	CLICKS Bigint Default 0,
+	MAX_CLICKS Bigint Default 0,
+	ACTIVO Char(1) Default 'N',
+	ENLACE Varchar(1000),
+	ARCHIVO1 Varchar(1000),
+	ARCHIVO2 Varchar(1000),
+	ARCHIVO3 Varchar(1000),
+	USUARIO_REG Varchar(100),
+	FECHA_REG Timestamp,
+	USUARIO_MOD Varchar(100),
+	FECHA_MOD Timestamp,
+ primary key (ID_ANUNCIO)
+) Without Oids;
+
+
+Create table CMS_CONTENIDO
+(
+	ID_CONTENIDO BigSerial NOT NULL,
+	TITULO Varchar(255) NOT NULL,
+	CONTENIDO Text,
+	DUENIO Varchar(40) NOT NULL,
+	ARCHIVO Varchar(1000),
+	YOUTUBE Varchar(255),
+	USUARIO_REG Varchar(100),
+	FECHA_REG Timestamp,
+	USUARIO_MOD Varchar(100),
+	FECHA_MOD Timestamp,
+ primary key (ID_CONTENIDO)
+) Without Oids;
+
+
+/* Create Tab 'Others' for Selected Tables */
+
+
+/* Create Indexes */
+Create index IDX_PER_USR_COD_A on PER_USUARIO using btree (CODIGO_ACTIVACION);
+Create index IDX_PER_USR_ACTIVO on PER_USUARIO using btree (ACTIVO,ID_USUARIO);
+Create index IDX_CMS_NODO_TITULO on CMS_NODO using btree (ACTIVO,TITULO);
+Create index IDX_CMS_TIPO_NODO on CMS_NODO using btree (ID_CMS_TIPO_NODO);
+Create index IDX_PER_DIRECCION_USUARIO on PER_DIRECCION using btree (ID_USUARIO);
+Create index IDX_PRY_USUARIO on PRY_PROYECTO using btree (USUARIO_DUENIO);
+Create index IDX_PRY_TECNICO on PRY_PROYECTO using btree (USUARIO_TECNICO);
+Create index IDX_CMS_ARCHIVO_USR on CMS_ARCHIVO using btree (USUARIO_REG);
+Create index IDX_CMS_ARCHIVO_NODO on CMS_ARCHIVO using btree (ID_NODO,ACTIVO,ORDEN);
+Create index IDX_CMS_ARCHIVO_TITULO on CMS_ARCHIVO using btree (TITULO);
+Create index IDX_CMS_ARCHIVO_PRY on CMS_ARCHIVO using btree (ID_PROYECTO,ACTIVO,ORDEN);
+Create unique index IDX_CAT_MAESTRO_UNQ on CAT_MAESTRO using btree (TIPO_CATALOGO,NOMBRE);
+Create index IDX_CAT_MAESTRO_NOMBRE on CAT_MAESTRO using btree (NOMBRE);
+Create index IDX_PRY_COMENT_PRY on PRY_COMENTARIO using btree (ID_PROYECTO,ACTIVO);
+Create index IDX_OFERTA_INICIO on OFT_OFERTA using btree (ACTIVO,INICIO);
+Create index IDX_OFERTA_FIN on OFT_OFERTA using btree (ACTIVO,FIN);
+Create unique index IDX_UNIQ on OFT_USAR_OFERTA using btree (ID_OFERTA,ID_USUARIO);
+Create unique index IDX_CODIGO on OFT_USAR_OFERTA using btree (CODIGO);
+Create index IDX_PER_CAL_USUARIO on PER_CALIFICACION using btree (ID_PROVEEDOR);
+Create index IDX_SEG_LOGIN_FECHA on SEG_LOGIN using btree (FECHA,CORREO);
+Create index IDX_ANUNCIO_INICIO on PUB_PUBLICIDAD using btree (ACTIVO,INICIO,ID_UBICACION_ANUNCIO);
+Create index IDX_ANUNCIO_FIN on PUB_PUBLICIDAD using btree (ACTIVO,FIN,ID_UBICACION_ANUNCIO);
+Create index IDX_CONTENIDO_DUENIO on CMS_CONTENIDO using btree (DUENIO);
+
+
+/* Create Foreign Keys */
+
+Alter table SEG_ROL_USUARIO add  foreign key (ID_USUARIO) references PER_USUARIO (ID_USUARIO) on update restrict on delete restrict;
+
+Alter table PER_DIRECCION add  foreign key (ID_USUARIO) references PER_USUARIO (ID_USUARIO) on update restrict on delete restrict;
+
+Alter table OFT_USAR_OFERTA add  foreign key (ID_USUARIO) references PER_USUARIO (ID_USUARIO) on update restrict on delete restrict;
+
+Alter table PER_CALIFICACION add  foreign key (ID_PROVEEDOR) references PER_USUARIO (ID_USUARIO) on update restrict on delete restrict;
+
+Alter table PER_CALIFICACION add  foreign key (USUARIO_REG) references PER_USUARIO (ID_USUARIO) on update restrict on delete restrict;
+
+Alter table PRY_PROYECTO add  foreign key (USUARIO_TECNICO) references PER_USUARIO (ID_USUARIO) on update restrict on delete restrict;
+
+Alter table PRY_PROYECTO add  foreign key (USUARIO_DUENIO) references PER_USUARIO (ID_USUARIO) on update restrict on delete restrict;
+
+Alter table PRY_COMENTARIO add  foreign key (ID_COMENTARISTA) references PER_USUARIO (ID_USUARIO) on update restrict on delete restrict;
+
+Alter table OFT_OFERTA add  foreign key (DUENIO) references PER_USUARIO (ID_USUARIO) on update restrict on delete restrict;
+
+Alter table PER_CALIFICACION add  foreign key (ID_AUTOR) references PER_USUARIO (ID_USUARIO) on update restrict on delete restrict;
+
+Alter table CMS_CONTENIDO add  foreign key (DUENIO) references PER_USUARIO (ID_USUARIO) on update restrict on delete restrict;
+
+Alter table SEG_ROL_USUARIO add  foreign key (ROL) references SEG_ROL (ROL) on update restrict on delete restrict;
+
+Alter table CMS_ARCHIVO add  foreign key (ID_NODO) references CMS_NODO (ID_NODO) on update restrict on delete restrict;
+
+Alter table PRY_COMENTARIO add  foreign key (ID_PROYECTO) references PRY_PROYECTO (ID_PROYECTO) on update restrict on delete restrict;
+
+Alter table CMS_ARCHIVO add  foreign key (ID_PROYECTO) references PRY_PROYECTO (ID_PROYECTO) on update restrict on delete restrict;
+
+Alter table PRY_PROYECTO add  foreign key (ID_ESTADO) references CAT_MAESTRO (ID_CAT_MAESTRO) on update restrict on delete restrict;
+
+Alter table PRY_PROYECTO add  foreign key (ID_PRY_TIPO_SERVICIO) references CAT_MAESTRO (ID_CAT_MAESTRO) on update restrict on delete restrict;
+
+Alter table CMS_NODO add  foreign key (ID_CMS_TIPO_NODO) references CAT_MAESTRO (ID_CAT_MAESTRO) on update restrict on delete restrict;
+
+Alter table PUB_PUBLICIDAD add  foreign key (ID_UBICACION_ANUNCIO) references CAT_MAESTRO (ID_CAT_MAESTRO) on update restrict on delete restrict;
+
+Alter table CMS_ARCHIVO add  foreign key (ID_CMS_TIPO_ARCHIVO) references CAT_MAESTRO (ID_CAT_MAESTRO) on update restrict on delete restrict;
+
+Alter table PER_DIRECCION add  foreign key (ID_LOCALIDAD) references CAT_MAESTRO (ID_CAT_MAESTRO) on update restrict on delete restrict;
+
+Alter table PRY_PROYECTO add  foreign key (ID_PRY_FORMA_PAGO) references CAT_MAESTRO (ID_CAT_MAESTRO) on update restrict on delete restrict;
+
+Alter table PRY_PROYECTO add  foreign key (ID_BANCO) references CAT_MAESTRO (ID_CAT_MAESTRO) on update restrict on delete restrict;
+
+Alter table PRY_PROYECTO add  foreign key (ID_MONEDA) references CAT_MAESTRO (ID_CAT_MAESTRO) on update restrict on delete restrict;
+
+Alter table OFT_USAR_OFERTA add  foreign key (ID_OFERTA) references OFT_OFERTA (ID_OFERTA) on update restrict on delete cascade;
+
+

@@ -1,0 +1,74 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:b="http://bootsfaces.net/ui"
+	xmlns:p="http://primefaces.org/ui"
+	template="../plantillas/admin-lte.xhtml">
+	
+	<ui:define name="uiTituloVista">Validar cup&#243;n oferta</ui:define>
+	
+	<ui:param name="formEnctype" value="multipart/form-data" />
+	
+	<ui:define name="uiBreadCrumb">
+		<ol class="breadcrumb">
+			<li><a href="#{request.contextPath}/index.xhtml">Inicio</a></li>
+			<f:verbatim rendered="#{menuVista.menuVisible['ofertas']}">
+				<li><a href="#{request.contextPath}/gestion/ofertas.xhtml">Admin ofertas</a></li>
+			</f:verbatim>
+			<li class="active">Validar cup&#243;n oferta</li>
+		</ol>
+	</ui:define>
+	
+	<ui:define name="uiContenido">
+		
+		<div class="row formulario-datos">
+        	<div class="col-md-8 col-md-offset-2">
+				<div class="box box-primary">
+        			<div class="box-body">
+       					<b:formGroup>
+       						<label>C&#243;digo cup&#243;n</label>
+       						<b:inputText value="#{validarOfertasVista.codigoCuponOferta}" label="" render-label="false" autocomplete="off"/>
+       						
+       						<b:commandButton value="Validar" look="primary" ajax="true" 
+			                	actionListener="#{validarOfertasVista.validarOferta}" update="frm-detalleCupon" />
+
+       					</b:formGroup>
+
+          			</div>
+      			</div>
+			</div>
+		</div>
+
+		<b:row id="detalleCupon">
+			<b:column col-md="12" rendered="#{validarOfertasVista.detalleCuponVisible}">
+				<div class="box box-primary">
+        			<div class="box-body">
+       					<b:formGroup rendered="#{not validarOfertasVista.cuponEncontrado}">
+       						<label>C&#243;digo de cup&#243;n no encontrado.</label>
+       					</b:formGroup>
+       					<b:formGroup rendered="#{validarOfertasVista.cuponEncontrado}">
+       						<label>
+       						El cup&#243;n #{validarOfertasVista.oftCupon.codigo} es v&#225;lido, 
+       						fue generado por #{validarOfertasVista.oftCupon.usuario.nombres}. 
+       						</label>
+       						<label>
+       						Fecha y hora de creaci&#243;n: #{validarOfertasVista.oftCupon.auditoria.fechaRegUI}.
+       						</label>
+       						<label>
+       						Oferta: ##{validarOfertasVista.oftCupon.oferta.idOferta} #{validarOfertasVista.oftCupon.oferta.titulo}.
+       						</label>       						
+       					</b:formGroup>
+          			</div>
+      			</div>
+			</b:column>
+		</b:row>
+		
+		<div class="row">
+			<div class="col-md-12">&#160;</div>
+		</div>
+		
+	</ui:define>
+
+</ui:composition>

@@ -1,0 +1,13 @@
+#!/bin/sh
+
+fecha=`date +%Y%m%d`
+
+mkdir $fecha
+cd $fecha
+
+pg_dump -h localhost --no-owner -U micasa -W micasa > BdMiCasa$fecha.sql
+pg_dump -Fc -h localhost --no-owner -U micasa -W micasa > BdMiCasa$fecha.backup
+bzip2 BdMiCasa$fecha.sql
+
+sudo tar -cvjf archivos_micasa_com_ni$fecha.tar.bz2 /home/archivos_micasa_com_ni
+sudo tar -cvjf tomcat_micasa_com_ni$fecha.tar.bz2 /opt/tomcat

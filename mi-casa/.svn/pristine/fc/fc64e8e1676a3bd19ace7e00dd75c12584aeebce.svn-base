@@ -1,0 +1,77 @@
+buildscript {
+	ext {
+		springBootVersion = '1.5.10.RELEASE'
+	}
+	repositories {
+		mavenCentral()
+	}
+	dependencies {
+		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+	}
+}
+
+apply plugin: 'java'
+apply plugin: 'eclipse-wtp'
+apply plugin: 'org.springframework.boot'
+apply plugin: 'war'
+
+group = 'org.habitatnicaragua.micasa'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = 1.8
+
+repositories {
+	mavenCentral()
+	maven { url "http://repository.primefaces.org" }	
+    jcenter()
+}
+
+configurations {
+	providedRuntime
+}
+
+dependencies {
+	compile fileTree(dir: 'libs', include: ['*.jar'])
+
+	runtime('org.postgresql:postgresql')
+
+	compile('org.joinfaces:jsf-spring-boot-starter:2.4.1')
+	compile('org.joinfaces:jsf-bootsfaces-spring-boot-starter:2.4.1')
+	compile('net.bootsfaces:bootsfaces:1.2.0')
+	compile('org.primefaces.extensions:all-themes:1.0.8')
+	compile('net.sf.barcode4j:barcode4j-light:2.0')
+	compile('net.glxn:qrgen:1.4')
+	
+	
+	
+	compile('org.springframework.boot:spring-boot-starter-data-jpa')
+	compile('org.springframework.boot:spring-boot-starter-web')
+	compile('org.springframework.boot:spring-boot-starter-security')
+	compile('org.springframework.boot:spring-boot-starter-mail')
+
+	compile('javax.inject:javax.inject:1')
+	compile('org.apache.commons:commons-lang3:3.7')
+	//compile('org.apache.commons:commons-text:1.6')
+	
+	compile('p6spy:p6spy:3.6.0')
+	
+	//compile('com.octo.captcha:jcaptcha:1.0')
+	compile('com.octo.captcha:jcaptcha:1.0'){
+		exclude group: 'javax.servlet', module: 'servlet-api' 
+    	// /commons-logging-1.0.4.pom
+	}
+
+	compile('net.coobird:thumbnailator:0.4.8')
+
+	compile('org.jsoup:jsoup:1.11.3')
+	compile('com.google.guava:guava:27.0.1-jre')
+	
+	compileOnly('org.projectlombok:lombok')
+
+	//https://docs.jboss.org/hibernate/orm/5.0/topical/html/metamodelgen/MetamodelGenerator.html
+	//https://javabeat.net/jpa-2-metamodel-eclipse/
+	//compileOnly('org.hibernate:hibernate-jpamodelgen:5.2.15.Final')
+	
+	providedRuntime('org.springframework.boot:spring-boot-starter-tomcat')
+	
+	testCompile('org.springframework.boot:spring-boot-starter-test')
+}

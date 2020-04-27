@@ -1,0 +1,57 @@
+package org.habitatnicaragua.micasa.seguridad;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
+
+import javax.inject.Inject;
+
+import org.habitatnicaragua.micasa.dao.PerUsuarioDao;
+import org.habitatnicaragua.micasa.modelo.PerUsuario;
+import org.habitatnicaragua.micasa.modelo.SegRol;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.stereotype.Service;
+
+@Service
+public class DetalleUsuarioServicio implements UserDetailsService {
+
+	@Inject
+	private PerUsuarioDao perUsuarioDao;
+	
+	@Override
+	public UserDetails loadUserByUsername(String correo) throws UsernameNotFoundException {
+		
+		PerUsuario usuario = perUsuarioDao.buscarUsuarioPorCorreo(correo);
+		
+		if(usuario == null) {
+			throw new UsernameNotFoundException("Error: " + correo);
+		}
+		
+		// ROLE_
+		// Create a granted authority based on user's role.
+		List<GrantedAuthority> rolesSpring = new ArrayList<>();
+		
+		Set<SegRol> roles = usuario.getRoles();
+		if(roles!=null && roles.size()>0) {
+			for(SegRol segRol:roles) {
+				String springRole = "ROLE_";
+				springRole += segRol.getRol();
+				
+				rolesSpring.add(new SimpleGrantedAuthority(springRole));
+			}
+		} else {
+			throw new UsernameNotFoundException("Error: " + correo);
+		}
+		
+		// Create a UserDetails object from the data
+		UserDetails detalleUsuario = new User(usuario.getCorreo(), usuario.getClave(), rolesSpring);
+		
+		return detalleUsuario;
+	}
+
+}

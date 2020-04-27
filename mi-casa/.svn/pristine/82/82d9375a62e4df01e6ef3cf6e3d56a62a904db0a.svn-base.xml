@@ -1,0 +1,136 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:b="http://bootsfaces.net/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+	
+<h:head>
+	<f:facet name="first">
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	</f:facet>
+
+	<!-- Global site tag (gtag.js) - Google Analytics -->
+	<script async="async" src="https://www.googletagmanager.com/gtag/js?id=#{plantillaUIVista.googleAnalyticsCode}"></script>
+	<script>
+	  window.dataLayer = window.dataLayer || [];
+	  function gtag(){dataLayer.push(arguments);}
+	  gtag('js', new Date());
+	
+	  gtag('config', '#{plantillaUIVista.googleAnalyticsCode}');
+	</script>
+	
+	<!-- Tell the browser to be responsive to screen width -->
+	<!-- Bootstrap 3.3.7 -->
+	<link rel="stylesheet"
+		href="#{request.contextPath}/AdminLTE/bower_components/bootstrap/dist/css/bootstrap.min.css" />
+	<!-- Font Awesome -->
+	<!-- Ionicons -->
+	<link rel="stylesheet"
+		href="#{request.contextPath}/AdminLTE/bower_components/Ionicons/css/ionicons.min.css" />
+	<!-- Theme style -->
+	<link rel="stylesheet" href="#{request.contextPath}/AdminLTE/dist/css/AdminLTE-micasa.css" />
+	<!-- AdminLTE Skins. Choose a skin from the css/skins
+       folder instead of downloading all of them to reduce the load. -->
+	<link rel="stylesheet" href="#{request.contextPath}/AdminLTE/dist/css/skins/skin-blue-light-micasa.css" />
+
+	<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+	<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+	<!--[if lt IE 9]>
+	<script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+	<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+	<![endif]-->
+
+	<meta name="description" content="#{plantillaUIVista.descripcionApp}" />
+	<meta name="author" content="#{plantillaUIVista.autorApp}" />
+	<meta name="robots" content="index, follow" />
+	
+	<link rel="shortcut icon" href="#{request.contextPath}/favicon.ico" />
+	
+	<title>..:: #{plantillaUIVista.nombreApp} ::.</title>
+	<link rel="stylesheet" type="text/css" href="#{request.contextPath}/css/login.css" />
+</h:head>
+
+<h:body class="hold-transition login-page">
+
+	<div class="login-box">
+	  <div class="login-logo">
+	    <a href="#{request.contextPath}/index.xhtml">
+			<img src="#{request.contextPath}/img/logo_habitat_nicaragua.png" alt="#{plantillaUIVista.nombreApp}" class="img-responsive center-block" /></a>
+	  </div>
+
+	  <div class="login-box-body">
+	  	<h4>
+			<b:label text="Usuario o contrase&#241;a inv&#225;lida." styleClass="label-block" 
+				severity="warning" rendered="#{loginVista.mostrarMensajeError}" />
+		</h4>
+		<h4>
+			<b:label text="Revise su correo para continuar." styleClass="label-block" 
+				severity="warning" rendered="#{loginVista.mostrarMensajeRevisarCorreo}" />
+		</h4>
+		<h4>
+			<b:label text="Su cuenta ha sido activada." styleClass="label-block" 
+				severity="warning" rendered="#{loginVista.mostrarMensajeCuentaActivada}" />
+		</h4>
+		
+		<h:form prependId="false" onsubmit="return validar()">
+			
+			<h:panelGroup style="display: none;">
+				<h:inputHidden value="#{param['desdeLugar']}" id="desdeLugar" label="" />
+				<h:inputHidden value="#{param['idLugar']}" id="idLugar" label="" />
+			</h:panelGroup>
+			
+			<div class="form-group has-feedback">
+				<b:inputText id="username" name="username"
+					styleClass="form-control" placeholder="Correo" required="true">
+					<f:facet name="prepend">
+						<b:icon name="user" />
+					</f:facet>
+				</b:inputText>
+			</div>
+			<div class="form-group has-feedback">
+				<b:inputText id="password" name="password"
+					styleClass="form-control" placeholder="Contrase&#241;a"
+					type="password" required="true">
+					<f:facet name="prepend">
+						<b:iconAwesome name="key" />
+					</f:facet>
+				</b:inputText>
+			</div>
+			<div class="form-group has-feedback">
+				<b:selectBooleanCheckbox caption="Recordar mis datos" name="rememberme" id="rememberme" />
+			</div>
+			<div class="form-group has-feedback">
+				<b:commandButton look="primary btn-block" value="Entrar" size="lg" />
+			</div>
+		</h:form>
+	
+		<ul>
+		<li><a href="#{request.contextPath}/publico/recuperar.xhtml" class="text-center">Recuperar contrase&#241;a olvidada</a></li>
+	    <li><a href="#{request.contextPath}/publico/registro.xhtml" class="text-center">Crear nueva cuenta</a></li>
+		<li><a href="#{request.contextPath}/index.xhtml" class="text-center">Inicio</a></li>
+		</ul>
+	  </div>
+
+	</div>
+
+	<!-- Bootstrap 3.3.7 -->
+	<script src="#{request.contextPath}/AdminLTE/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+	
+	<script type="text/javascript">
+	//<![CDATA[
+	function validar(){
+		if($.trim($('#input_username').val())=='' || $.trim($('#input_password').val())==''){
+			alert('Todos los campos son requeridos.');
+			return false;
+		}
+		
+		return true;
+	}
+	//]]>
+	</script>
+	
+</h:body>
+</html>

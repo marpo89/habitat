@@ -1,0 +1,37 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:b="http://bootsfaces.net/ui">
+	
+	<div class="row-spacer"></div>
+		
+		<b:row rendered="#{publicidadUsuarioVista.visiblePublicidadInterna}">
+			<div class="col-lg-12 col-xs-12 mb-20">
+				<div class="carousel slide" id="d4d1c1l8up">
+					<a href="#{request.contextPath}/enlazar/d4d1c1l8up/#{publicidadUsuarioVista.publicidadInterna.idPublicidad}" class="carousel-inner" style="display:block">
+						<h:panelGroup layout="block" styleClass="item #{publicidadUsuarioVista.activoCarrusel}" rendered="#{publicidadUsuarioVista.publicidadInterna.archivo1Disponible}">
+							<img src="#{publicidadUsuarioVista.publicidadInterna.rutaWebArchivo1}" class="img-responsive center-block" />
+						</h:panelGroup>
+						<h:panelGroup layout="block" styleClass="item #{publicidadUsuarioVista.activoCarrusel}" rendered="#{publicidadUsuarioVista.publicidadInterna.archivo2Disponible}">
+							<img src="#{publicidadUsuarioVista.publicidadInterna.rutaWebArchivo2}" class="img-responsive center-block" />
+						</h:panelGroup>
+						<h:panelGroup layout="block" styleClass="item #{publicidadUsuarioVista.activoCarrusel}" rendered="#{publicidadUsuarioVista.publicidadInterna.archivo3Disponible}">
+							<img src="#{publicidadUsuarioVista.publicidadInterna.rutaWebArchivo3}" class="img-responsive center-block" />
+						</h:panelGroup>
+					</a>
+				</div>
+			</div>
+		</b:row>
+		<script type="text/javascript">
+		//<![CDATA[
+			$(document).ready(function() {
+	            $('#d4d1c1l8up').carousel({
+	                interval:   3000
+	            });
+	        });
+		//]]>
+		</script>
+
+</ui:composition>

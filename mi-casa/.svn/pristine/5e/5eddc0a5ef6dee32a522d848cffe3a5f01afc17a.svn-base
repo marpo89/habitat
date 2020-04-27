@@ -1,0 +1,170 @@
+https://wiki.centos.org/es/HowTos/Https
+https://www.liquidweb.com/kb/generating-certificate-signing-request-csr/
+
+[root@t620 ~]# mv csr-micasa-2019/ csr-borrar-prueba1
+
+[root@t620 ~]# yum install mod_ssl openssl
+[root@t620 ~]# mkdir csr-www-micasa-2019
+[root@t620 ~]# cd csr-www-micasa-2019/
+
+[root@t620 csr-www-micasa-2019]#  openssl req -new -newkey rsa:2048 -nodes -keyout www_micasa_com_ni.key -out www_micasa_com_ni.csr
+
+Generating a 2048 bit RSA private key
+........................................................................................................................+++
+..................................................................+++
+writing new private key to 'www_micasa_com_ni.key'
+-----
+You are about to be asked to enter information that will be incorporated
+into your certificate request.
+What you are about to enter is what is called a Distinguished Name or a DN.
+There are quite a few fields but you can leave some blank
+For some fields there will be a default value,
+If you enter '.', the field will be left blank.
+-----
+Country Name (2 letter code) [XX]:NI
+State or Province Name (full name) []:Managua
+Locality Name (eg, city) [Default City]:Managua
+Organization Name (eg, company) [Default Company Ltd]:Habitat para la Humanidad Nicaragua
+Organizational Unit Name (eg, section) []:Habitat para la Humanidad Nicaragua
+Common Name (eg, your name or your server's hostname) []:www.micasa.com.ni
+Email Address []:jrosales@habitatnicaragua.org
+
+Please enter the following 'extra' attributes
+to be sent with your certificate request
+A challenge password []:M1C$Z$2019
+An optional company name []:micasa.com.ni
+
+
+[root@t620 csr-www-micasa-2019]# pwd
+/root/csr-www-micasa-2019
+
+[root@t620 csr-www-micasa-2019]# ls
+AlphaSSL-Intermediate-CA.crt  CertificadoSSL-www.micasa.com.ni.crt  www_micasa_com_ni.csr  www_micasa_com_ni.key
+
+
+[root@t620 csr-www-micasa-2019]# cat www_micasa_com_ni.key 
+-----BEGIN PRIVATE KEY-----
+MIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQCp78c85+5Xy24G
+i7DDhXFUT6PSvhkGpjie/l1WAFMDEaglPyIBE4N5KUFtWkIXs36ToJhAOIsQMnSV
+osRGpxZ/NfMo4kW50bdzCmA9Imh+YqJ+J5lWQZ5Uej++duRGyTJClMJzQXG1Pn48
+6Bbmluydu5CkuHiszAohkTXT/EGFO19bJ22ksidZ7m07DIXam5+OnpDbSYTDA0nC
+8h3FCZTl5JqmgeELbpMOaoJ0gUQw0YoMZ/i+9Py1nbm9dftC3M8iATn2OSwmPuro
++863wqNRi/Sglgv+9xBaRo4i7O/NVFsT4vlJMznUcuY8MxnfqHg+0zLIL6++L0NG
+fA9vTJmbAgMBAAECggEAc0Nz/FfETkBpbH8rcjL835b1I2hVSTFNjmoxnLezlo1P
+Y5Qi2GAH+RKGkkl6MuFIpZF0M3smt+HBOg2g29tRYw+Q0tZHPPaGW71Z8Z15CuCU
+HsV1OBBh+CLDQckapPiq4oZMLijhm3G75kv13InaDFLAlTmagHoVFReNTy/2sQqt
+RRcsvd7dY7ulN7D+R+e4092aQgxH0J5+c3BzL9a0KDMQ7hMMVLLWtlGxGsEk0WZC
+hzVhEol0/UNgfqAHSvuIdqjbGz2H7LlZM6CkYZ42RrKo6NkSNWtYWctyoRG5yAJB
+3gXOgHmBmTTARSmuBMF4YWJTGjXhudFZEnG/PR/jQQKBgQDY52xseCaeXUEzEBDx
+zWd6SUoRJ2imWUxNvCZpz6ts63Q5lqCiotH7gUAxx5u65olf3/q/H2Cdd5PD5lTq
+bmiZBHhYlxasbPp0tuGi0eic3/4a4QgPD5CmBsO5JAneJl6BWgPwS6bzkzY+pXvt
+VJThUxcK3CVt6gq3WPNg+lHFowKBgQDIkSUfC7iNR6FP5Q40AkvMp0P4QKMk96B1
+5jqhLrGXx1lzpUTcaiMIsrBRwWio/wc/3XWhs2wPxnTcU++G8Qxp+uF9cMbX2MYB
+a5EPhwUsIBfWx4loxpgd9H0GRFDRyULHu7dLe4JbYubzsF3SXbLJDdAUULO75gwQ
+zRscttJrqQKBgBKLPo7LeunBKUjXT8uMdxNSXr22s9C9A7QFqPcU5SALxUUDJrqg
+1vj8pONcoGjLOuVyfbqHUThFN+HguFPOmqyyYCOazzpwmr0NwZ6s+Ykn8U6U/J5l
+A0XegC888IcImr3OV1Xc8eoTJOkYNs8kkxHsi6THC4ApKT9hoHUjEYinAoGActih
+7/gPMl784LnheyiBbOuugP3KLYXaDQjLM7aAHNAayZyuJKRl8ToYuofMPVDjPs+5
+5uDNlO7nxa4Oby+iEyGEcwbb5YcMQo3sn36KGK072VGivitRuX1hBfCicq4THjnA
+CGntyBSG+K1Z2/apRHUzXB6l/IcLC6fWyYdqUBkCgYAQ9+spgEmeIAH9/tcfZ28X
+3ytTLQGceLTHDP/5g/eaB3wz9yybCiYtTAfNMmyhsk43r7+Zb7ecv7oQLGUTgccy
+FTjBZKJ79yMvseLHqqjqWMnYY85yco/Ca4wsXvDKL9dIAuVOAjvS1hhS1UVK7PgS
+MXt5HYc/kX/Z3LHFs7BYSA==
+-----END PRIVATE KEY-----
+
+
+[root@t620 csr-micasa-2019]# cat www_micasa_com_ni.csr 
+-----BEGIN CERTIFICATE REQUEST-----
+MIIDVjCCAj4CAQAwgdcxCzAJBgNVBAYTAk5JMRAwDgYDVQQIDAdNYW5hZ3VhMRAw
+DgYDVQQHDAdNYW5hZ3VhMSwwKgYDVQQKDCNIYWJpdGF0IHBhcmEgbGEgSHVtYW5p
+ZGFkIE5pY2FyYWd1YTEsMCoGA1UECwwjSGFiaXRhdCBwYXJhIGxhIEh1bWFuaWRh
+ZCBOaWNhcmFndWExGjAYBgNVBAMMEXd3dy5taWNhc2EuY29tLm5pMSwwKgYJKoZI
+hvcNAQkBFh1qcm9zYWxlc0BoYWJpdGF0bmljYXJhZ3VhLm9yZzCCASIwDQYJKoZI
+hvcNAQEBBQADggEPADCCAQoCggEBAKnvxzzn7lfLbgaLsMOFcVRPo9K+GQamOJ7+
+XVYAUwMRqCU/IgETg3kpQW1aQhezfpOgmEA4ixAydJWixEanFn818yjiRbnRt3MK
+YD0iaH5ion4nmVZBnlR6P7525EbJMkKUwnNBcbU+fjzoFuaW7J27kKS4eKzMCiGR
+NdP8QYU7X1snbaSyJ1nubTsMhdqbn46ekNtJhMMDScLyHcUJlOXkmqaB4Qtukw5q
+gnSBRDDRigxn+L70/LWdub11+0LczyIBOfY5LCY+6uj7zrfCo1GL9KCWC/73EFpG
+jiLs781UWxPi+UkzOdRy5jwzGd+oeD7TMsgvr74vQ0Z8D29MmZsCAwEAAaA5MBkG
+CSqGSIb3DQEJBzEMDApNMUMkWiQyMDE5MBwGCSqGSIb3DQEJAjEPDA1taWNhc2Eu
+Y29tLm5pMA0GCSqGSIb3DQEBCwUAA4IBAQBo+Plm8BXKcIRp4Fm7LfNYuymTfCHy
+IE/1LbBjjWk6F/UMS9qWe+OViH++4Qh5jUdxP1I9CtLG6+4hITW7yKrDvvBqOxM9
+bbUvykWXpy371iubcMPhFWCY+eXfsTknLYoPPiHeGs4Gv22A2JS5c6n7ayLOrHMZ
+Rg+GGe7DHlhSeP3tr++uPnnJOUnEIDh3JUg9IlvRKV7EvARHCTbcpjc1z+uZNnbb
+BfFU/rF8nLv0yYrdzMxsZTnPYayQx7gQWVwesqxvc7pJpxwOHRqApzMBo2LD8LNa
+9D3B8Dl3n++S1yzLd5IVSBly/aDnkv5iWYRvFBzGiLVEx57eo7KOQaI2
+-----END CERTIFICATE REQUEST-----
+
+
+[root@t620 csr-micasa-2019]# cat AlphaSSL-Intermediate-CA.crt 
+-----BEGIN CERTIFICATE-----
+MIIETTCCAzWgAwIBAgILBAAAAAABRE7wNjEwDQYJKoZIhvcNAQELBQAwVzELMAkG
+A1UEBhMCQkUxGTAXBgNVBAoTEEdsb2JhbFNpZ24gbnYtc2ExEDAOBgNVBAsTB1Jv
+b3QgQ0ExGzAZBgNVBAMTEkdsb2JhbFNpZ24gUm9vdCBDQTAeFw0xNDAyMjAxMDAw
+MDBaFw0yNDAyMjAxMDAwMDBaMEwxCzAJBgNVBAYTAkJFMRkwFwYDVQQKExBHbG9i
+YWxTaWduIG52LXNhMSIwIAYDVQQDExlBbHBoYVNTTCBDQSAtIFNIQTI1NiAtIEcy
+MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA2gHs5OxzYPt+j2q3xhfj
+kmQy1KwA2aIPue3ua4qGypJn2XTXXUcCPI9A1p5tFM3D2ik5pw8FCmiiZhoexLKL
+dljlq10dj0CzOYvvHoN9ItDjqQAu7FPPYhmFRChMwCfLew7sEGQAEKQFzKByvkFs
+MVtI5LHsuSPrVU3QfWJKpbSlpFmFxSWRpv6mCZ8GEG2PgQxkQF5zAJrgLmWYVBAA
+cJjI4e00X9icxw3A1iNZRfz+VXqG7pRgIvGu0eZVRvaZxRsIdF+ssGSEj4k4HKGn
+kCFPAm694GFn1PhChw8K98kEbSqpL+9Cpd/do1PbmB6B+Zpye1reTz5/olig4het
+ZwIDAQABo4IBIzCCAR8wDgYDVR0PAQH/BAQDAgEGMBIGA1UdEwEB/wQIMAYBAf8C
+AQAwHQYDVR0OBBYEFPXN1TwIUPlqTzq3l9pWg+Zp0mj3MEUGA1UdIAQ+MDwwOgYE
+VR0gADAyMDAGCCsGAQUFBwIBFiRodHRwczovL3d3dy5hbHBoYXNzbC5jb20vcmVw
+b3NpdG9yeS8wMwYDVR0fBCwwKjAooCagJIYiaHR0cDovL2NybC5nbG9iYWxzaWdu
+Lm5ldC9yb290LmNybDA9BggrBgEFBQcBAQQxMC8wLQYIKwYBBQUHMAGGIWh0dHA6
+Ly9vY3NwLmdsb2JhbHNpZ24uY29tL3Jvb3RyMTAfBgNVHSMEGDAWgBRge2YaRQ2X
+yolQL30EzTSo//z9SzANBgkqhkiG9w0BAQsFAAOCAQEAYEBoFkfnFo3bXKFWKsv0
+XJuwHqJL9csCP/gLofKnQtS3TOvjZoDzJUN4LhsXVgdSGMvRqOzm+3M+pGKMgLTS
+xRJzo9P6Aji+Yz2EuJnB8br3n8NA0VgYU8Fi3a8YQn80TsVD1XGwMADH45CuP1eG
+l87qDBKOInDjZqdUfy4oy9RU0LMeYmcI+Sfhy+NmuCQbiWqJRGXy2UzSWByMTsCV
+odTvZy84IOgu/5ZR8LrYPZJwR2UcnnNytGAMXOLRc3bgr07i5TelRS+KIz6HxzDm
+MTh89N1SyvNTBCVXVmaU6Avu5gMUTu79bZRknl7OedSyps9AsUSoPocZXun4IRZZ
+Uw== 
+-----END CERTIFICATE-----
+
+[root@t620 csr-micasa-2019]# cat CertificadoSSL-www.micasa.com.ni.crt 
+-----BEGIN CERTIFICATE-----
+MIIGcTCCBVmgAwIBAgIMO2qo4EDv96mQ5QfwMA0GCSqGSIb3DQEBCwUAMEwxCzAJ
+BgNVBAYTAkJFMRkwFwYDVQQKExBHbG9iYWxTaWduIG52LXNhMSIwIAYDVQQDExlB
+bHBoYVNTTCBDQSAtIFNIQTI1NiAtIEcyMB4XDTE5MDcxMjE0NDQ1NloXDTIxMDcx
+MjE0NDQ1NlowTDELMAkGA1UEBhMCTkkxITAfBgNVBAsTGERvbWFpbiBDb250cm9s
+IFZhbGlkYXRlZDEaMBgGA1UEAwwRd3d3Lm1pY2FzYS5jb20ubmkwggEiMA0GCSqG
+SIb3DQEBAQUAA4IBDwAwggEKAoIBAQCp78c85+5Xy24Gi7DDhXFUT6PSvhkGpjie
+/l1WAFMDEaglPyIBE4N5KUFtWkIXs36ToJhAOIsQMnSVosRGpxZ/NfMo4kW50bdz
+CmA9Imh+YqJ+J5lWQZ5Uej++duRGyTJClMJzQXG1Pn486Bbmluydu5CkuHiszAoh
+kTXT/EGFO19bJ22ksidZ7m07DIXam5+OnpDbSYTDA0nC8h3FCZTl5JqmgeELbpMO
+aoJ0gUQw0YoMZ/i+9Py1nbm9dftC3M8iATn2OSwmPuro+863wqNRi/Sglgv+9xBa
+Ro4i7O/NVFsT4vlJMznUcuY8MxnfqHg+0zLIL6++L0NGfA9vTJmbAgMBAAGjggNR
+MIIDTTAOBgNVHQ8BAf8EBAMCBaAwgYkGCCsGAQUFBwEBBH0wezBCBggrBgEFBQcw
+AoY2aHR0cDovL3NlY3VyZTIuYWxwaGFzc2wuY29tL2NhY2VydC9nc2FscGhhc2hh
+MmcycjEuY3J0MDUGCCsGAQUFBzABhilodHRwOi8vb2NzcDIuZ2xvYmFsc2lnbi5j
+b20vZ3NhbHBoYXNoYTJnMjBXBgNVHSAEUDBOMEIGCisGAQQBoDIBCgowNDAyBggr
+BgEFBQcCARYmaHR0cHM6Ly93d3cuZ2xvYmFsc2lnbi5jb20vcmVwb3NpdG9yeS8w
+CAYGZ4EMAQIBMAkGA1UdEwQCMAAwPgYDVR0fBDcwNTAzoDGgL4YtaHR0cDovL2Ny
+bDIuYWxwaGFzc2wuY29tL2dzL2dzYWxwaGFzaGEyZzIuY3JsMCsGA1UdEQQkMCKC
+EXd3dy5taWNhc2EuY29tLm5pgg1taWNhc2EuY29tLm5pMB0GA1UdJQQWMBQGCCsG
+AQUFBwMBBggrBgEFBQcDAjAfBgNVHSMEGDAWgBT1zdU8CFD5ak86t5faVoPmadJo
+9zAdBgNVHQ4EFgQUNWYR4YebKeVAGLNBiAdMxs+grYIwggF9BgorBgEEAdZ5AgQC
+BIIBbQSCAWkBZwB2ALvZ37wfinG1k5Qjl6qSe0c4V5UKq1LoGpCWZDaOHtGFAAAB
+a+ak8p0AAAQDAEcwRQIhAKZSUcpnV/S7qx48gz1hdWeXAitFewEmT8hMl0U7aQbp
+AiBOv8h9p/AorZsVLZglAzPtAuvGhQWO7RSumrkWvma6QQB1AKS5CZC0GFgUh7sT
+osxncAo8NZgE+RvfuON3zQ7IDdwQAAABa+ak8poAAAQDAEYwRAIgLjt6Vl9M1HL3
+QRhZ6/EyC/JAXyEpZYvtGm9+Ao54dEoCIE0OKnIN+O4ZRjMorcPjTqvNdsfzYXsE
+qzMTsbkfXrA3AHYAb1N2rDHwMRnYmQCkURX/dxUcEdkCwQApBo2yCJo32RMAAAFr
+5qT2qQAABAMARzBFAiB2e9oZBnQaZitzf/95GmsAKLDpgfBFUHwNuSl7iwTLGAIh
+AMCUkXcmFdIISDJkxVsfBNWgyXZkAdHdxPFI24u31smBMA0GCSqGSIb3DQEBCwUA
+A4IBAQBJqZEX89IB0NL46sKQZZp54An3gM7QmlHYiZ5ZEnidmqqHvzHW7zyBvxUQ
+LvAbfHclq/0C7w9kgke7yM8YR58UmRVck9wW4rXTUwbEgKstTiXgNvbILUJHXmFE
+IR18MmIGBmng2/h3P0e6KV4GX3kxhzVQDJrQnqsvZENfYf9OuBDBxAQn71xNKOdE
+/g5UEFULs3WgJVPcRnhlZHtcnlLFwyqJtSyIjFclqFeo0yK/pQQ9nHYu0gkrDo/Y
+9c9xVHbtJ1eBb2H+aHJrxzNxok7alhlm0uE9ToLzV/Tt+Qgl5XDszLpcNy/pMBnu
+AzCQAHpc54gNfNCXgDR5Pr9rUR2R
+-----END CERTIFICATE-----
+
+
+
+
+
+

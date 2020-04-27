@@ -1,0 +1,685 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:b="http://bootsfaces.net/ui"
+	xmlns:p="http://primefaces.org/ui"
+	template="../plantillas/admin-lte.xhtml">
+	
+	<ui:define name="uiTituloVista">Mi perfil</ui:define>
+
+		
+	<ui:define name="uiBreadCrumb">
+		<ol class="breadcrumb">
+			<li><a href="#{request.contextPath}/index.xhtml">Inicio</a></li>
+			<li class="active">Datos Personales</li>
+		</ol>
+	</ui:define>
+
+	<ui:define name="uiContenido">
+			<div class="col-xs-12"> 
+			<b:tabView>
+					<b:tab title="Perfil"  >
+				<b:tabView>
+					<b:tab title="Datos Personales"  >
+					<div class="box box-primary">
+						</div>
+					<div class="col-md-6">
+							<b:image  value="#{miPerfilVista.rutaAvatar}" id="avatar" styleClass="img-responsive center-block" />
+								
+								
+							<!-- 	  <b:formGroup>
+									<label>Cambiar imagen</label>
+									
+									<p:fileUpload label="" 
+										skinSimple="true" mode="advanced" auto="true" dragDropSupport="false"
+										sizeLimit="#{plantillaUIVista.sizeLimitAvatar}" allowTypes="/(\.|\/)(jpe?g|png)$/" accept=".jpg,.jpeg,.png"
+										fileUploadListener="#{miPerfilVista.subirArchivoAvatar}" update="frm-avatar"/>
+									<b:label text="[400 x 400 px]" severity="warning"/>						
+								</b:formGroup>	
+								 -->
+								 
+								 <h:panelGroup layout="block" styleClass="box box-primary" rendered="#{miPerfilVista.perUsuario.nivel1}">
+									<div class="box-header with-border">
+										<h3 class="box-title">Mi proyecto</h3>
+									</div>
+				
+									
+										<b:formGroup >
+											<b:button value="Obtenga informaci&#243;n de su proyecto" look="primary" 
+												onclick="irA('#{request.contextPath}/infoMiProyecto');" />
+										</b:formGroup>
+					
+							</h:panelGroup>
+					</div>	
+					
+				
+				<div class="col-md-6">
+			
+						<b:formGroup>
+							<label>Correo</label>
+							<b:inputText placeholder="Correo electr&#243;nico" value="#{miPerfilVista.perUsuario.correo}"
+								mask="email" disabled="true" label="" render-label="false" />
+						</b:formGroup>
+
+						<b:formGroup>
+							<label>#{miPerfilVista.labelNombreUsuario}</label>
+							<b:inputText placeholder="Nombre del Usuario" autocomplete="off"
+							value="#{miPerfilVista.perUsuario.nombres}" label="" render-label="false" />
+						</b:formGroup>
+       					
+						<b:formGroup rendered="#{miPerfilVista.perUsuario.nivel1}">
+							<label>Sexo</label>
+							<b:selectOneMenu value="#{miPerfilVista.perUsuario.sexo}" label="">
+								<f:selectItem itemLabel="" itemValue="" />
+								<f:selectItem itemLabel="Masculino" itemValue="M" />
+								<f:selectItem itemLabel="Femenino" itemValue="F" />
+							</b:selectOneMenu>
+						</b:formGroup>
+
+						<b:formGroup rendered="#{miPerfilVista.perUsuario.nivel1}">
+							<label>Fecha de nacimiento</label>
+							<b:dateTimePicker value="#{miPerfilVista.perUsuario.fechaNacString}"
+								format="DD/MM/YYYY" locale="es" label="" render-label="false">
+								<f:converter converterId="bootFacesDateTimePickerConverter" />
+							</b:dateTimePicker>
+						</b:formGroup>
+					</div>
+					
+					<div class="row">
+			<div class="col-md-12">
+				<div class="box-footer">
+					<button type="button" class="btn btn-danger"
+						onclick="irA('#{request.contextPath}/index.xhtml');">Cancelar</button>
+
+					<b:commandButton value="Actualizar" icon="save" look="primary"
+						ajax="true" styleClass="pull-right" update="@form"
+						actionListener="#{miPerfilVista.actualizarRegistro}" />
+				</div>
+			</div>
+		</div>
+				</b:tab>
+					
+					<b:tab title="Cambiar Contraseña"  >
+						<div class="box box-primary">
+						</div>
+						<div class="col-md-6">
+						
+						<b:formGroup>
+							<label>Nueva contrase&#241;a</label>
+       						<b:inputSecret id = "pass1" value="#{miPerfilVista.clave}" label="" render-label="false" autocomplete="off"/>
+						</b:formGroup>
+
+						<b:formGroup>
+							<label>Repetir contrase&#241;a</label>
+       						<b:inputSecret id = "pass2" value="#{miPerfilVista.clave2}" label="" render-label="false" autocomplete="off" />
+						</b:formGroup>
+					
+				
+						</div>
+						
+						<div class="row">
+			<div class="col-md-12">
+				<div class="box-footer">
+					<button style="margin: 5px"  type="button" class="btn btn-danger"
+						onclick="irA('#{request.contextPath}/index.xhtml');">Cancelar</button>
+
+					<b:commandButton style="margin: 5px" value="Actualizar" icon="save" look="primary"
+						ajax="true" styleClass="pull-right" update="@form"
+						actionListener="#{miPerfilVista.actualizarRegistro}" />
+				</div>
+			</div>
+		</div>
+	       			</b:tab>
+					
+					<b:tab title="Contactos"  >
+						<div class="box box-primary">
+						</div>
+						
+						<div class="col-md-6">
+								<b:formGroup rendered="#{miPerfilVista.perUsuario.nivel2 or miPerfilVista.perUsuario.admin or miPerfilVista.perUsuario.nivel1}">
+		       						<label>Persona de contacto</label>
+		       						<b:inputText placeholder="Persona de contacto" autocomplete="off" value="#{miPerfilVista.perUsuario.contacto}" label="" render-label="false"/>
+		       					</b:formGroup>	
+						
+						<div Class="row">
+		       			
+						<div class="col-md-6">
+							<b:formGroup >
+									<label>Ciudad</label>
+										<b:selectOneMenu value="#{miPerfilVista.perUsuario.ciudad}" label="">
+											<f:selectItem itemLabel="" itemValue="" />
+											<f:selectItem itemLabel="Boaco" itemValue="Boaco" />
+											<f:selectItem itemLabel="Carazo" itemValue="Carazo" />
+											<f:selectItem itemLabel="Chinandega" itemValue="Chinandega" />
+											<f:selectItem itemLabel="Chontales" itemValue="Chontales" />
+											<f:selectItem itemLabel="Puerto Cabezas" itemValue="Puerto Cabezas" />
+											<f:selectItem itemLabel="Bluefields" itemValue="Bluefields" />
+											<f:selectItem itemLabel="Estelí" itemValue="Estelí" />
+											<f:selectItem itemLabel="Granada" itemValue="Granada" />
+											<f:selectItem itemLabel="Jinotega" itemValue="Jinotega" />
+											<f:selectItem itemLabel="León" itemValue="León" />
+											<f:selectItem itemLabel="Madriz" itemValue="Madriz" />
+											<f:selectItem itemLabel="Managua" itemValue="Managua" />
+											<f:selectItem itemLabel="Masaya" itemValue="Masaya" />
+											<f:selectItem itemLabel="Matagalpa" itemValue="Matagalpa" />
+											<f:selectItem itemLabel="Nueva Segovia" itemValue="Nueva Segovia" />
+											<f:selectItem itemLabel="Río San Juan" itemValue="Río San Juan" />
+											<f:selectItem itemLabel="Rivas" itemValue="Rivas" />
+										</b:selectOneMenu>
+							</b:formGroup>
+						</div>
+						
+						<div class="col-md-6">
+							<b:formGroup >
+									<label>Municipio</label>
+									<b:inputText placeholder="Municipio" value="#{miPerfilVista.perUsuario.municipio}" label="" render-label="false" />
+							</b:formGroup>
+						</div>
+						</div>
+								<b:formGroup>
+									<label>Direcci&#243;n principal</label>
+									<b:inputTextarea maxlength="200" placeholder="Direcci&#243;n"
+										value="#{miPerfilVista.perUsuario.direccionFisica}" label="" render-label="true" />
+								</b:formGroup>
+						
+								<b:formGroup>
+									<label>Tel&#233;fono</label>
+									<b:inputText placeholder="Tel&#233;fono" value="#{miPerfilVista.perUsuario.telefonos}" label="" render-label="false" />
+								</b:formGroup>
+								
+								<b:formGroup>
+									<label>Tel&#233;fono Movil</label>
+									<b:inputText placeholder="Tel&#233;fono Movil" value="#{miPerfilVista.perUsuario.telefono_movil}" label="" render-label="false" />
+								</b:formGroup>
+						
+								<b:formGroup rendered="#{miPerfilVista.perUsuario.nivel1}">
+									<label>
+									Aseg&#250;rese que los datos de contacto est&#233;n correctos 
+									para no tener inconvenientes al momento de comunicarnos con usted.
+									</label>
+								</b:formGroup>					
+						</div>
+			
+						<div class="col-md-6">
+								<b:formGroup rendered="#{miPerfilVista.perUsuario.nivel2 or miPerfilVista.perUsuario.admin}">
+		       						<label>Sitio Web</label>
+									<b:inputText placeholder="Sitio Web Propio" value="#{miPerfilVista.perUsuario.sitioWeb}" label="" render-label="false"/>
+		       					</b:formGroup>
+	       				
+	       						<b:formGroup rendered="#{miPerfilVista.perUsuario.nivel2 or miPerfilVista.perUsuario.admin or miPerfilVista.perUsuario.nivel1}">
+									<label>Facebook</label>
+									<b:inputText placeholder="Facebook" value="#{miPerfilVista.perUsuario.facebook}" label="" render-label="false" />
+								</b:formGroup>
+								
+								<b:formGroup rendered="#{miPerfilVista.perUsuario.nivel2 or miPerfilVista.perUsuario.admin or miPerfilVista.perUsuario.nivel1}">
+									<label>Twitter</label>
+									<b:inputText placeholder="Twitter" value="#{miPerfilVista.perUsuario.twitter}" label="" render-label="false" />
+								</b:formGroup>
+								
+								<b:formGroup rendered="#{miPerfilVista.perUsuario.nivel2 or miPerfilVista.perUsuario.admin or miPerfilVista.perUsuario.nivel1}">
+									<label>Instagram</label>
+									<b:inputText placeholder="Instagram" value="#{miPerfilVista.perUsuario.instagram}" label="" render-label="false" />
+								</b:formGroup>
+						
+								<b:formGroup rendered="#{miPerfilVista.perUsuario.nivel2 or miPerfilVista.perUsuario.admin or miPerfilVista.perUsuario.nivel1}">
+									<label>Whatsapp</label>
+									<b:inputText placeholder="Whatsapp" value="#{miPerfilVista.perUsuario.whatsapp}" label="" render-label="false" />
+								</b:formGroup>
+								
+						</div>
+						
+						<div class="row">
+			<div class="col-md-12">
+				<div class="box-footer">
+					<button style="margin: 5px"  type="button" class="btn btn-danger"
+						onclick="irA('#{request.contextPath}/index.xhtml');">Cancelar</button>
+
+					<b:commandButton style="margin: 5px" value="Actualizar" icon="save" look="primary"
+						ajax="true" styleClass="pull-right" update="@form"
+						actionListener="#{miPerfilVista.actualizarRegistro}" />
+				</div>
+			</div>
+		</div>
+					</b:tab>
+					
+					<b:tab title="Direcciones"  >
+					
+					<b:modal id="confirmacionEliminar" title="Eliminar Registro" styleClass="modal-danger fade">
+			<p>&#191;Eliminar el registro seleccionado?.</p>
+			<f:facet name="footer">
+				<b:button value="Cancelar" look="danger" styleClass="pull-left" dismiss="modal" />
+				<b:commandButton value="Eliminar" look="danger" ajax="true" dismiss="modal"  
+					actionListener="#{misDireccionesVista.eliminarRegistro}" oncomplete="tablaMaestro.ajax.reload();$('#frm-confirmacionEliminar').modal('hide');"/>
+			</f:facet>
+		</b:modal>
+		
+		<h:panelGroup style="display: none;">
+			<h:inputHidden value="#{misDireccionesVista.idDireccion}" id="idDireccion" label="" />
+		</h:panelGroup>
+		
+		<div class="row lista-datos">
+			<div class="col-xs-12">
+				<div class="box box-primary">
+					<div class="box-header with-border">
+						<h3 class="box-title">Lista de direcciones</h3>
+					</div>
+					<!-- /.box-header -->
+					<div class="box-body">
+							<b:buttonToolbar>
+								<b:buttonGroup>
+									<b:button icon-awesome="fa-file" title="Nuevo Registro" value="Nuevo" 
+										onclick="desmarcarRegistroSeleccionado('#frm-idDireccion');irA('#{request.contextPath}/usuario/miDireccionForm.xhtml');"/>
+									
+									<b:button icon-awesome="fa-edit" title="Editar Seleccionado" value="Editar"
+										onclick="if(marcarRegistroSeleccionado('#frm-idDireccion', tablaMaestro)) {irA('#{request.contextPath}/usuario/miDireccionForm.xhtml?', 'idDireccion');}" />
+							    	
+							    	<b:button icon-awesome="fa-trash" title="Elimiar Seleccionado" value="Eliminar" 
+							    		onclick="mostrarConfirmacionEliminar('#frm-confirmacionEliminar','#frm-idDireccion',tablaMaestro)" />
+							    		
+							    	<b:button icon-awesome="" title="Elimiar Seleccionado" value="Usar Mapa" 
+							    		onclick="if(marcarRegistroSeleccionado('#frm-idDireccion', tablaMaestro)) {irA('#{request.contextPath}/publico/mapa.xhtml?u=#{menuVista.usuarioActual.idUsuario}');}" />
+							    	
+								</b:buttonGroup>
+							</b:buttonToolbar>
+						
+							<table id="misDirecciones" class="display responsive table table-bordered table-striped"></table>
+							
+						</div>
+						<!-- /.box-body -->
+					</div>
+					<!-- /.box -->
+				</div>
+				<!-- /.col -->
+		</div>
+		<!-- /.row -->
+			
+	<script type="text/javascript">
+	//<![CDATA[
+	var tablaMaestro;
+	$(document).ready(function() {
+		
+		tablaMaestro = $('#misDirecciones').DataTable( {
+		    "language": {
+	            "url": "#{request.contextPath}/js/DataTables/Spanish.json"
+	        },
+	        "processing": true,
+	        "serverSide": true,
+	        "ajax": {
+	            url: "#{request.contextPath}/usuario/misDirecciones.json",
+	            type: "POST"
+	        },
+	        "responsive": true,
+	        "pageLength": 100,
+	        "autoWidth": false,
+	        "order": [[ 1, 'asc' ]],
+	        "columnDefs": [ {
+	            "orderable": false,
+	            "className": 'select-checkbox',
+	            "targets":   0
+	        } ],
+	        "select": {
+	            "style": 'single',
+	        },
+	        "rowId": "identificador",
+	        "columns": [
+	        	{ "title": "", "defaultContent": "" },
+	        	{ "title": "Nombre", "data": "nombre" },
+				{ "title": "Localidad", "data": "idLocalidad.nombre" },
+				{ "title": "Dirección", "data": "direccion" }
+	        ]
+	    } );
+	} );
+	//]]>
+	</script>
+					
+					
+					
+					</b:tab>
+					
+					<b:tab title="Mi Muro"  >
+					
+					<b:modal id="confirmacionEliminarContenido" title="Eliminar contenido" styleClass="modal-danger fade">
+			<p>&#191;Eliminar el contenido seleccionado?.</p>
+			<f:facet name="footer">
+				<b:button value="Cancelar" look="danger" styleClass="pull-left" dismiss="modal" />
+				<b:button value="Eliminar" look="danger" ajax="true" dismiss="modal" onclick="eliminarContenido(event, $('#frm-idContenidoEliminar').val());" />
+			</f:facet>
+		</b:modal>
+		
+		<h:panelGroup style="display: none;">
+			<h:inputHidden value="0" id="idContenidoEliminar" label="" />
+		</h:panelGroup>
+		
+		<div class="row">
+			<div class="col-xs-12">
+				<div class="box box-primary">
+					<div class="box-body">
+						<table id="muro"
+							class="display responsive table table-bordered table-striped"></table>
+					</div>
+				</div>
+			</div>
+		</div>	
+
+		<b:remoteCommand name="eliminarContenido" id="eliminarContenido" 
+			actionListener="#{muroNivel2Vista.eliminarContenido}" parameters="event,idContenido" 
+			onsuccess="tablaMuro.ajax.reload();" />
+		
+		
+		<script type="text/javascript">
+		//<![CDATA[
+		var tablaMuro;
+		$(document).ready(function() {
+		
+			tablaMuro = $('#muro').DataTable( {
+			    "language": {
+		            "url": "#{request.contextPath}/js/DataTables/Spanish.json"
+		        },
+		        "processing": true,
+		        "serverSide": true,
+		        "ajax": {
+		            url: "#{request.contextPath}/muro/contenido.json?u=#{request.getParameter('u')}",
+		            type: "POST"
+		        },
+		        "responsive": true,
+		        "ordering": false,
+		        "lengthChange": false,
+		        "searching": false,
+		        "stripeClasses": [],
+		        "autoWidth": false,
+		        "rowId": "identificador",
+		        "columnDefs": [ 
+		        	{ 
+		        		"width": "1%", 
+		        		"orderable": false,
+		        		"targets": 0 
+					}
+		        ],
+		        "columns": [
+		        	{ 
+		            	"title": "",
+		            	"data": "idContenido", 
+		            	"render": function ( data, type, row, meta ) {
+		            		var contenido = '';
+		            		
+		            		if(row.propio) {
+		            			contenido += '<a href="#{request.contextPath}/usuario/contenidoN2.xhtml?idContenido=' + data + '"><i class="fa fa-pencil fa-lg" onclick=""></i></a>';
+		            			contenido += '<br><br>';
+		            			contenido += '<i class="fa fa-trash fa-lg" onclick="$(\'#frm-idContenidoEliminar\').val(' + data + ');$(\'#frm-confirmacionEliminarContenido\').modal();"></i>';
+		            		}
+		            		
+		            		return contenido;
+						},
+						"responsivePriority": 2
+					},
+		        	{ 
+						"title": "", 
+						"data": "idContenido",
+						"render": function(data, type, row, meta){
+							var descripcion = '';
+							
+							descripcion += '<small class="text-muted pull-right"><i class="fa fa-clock-o"></i> ';
+							descripcion += row.auditoria.fechaRegUI;
+							descripcion += '</small>';
+							
+							descripcion += "<h4>" + row.titulo + "</h4>";
+							
+							if(row.contenidoDisponible){
+								descripcion += row.contenido;
+							}
+							
+							if(row.youtubeDisponible){
+								descripcion += '<div class="embed-responsive embed-responsive-16by9">';
+								descripcion += '<iframe class="embed-responsive-item" src="https://www.youtube.com/embed/' + row.youtube + '?rel=0" allowfullscreen="allowfullscreen"></iframe>';
+								descripcion += '</div>';
+							}
+							
+							if(row.archivoDisponible && row.archivoImagen){
+								descripcion += '<img src="#{request.contextPath}' + row.rutaWebArchivo + '" alt="" class="img-responsive center-block" />';
+							}
+							
+							if(row.archivoDisponible && !row.archivoImagen){
+								descripcion += '<a href="#{request.contextPath}' + row.rutaWebArchivo + '"><i class="fa fa-file fa-2x"></i> Descargar archivo adjunto.</a>';
+							}
+							
+							return descripcion;
+						},
+						"responsivePriority": 1
+					}   	        	
+		        ]
+		        
+		    });
+		});
+		//]]>
+	</script>
+					
+					</b:tab>
+					
+					<b:tab title="Nuevos Contenidos"  >
+					<div class="box box-primary">
+						</div>
+					<br/>
+		<h:panelGroup style="display: none;">
+			<h:inputHidden value="#{contenidoNivel2Vista.idContenido}" id="idContenido" label="" />
+		</h:panelGroup>
+		
+		<div class="row">
+			<div class="col-md-12">
+				<b:formGroup>
+       				<b:inputText placeholder="T&#237;tulo requerido*" value="#{contenidoNivel2Vista.cmsContenidoNivel2.titulo}" label="" render-label="false"/>
+       			</b:formGroup>
+       		</div>
+       	</div>
+       	
+       	<div class="row">
+			<div class="col-md-6">
+       			<b:formGroup>
+       				<label>Youtube</label>
+       				<b:inputText placeholder="Youtube" value="#{contenidoNivel2Vista.cmsContenidoNivel2.youtube}" label="" render-label="false"/>
+       			</b:formGroup>
+       		</div>
+       		
+       		<div class="col-md-6">
+       			<b:formGroup>
+       				<label>Adjuntar archivo</label>
+					<br />
+					
+					<table>
+						<tr>
+						<b:formGroup rendered="#{contenidoNivel2Vista.cmsContenidoNivel2.archivoDisponible}">
+	        				<td width="30%">
+	        					<a target="_blank" href="#{request.contextPath}#{contenidoNivel2Vista.cmsContenidoNivel2.rutaWebArchivo}"><i class="fa fa-download fa-lg"></i></a>
+	        				</td>
+	        				<td>
+	        					<b:selectBooleanCheckbox value="#{contenidoNivel2Vista.removerArchivo}" caption="Remover archivo" label="" renderLabel="false" />
+	        				</td>
+	        			</b:formGroup>
+		        			<td>
+		        				<p:fileUpload label="" value="#{contenidoNivel2Vista.archivo}"
+								skinSimple="true" mode="simple" auto="false" dragDropSupport="false"
+								sizeLimit="#{plantillaUIVista.sizeLimitGeneral}" />
+		        			</td>
+	        			</tr>
+	        		</table>
+	        		
+				</b:formGroup>
+			</div>
+		</div>
+		
+		<div class="row">
+			<div class="col-md-12">
+       			<b:formGroup>
+       				<h:panelGroup style="display: none;">
+						<h:inputHidden value="#{contenidoNivel2Vista.cmsContenidoNivel2.contenido}" id="contenidoJsf" label="" />
+					</h:panelGroup>
+					<textarea id="contenido" rows="10" class="form-control"></textarea>
+       			</b:formGroup>
+        	</div>
+        </div>
+        
+		<div class="row">
+			<div class="col-md-12">
+				<div class="box-footer">
+                <button style="margin: 5px" type="button" class="btn btn-danger" onclick="irA('#{request.contextPath}/usuario/muro.xhtml?u=#{contenidoNivel2Vista.idUsuarioActual}');">Cancelar</button>
+                
+                <b:commandButton  style="margin: 5px" value="Guardar" icon="save" look="primary" ajax="true" styleClass="pull-right"
+                	onclick="$('#frm-contenidoJsf').val(CKEDITOR.instances['contenido'].getData());ajax:contenidoNivel2Vista.guardarRegistro();"
+					onerror="" onsuccess="irA('#{request.contextPath}/usuario/muro.xhtml?u=#{contenidoNivel2Vista.idUsuarioActual}');"/>
+
+              </div>
+			</div>
+		</div>
+		
+		<div class="row">
+			<div class="col-md-12">&#160;</div>
+		</div>
+			
+		<!-- CK Editor -->
+		<script src="#{request.contextPath}/AdminLTE/bower_components/ckeditor/ckeditor.js"></script>
+		<script>
+		//<![CDATA[
+		$(document).ready(function() {
+			$('#contenido').val($('#frm-contenidoJsf').val());
+			CKEDITOR.replace('contenido', {
+				wordcount: {
+				    showParagraphs: false,
+				    showWordCount: false,
+				    showCharCount: true,
+				    countSpacesAsChars: true,
+				    countHTML: true,
+				    maxWordCount: -1,
+				    maxCharCount: 2500
+				}
+			});
+  		});
+  		//]]>
+		</script>
+					</b:tab>
+					
+					
+					
+					
+				</b:tabView>
+				</b:tab>
+			
+				<b:tab title="Administrar Ofertas" rendered="#{menuVista.menuVisible['ofertas']}" >
+				<b:tab title="Administrar Ofertas" rendered="#{menuVista.menuVisible['ofertas']}" >
+					
+					<b:modal id="confirmacionEliminar" title="Eliminar Registro" styleClass="modal-danger fade">
+			<p>&#191;Eliminar el registro seleccionado?.</p>
+			<f:facet name="footer">
+				<b:button value="Cancelar" look="danger" styleClass="pull-left" dismiss="modal" />
+				<b:commandButton value="Eliminar" look="danger" ajax="true" dismiss="modal"  
+					actionListener="#{ofertasVista.eliminarRegistro}" oncomplete="tablaOfertas.ajax.reload();$('#frm-confirmacionEliminar').modal('hide');"/>
+			</f:facet>
+		</b:modal>
+		
+		<h:panelGroup style="display: none;">
+			<h:inputHidden value="#{ofertasVista.idOferta}" id="idOferta" label="" />
+			<h:inputHidden value="#{ofertasVista.mostrarColumnaDuenio}" id="mostrarColumnaDuenio" label="" />
+		</h:panelGroup>
+		
+		<div class="row lista-datos">
+			<div class="col-xs-12">
+				<div class="box box-primary">
+					<div class="box-header with-border">
+						<h3 class="box-title">Lista de ofertas</h3>
+					</div>
+					<!-- /.box-header -->
+					<div class="box-body">
+							<b:buttonToolbar>
+								<b:buttonGroup>
+									<b:button icon-awesome="fa-file" title="Nueva oferta" value="Nueva" 
+										onclick="desmarcarRegistroSeleccionado('#frm-idOferta');irA('#{request.contextPath}/gestion/ofertaForm.xhtml');"/>
+									
+									<b:button icon-awesome="fa-edit" title="Editar seleccionado" value="Editar"
+										onclick="if(marcarRegistroSeleccionado('#frm-idOferta', tablaOfertas)) {irA('#{request.contextPath}/gestion/ofertaForm.xhtml?', 'idOferta');}" />
+							    	
+							    	<b:button icon-awesome="fa-trash" title="Elimiar seleccionado" value="Eliminar" 
+							    		onclick="mostrarConfirmacionEliminar('#frm-confirmacionEliminar','#frm-idOferta',tablaOfertas)" />
+							    	
+							    	<b:button icon-awesome="fa-check-square" title="Validar Oferta" value="Validar Oferta" 
+							    		onclick="desmarcarRegistroSeleccionado('#frm-idOferta');irA('#{request.contextPath}/gestion/validarOfertas.xhtml');"/>
+									
+								</b:buttonGroup>
+							</b:buttonToolbar>
+						
+							<table id="ofertas" class="display responsive table table-bordered table-striped"></table>
+							
+						</div>
+						<!-- /.box-body -->
+					</div>
+					<!-- /.box -->
+				</div>
+				<!-- /.col -->
+		</div>
+		
+		<script type="text/javascript">
+	
+	var tablaOfertas;
+	$(document).ready(function() {
+		
+		var columnas = [
+        	{ "title": "", "defaultContent": "" },
+        	{ "title": "Id", "data": "idOferta"},
+        	{ "title": "T&#237;tulo", "data": "titulo"},
+        	{ "title": "Inicia", "data": "inicioUI" },
+            { "title": "Finaliza", "data": "finUI" },
+            { "title": "L&#237;mite", "data": "limiteCantidad" },   	        	
+            { 
+            	"title": "Activo",
+            	"data": "activo", 
+            	"render": function ( data, type, row, meta ) {
+					return data === true  ? "S": "N";
+				} 
+			}
+        ];
+		
+		if($('#frm-mostrarColumnaDuenio').val()=="true"){
+			columnas.push({ "title": "Propietario", "data": "duenio.nombres"});
+		}
+		
+		tablaOfertas = $('#ofertas').DataTable( {
+		    "language": {
+	            "url": "#{request.contextPath}/js/DataTables/Spanish.json"
+	        },
+	        "processing": true,
+	        "serverSide": true,
+	        "ajax": {
+	            url: "#{request.contextPath}/gestion/ofertas.json",
+	            type: "POST"
+	        },
+	        "responsive": true,
+	        "pageLength": 100,
+	        "autoWidth": false,
+	        "order": [[ 1, 'asc' ]],
+	        "columnDefs": [ {
+	            "orderable": false,
+	            "className": 'select-checkbox',
+	            "targets":   0
+	        } ],
+	        "select": {
+	            "style": 'single',
+	        },
+	        "rowId": "identificador",
+	        "columns": columnas
+	    } );
+	} );
+	
+	</script>
+		
+					</b:tab>
+				</b:tab>
+					
+				</b:tabView>
+	         </div>
+			
+
+			
+		
+
+	</ui:define>
+
+</ui:composition>

@@ -1,0 +1,380 @@
+denis@tasmania:~$ ssh micasa@190.106.1.171
+
+
+wget dl.fedoraproject.org/pub/epel/7/x86_64/Packages/e/epel-release-7-11.noarch.rpm
+sudo rpm -ihv epel-release-7-11.noarch.rpm 
+[micasa@t620 ~]$ sudo yum install htop
+
+[micasa@t620 ~]$ sudo systemctl disable libvirtd.service
+
+
+[micasa@t620 ~]$ java -version
+openjdk version "1.8.0_161"
+OpenJDK Runtime Environment (build 1.8.0_161-b14)
+OpenJDK 64-Bit Server VM (build 25.161-b14, mixed mode)
+[micasa@t620 ~]$ 
+
+
+[micasa@t620 ~]$ sudo yum install postgresql-server
+[micasa@t620 ~]$ sudo yum install pgadmin3
+sudo service postgresql initdb
+sudo service postgresql start
+sudo chkconfig postgresql on
+
+
+[micasa@t620 ~]$ sudo hostname
+[sudo] password for micasa: 
+t620.micasa.com.ni
+
+[micasa@t620 ~]$ sudo sudo yum install httpd
+
+sudo systemctl enable httpd.service
+sudo systemctl restart httpd.service
+
+sudo firewall-cmd --add-service=http --permanent && sudo firewall-cmd --add-service=https --permanent
+sudo systemctl restart firewalld
+
+[micasa@t620 Descargas]$ sudo rpm -ivh jdk-8u181-linux-x64.rpm 
+[micasa@t620 Descargas]$ sudo groupadd tomcat
+[micasa@t620 Descargas]$ sudo useradd -M -s /bin/nologin -g tomcat -d /opt/tomcat tomcat
+[micasa@t620 Descargas]$ sudo mkdir /opt/tomcat
+[micasa@t620 Descargas]$ sudo tar xvf apache-tomcat-8*tar.gz -C /opt/tomcat --strip-components=1
+[micasa@t620 Descargas]$ cd /opt/tomcat
+[micasa@t620 tomcat]$ sudo chgrp -R tomcat /opt/tomcat
+[micasa@t620 tomcat]$ sudo chmod -R g+r conf
+[micasa@t620 tomcat]$ sudo chmod g+x conf
+[micasa@t620 tomcat]$ sudo chown -R tomcat webapps/ work/ temp/ logs/
+[micasa@t620 tomcat]$ 
+
+[micasa@t620 Descargas]$ vim tomcat.service 
+[micasa@t620 Descargas]$ sudo cp tomcat.service /etc/systemd/system/
+
+----------
+# Systemd unit file for tomcat
+[Unit]
+Description=Apache Tomcat Web Application Container
+After=syslog.target network.target
+
+[Service]
+Type=forking
+
+Environment=JAVA_HOME=/usr/java/jdk1.8.0_181-amd64/jre
+Environment=CATALINA_PID=/opt/tomcat/temp/tomcat.pid
+Environment=CATALINA_HOME=/opt/tomcat
+Environment=CATALINA_BASE=/opt/tomcat
+Environment='CATALINA_OPTS=-Xms512M -Xmx2048M -server -XX:+UseParallelGC'
+Environment='JAVA_OPTS=-Djava.awt.headless=true -Djava.security.egd=file:/dev/./urandom'
+
+ExecStart=/opt/tomcat/bin/startup.sh
+ExecStop=/bin/kill -15 $MAINPID
+
+User=tomcat
+Group=tomcat
+UMask=0007
+RestartSec=10
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
+
+--------------
+
+[micasa@t620 Descargas]$ sudo systemctl daemon-reload
+[micasa@t620 Descargas]$ sudo systemctl enable tomcat
+Created symlink from /etc/systemd/system/multi-user.target.wants/tomcat.service to /etc/systemd/system/tomcat.service.
+[micasa@t620 Descargas]$ sudo systemctl start tomcat
+[micasa@t620 Descargas]$ sudo systemctl status tomcat
+
+Mod_jk
+
+[micasa@t620 Descargas]$ sudo yum install httpd-devel apr apr-devel apr-util apr-util-devel gcc make libtool autoconf
+
+[micasa@t620 Descargas]$ tar xf tomcat-connectors-1.2.44-src.tar.gz 
+[micasa@t620 Descargas]$ cd tomcat-connectors-1.2.44-src/native/
+[micasa@t620 Descargas]$ cd tomcat-connectors-1.2.44-src/native/
+[micasa@t620 native]$ ls
+aclocal.m4    BUILDING.txt  configure.ac  Makefile.am  README.txt  TODO.txt
+apache-2.0    common        docs          Makefile.in  scripts
+buildconf.sh  configure     iis           netscape     STATUS.txt
+[micasa@t620 native]$ which apxs
+/usr/bin/apxs
+[micasa@t620 native]$ ./configure --with-apxs=/usr/bin/apxs
+[micasa@t620 native]$ make
+[micasa@t620 native]$ sudo libtool --finish /usr/lib64/httpd/modules
+libtool: finish: PATH="/sbin:/bin:/usr/sbin:/usr/bin:/sbin" ldconfig -n /usr/lib64/httpd/modules
+----------------------------------------------------------------------
+Libraries have been installed in:
+   /usr/lib64/httpd/modules
+
+If you ever happen to want to link against installed libraries
+in a given directory, LIBDIR, you must either use libtool, and
+specify the full pathname of the library, or use the `-LLIBDIR'
+flag during linking and do at least one of the following:
+   - add LIBDIR to the `LD_LIBRARY_PATH' environment variable
+     during execution
+   - add LIBDIR to the `LD_RUN_PATH' environment variable
+     during linking
+   - use the `-Wl,-rpath -Wl,LIBDIR' linker flag
+   - have your system administrator add LIBDIR to `/etc/ld.so.conf'
+
+See any operating system documentation about shared libraries for
+more information, such as the ld(1) and ld.so(8) manual pages.
+----------------------------------------------------------------------
+
+[micasa@t620 native]$ sudo make install
+
+
+[micasa@t620 Descargas]$ sudo cp workers.properties /etc/httpd/conf/
+
+workers.apache_log=/var/log/httpd
+worker.list=app1Worker
+worker.stat1.type=status
+ 
+worker.app1Worker.type=ajp13
+worker.app1Worker.host=localhost
+worker.app1Worker.port=8009
+
+
+-----------------
+
+[micasa@t620 Descargas]$ sudo cp mod_jk.conf /etc/httpd/conf.d/
+[sudo] password for micasa: 
+[micasa@t620 Descargas]$ 
+
+
+[micasa@t620 Descargas]$ cat /etc/httpd/conf.d/mod_jk.conf 
+LoadModule jk_module "/etc/httpd/modules/mod_jk.so"
+ 
+JkWorkersFile /etc/httpd/conf/workers.properties
+# Where to put jk shared memory
+JkShmFile     /var/run/httpd/mod_jk.shm
+# Where to put jk logs
+JkLogFile     /var/log/httpd/mod_jk.log
+# Set the jk log level [debug/error/info]
+JkLogLevel    info
+# Select the timestamp log format
+JkLogStampFormat "[%a %b %d %H:%M:%S %Y] "
+#JkRequestLogFormat "%w %V %T"
+#JkEnvVar SSL_CLIENT_V_START worker1
+
+[micasa@t620 Descargas]$ sudo mkdir -p /var/run/mod_jk
+[micasa@t620 Descargas]$ sudo chown apache:apache /var/run/mod_jk
+
+[micasa@t620 Descargas]$ vim micasa_com_ni.conf 
+[micasa@t620 Descargas]$ sudo cp micasa_com_ni.conf /etc/httpd/conf.d/
+[micasa@t620 Descargas]$ cat /etc/httpd/conf.d/micasa_com_ni.conf 
+NameVirtualHost *:80
+<VirtualHost *:80>
+    ServerName micasa.com.ni
+    ServerAdmin webmaster@micasa.com.ni
+    LogFormat "%h %l %u %t \"%r\" %>s %b \"%{Referer}i\" \"%{User-agent}i\"" combined
+    CustomLog /var/log/httpd/micasa_access.log combined
+    ErrorLog /var/log/httpd/micasa_error.log
+    
+    Alias /static "/home/archivos_micasa_com_ni"
+    <Directory "/home/archivos_micasa_com_ni">
+        Options None
+        AllowOverride None
+        Order allow,deny
+        Allow from all
+        # New directive needed in Apache 2.4.3: 
+        Require all granted
+    </Directory>
+
+    JkMount /* app1Worker
+    JkUnMount /static/*  app1Worker
+
+</VirtualHost>
+
+
+
+
+[micasa@t620 home]$ sudo mkdir /home/archivos_micasa_com_ni
+[micasa@t620 Descargas]$ sudo chown -R apache.apache /home/archivos_micasa_com_ni
+[micasa@t620 Descargas]$ sudo chcon -R -h -t httpd_sys_content_t /home/archivos_micasa_com_ni
+[micasa@t620 Descargas]$ sudo chmod -R a-w /home/archivos_micasa_com_ni
+[micasa@t620 Descargas]$ sudo chmod -R u+w+x+r /home/archivos_micasa_com_ni
+
+[micasa@t620 Descargas]$ sudo vim /opt/tomcat/conf/server.xml
+[micasa@t620 Descargas]$ sudo diff -u server.xml /opt/tomcat/conf/server.xml
+--- server.xml	2019-06-29 15:33:44.558939566 -0600
++++ /opt/tomcat/conf/server.xml	2018-09-04 16:30:39.000000000 -0600
+@@ -125,7 +125,7 @@
+     <!-- You should set jvmRoute to support load-balancing via AJP ie :
+     <Engine name="Catalina" defaultHost="localhost" jvmRoute="jvm1">
+     -->
+-    <Engine name="Catalina" defaultHost="localhost" jvmRoute='jvm1'>
++    <Engine name="Catalina" defaultHost="localhost">
+ 
+       <!--For clustering, please take a look at documentation at:
+           /docs/cluster-howto.html  (simple how to)
+[micasa@t620 Descargas]$ 
+
+
+[micasa@t620 conf.d]$ cat /etc/httpd/conf.d/mod_deflate.conf 
+LoadModule deflate_module "/etc/httpd/modules/mod_deflate.so"
+
+AddOutputFilterByType DEFLATE text/plain
+AddOutputFilterByType DEFLATE text/html
+AddOutputFilterByType DEFLATE text/xml
+AddOutputFilterByType DEFLATE text/css
+AddOutputFilterByType DEFLATE application/xml
+AddOutputFilterByType DEFLATE application/xhtml+xml
+AddOutputFilterByType DEFLATE application/rss+xml
+AddOutputFilterByType DEFLATE application/javascript
+AddOutputFilterByType DEFLATE application/x-javascript
+
+-------
+
+[micasa@t620 conf.modules.d]$ sudo usermod -a -G tomcat apache
+
+
+[micasa@t620 ~]$ sudo yum install svn 
+
+[micasa@t620 ~]$ pwd
+/home/micasa
+[micasa@t620 ~]$ mkdir mi-casa
+
+[micasa@t620 bin]$ sudo cat /etc/environment 
+export JAVA_HOME=/usr/java/jdk1.8.0_181-amd64/jre
+
+
+
+[micasa@t620 bin]$ sudo yum remove sendmail
+[micasa@t620 bin]$ sudo yum install postfix
+[micasa@t620 bin]$ sudo alternatives --set mta /usr/sbin/postfix
+
+
+[micasa@t620 postfix]$ pwd
+/etc/postfix
+[micasa@t620 postfix]$ diff -u main.cf.bak main.cf
+--- main.cf.bak	2019-06-29 16:22:18.993078799 -0600
++++ main.cf	2019-06-29 16:26:12.703079283 -0600
+@@ -74,6 +74,7 @@
+ #
+ #myhostname = host.domain.tld
+ #myhostname = virtual.domain.tld
++myhostname=t620.micasa.com.ni
+ 
+ # The mydomain parameter specifies the local internet domain name.
+ # The default is to use $myhostname minus the first component.
+@@ -264,6 +265,7 @@
+ #mynetworks = 168.100.189.0/28, 127.0.0.0/8
+ #mynetworks = $config_directory/mynetworks
+ #mynetworks = hash:/etc/postfix/network_table
++mynetworks = 127.0.0.0/8, /32
+ 
+ # The relay_domains parameter restricts what destinations this system will
+ # relay mail to.  See the smtpd_recipient_restrictions description in
+@@ -294,6 +296,7 @@
+ # permit_mx_backup restriction description in postconf(5).
+ #
+ #relay_domains = $mydestination
++relay_domains = $mydestination
+ 
+ # INTERNET OR INTRANET
+ 
+@@ -417,6 +420,7 @@
+ #
+ #home_mailbox = Mailbox
+ #home_mailbox = Maildir/
++home_mailbox = Maildir/
+  
+ # The mail_spool_directory parameter specifies the directory where
+ # UNIX-style mailboxes are kept. The default setting depends on the
+[micasa@t620 postfix]$ 
+
+[micasa@t620 bin]$ sudo service postfix restart
+[micasa@t620 bin]$ sudo chkconfig postfix on
+
+
+[micasa@t620 bin]$ sudo tail -f /var/log/maillog
+
+[micasa@t620 bin]$ sudo firewall-cmd --add-service=smtp --permanent
+[micasa@t620 bin]$ sudo firewall-cmd --reload
+
+
+
+----------------------------------
+
+[micasa@t620 ~]$ sudo diff -u /var/lib/pgsql/data/pg_hba.conf.bak /var/lib/pgsql/data/pg_hba.conf
+--- /var/lib/pgsql/data/pg_hba.conf.bak	2019-06-29 16:58:59.513052721 -0600
++++ /var/lib/pgsql/data/pg_hba.conf	2019-06-29 16:59:21.138986949 -0600
+@@ -79,9 +79,9 @@
+ # "local" is for Unix domain socket connections only
+ local   all             all                                     peer
+ # IPv4 local connections:
+-host    all             all             127.0.0.1/32            ident
++host    all             all             127.0.0.1/32            md5
+ # IPv6 local connections:
+-host    all             all             ::1/128                 ident
++host    all             all             ::1/128                 md5
+ # Allow replication connections from localhost, by a user with the
+ # replication privilege.
+ #local   replication     postgres                                peer
+[micasa@t620 ~]$ 
+
+[micasa@t620 ~]$ sudo systemctl restart postgresql
+
+
+[micasa@t620 ~]$ sudo su -l postgres
+
+-bash-4.2$ createdb micasa
+-bash-4.2$ createuser micasa
+
+-bash-4.2$ psql micasa
+psql (9.2.23)
+Digite «help» para obtener ayuda.
+micasa=# alter user micasa with password 'Juan3:16';
+ALTER ROLE
+
+[micasa@t620 ~]$ ls *sql
+dump_demo20190629.sql
+
+[micasa@t620 ~]# psql -1 -h localhost -U micasa -W -d micasa < dump_demo20190629.sql
+
+
+----------------
+
+firewall status
+
+[micasa@t620 ~]$ sudo firewall-cmd --list-all
+public (active)
+  target: default
+  icmp-block-inversion: no
+  interfaces: em2
+  sources: 
+  services: ssh dhcpv6-client http https smtp
+  ports: 
+  protocols: 
+  masquerade: no
+  forward-ports: 
+  source-ports: 
+  icmp-blocks: 
+  rich rules: 
+	
+[micasa@t620 ~]$ 
+
+
+denis@tasmania:~$ nmap micasa.com.ni
+
+Starting Nmap 7.01 ( https://nmap.org ) at 2019-06-29 23:46 CST
+Nmap scan report for micasa.com.ni (190.106.1.171)
+Host is up (0.50s latency).
+rDNS record for 190.106.1.171: static-190-106-1-171.alfanumeric.com.ni
+Not shown: 993 filtered ports
+PORT     STATE  SERVICE
+22/tcp   open   ssh
+25/tcp   closed smtp
+80/tcp   open   http
+113/tcp  closed ident
+443/tcp  closed https
+2000/tcp open   cisco-sccp
+5060/tcp open   sip
+
+Nmap done: 1 IP address (1 host up) scanned in 70.62 seconds
+denis@tasmania:~$ 
+
+
+
+nmap -sS -O micasa.com.ni/24

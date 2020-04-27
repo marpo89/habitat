@@ -1,0 +1,23 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:b="http://bootsfaces.net/ui"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<f:facet name="first">
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	</f:facet>
+	<title>Cup&#243;n</title>
+</h:head>
+<h:body styleClass="text-center">
+	<h4>Cup&#243;n: #{detalleOfertaVista.oftCuponUsuarioActual.codigo}</h4>
+	<p:barcode value="#{detalleOfertaVista.oftCuponUsuarioActual.codigo}" type="code128" width="300" title="Cup&#243;n" />
+	
+	<br />
+	<b:button value="Imprimir" onclick="window.print();" style-class="hidden-print" />
+</h:body>
+</html>

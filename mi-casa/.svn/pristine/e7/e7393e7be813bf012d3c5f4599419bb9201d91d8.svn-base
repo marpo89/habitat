@@ -1,0 +1,5 @@
+package org.habitatnicaragua.micasa.modelo;
+
+public enum Rol {
+	ADMIN, MATERIAL, FINANCIAMIENTO, ADMIN_TECNICO, TECNICO, USUARIO;	
+}

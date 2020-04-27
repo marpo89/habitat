@@ -1,0 +1,33 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:b="http://bootsfaces.net/ui">
+	
+	<!-- Full Width Column -->
+	<div class="content-wrapper">
+    	<div class="container">
+			<!-- Content Header (Page header) -->
+			<section class="content-header">
+				<h1>
+					<ui:insert name="uiTituloVista">&#160;</ui:insert>
+				</h1>
+				
+				<ui:insert name="uiBreadCrumb">&#160;</ui:insert>
+			</section>
+
+			<section class="content">
+				<h:form id="frm" enctype="#{formEnctype}">
+			
+					<ui:insert name="uiContenido">
+						<div class="row">
+							<div class="col-xs-12"></div>
+						</div>
+					</ui:insert>
+				</h:form>
+			</section>
+		</div>
+	</div>
+	
+</ui:composition>

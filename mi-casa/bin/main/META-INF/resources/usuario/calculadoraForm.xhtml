@@ -1,0 +1,194 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:b="http://bootsfaces.net/ui"
+	template="../plantillas/admin-lte.xhtml">
+	
+	<ui:define name="uiTituloVista">#{calculadoraVista.tituloPagina}</ui:define>
+	
+	<ui:define name="uiBreadCrumb">
+		<ol class="breadcrumb">
+			<li><a href="#{request.contextPath}/index.xhtml">Inicio</a></li>
+			<li><a href="#{calculadoraVista.enlaceListado}">Calculadora</a></li>
+			<!--  <li><a href="#{calculadoraVista.enlaceUsuario}">#{calculadoraVista.segUsuario.idUsuario}</a></li>-->
+			<li class="active">#{calculadoraVista.infoRegistroActual}</li>
+			
+		</ol>
+	</ui:define>
+	
+	<ui:define name="uiContenido">
+		<b:modal id="confirmacionEliminar" title="Eliminar registro" styleClass="modal-danger fade">
+			<p>&#191;Eliminar el registro seleccionado?.</p>
+			<f:facet name="footer">
+				<b:button value="Cancelar" look="danger" styleClass="pull-left" dismiss="modal" />
+				<b:commandButton value="Eliminar" look="danger" ajax="true" dismiss="modal"  
+					actionListener="#{calculadoraVista.eliminarParametro}" oncomplete="tablaMaestro.ajax.reload();$('#frm-confirmacionEliminar').modal('hide');"/>
+			</f:facet>
+		</b:modal>
+		
+		<h:panelGroup style="display: none;">
+			<h:inputHidden value="#{calculadoraVista.idCalculadora}" id="idCalculadora" label="" />
+			<h:inputHidden value="#{calculadoraVista.idParametro}" id="idParametro" label="" />
+		</h:panelGroup>
+		
+		<!--  
+		<div class="row formulario-datos">
+        	<div class="col-md-6">
+				<div class="box box-primary">
+					<div class="box-header with-border">
+						<h3 class="box-title">Calculadora</h3>
+        			</div>
+        		
+        			<div class="box-body">
+        				<b:formGroup>
+       						<label>Entidad Financiera</label>
+       						<b:selectOneMenu value="#{calculadoraVista.calculadora.entidadFinanc}" label="">
+       							<f:selectItems value="#{calculadoraVista.listaFinancieras}" var="entidadFinanc" itemLabel="#{entidadFinanc.nombre}" itemValue="#{entidadFinanc}" />
+       						</b:selectOneMenu>
+       					</b:formGroup> 
+       					
+       					<b:formGroup>
+       						<label>Sistema de Amortización</label>
+       						<b:selectOneMenu value="#{calculadoraVista.calculadora.sistemaAmort}" label="">
+       							<f:selectItems value="#{calculadoraVista.listaSistemasAmort}" var="sistemaAmort" itemLabel="#{sistemaAmort.nombre}" itemValue="#{sistemaAmort}" />
+       						</b:selectOneMenu>
+       					</b:formGroup>
+       					
+       					<b:formGroup>
+       						<label>Tasa de interés</label>
+       						<b:inputText placeholder="Tasa de interés" value="#{calculadoraVista.calculadora.tasaInteres}" label="" render-label="false"/>
+       					</b:formGroup>
+          			</div>
+          			
+          			<div class="col-md-12">
+				<div class="box-footer">
+                <button type="button" class="btn btn-danger" onclick="irA('#{calculadoraVista.enlaceListado}');">Cancelar</button>
+                 <b:commandButton value="Guardar" icon="" look="primary" ajax="true" styleClass="pull-right"
+					actionListener="#{calculadoraVista.guardarRegistro}" onerror="" onsuccess="irA('#{request.contextPath}/usuario/confCalculadora.xhtml');"/> 			
+              </div>
+			</div>
+      			</div>
+			</div>
+			
+		</div>
+		-->
+		<!-- <div class="row">
+			<div class="col-md-12">
+				<div class="box-footer">
+                <button type="button" class="btn btn-danger" onclick="irA('#{calculadoraVista.enlaceListado}');">Cancelar</button>
+                 <b:commandButton value="Guardar" icon="" look="primary" ajax="true" styleClass="pull-right"
+					actionListener="#{calculadoraVista.guardarRegistro}" onerror="" onsuccess="irA('#{request.contextPath}/usuario/confCalculadora.xhtml');"/> 			
+              </div>
+			</div>
+		</div> -->
+		<!--<div class="row">
+			<div class="col-md-12">&#160;</div>
+		</div>-->
+		
+		<b:row rendered="#{!calculadoraVista.modoEditarMaestro}"> 
+			<div class="col-xs-12"> 
+				<b:tabView>
+					<b:tab title="Calculadora">
+        				<div class="row">
+	        				<div class="col-xs-12 col-md-6"> 
+	       						<label>Entidad Financiera</label>
+	       						<b:selectOneMenu value="#{calculadoraVista.calculadora.entidadFinanc}" label="">
+	       							<f:selectItems value="#{calculadoraVista.listaFinancieras}" var="entidadFinanc" itemLabel="#{entidadFinanc.nombre}" itemValue="#{entidadFinanc}" />
+	       						</b:selectOneMenu>
+	       					</div>
+	       				</div>
+       					<div class="row">
+	       					<div class="col-xs-12 col-md-6"> 
+	       						<label>Sistema de Amortización</label>
+	       						<b:selectOneMenu value="#{calculadoraVista.calculadora.sistemaAmort}" label="">
+	       							<f:selectItems value="#{calculadoraVista.listaSistemasAmort}" var="sistemaAmort" itemLabel="#{sistemaAmort.nombre}" itemValue="#{sistemaAmort}" />
+	       						</b:selectOneMenu>
+	       					</div>
+       					</div>
+       					<div class="row">
+	       					<div class="col-xs-12 col-md-6"> 
+	       						<label>Tasa de interés</label>
+	       						<b:inputText placeholder="Tasa de interés" value="#{calculadoraVista.calculadora.tasaInteres}" label="" render-label="false"/>
+	       					</div>
+       					</div>
+	          			<div class="row">
+		          			<div class="col-xs-12 col-md-6">
+				                <button type="button" class="btn btn-danger" onclick="irA('#{calculadoraVista.enlaceListado}');">Cancelar</button>
+				                <b:commandButton value="Guardar" icon="" look="primary" ajax="true" styleClass="pull-right"
+									actionListener="#{calculadoraVista.guardarRegistro}" onerror="" onsuccess="irA('#{request.contextPath}/usuario/confCalculadora.xhtml');"/> 			
+		                	</div>
+	                	</div>
+					</b:tab>
+					<b:tab title="Parámetros">
+						<b:buttonToolbar>
+							<b:buttonGroup>
+								<b:button icon-awesome="fa-file" title="Nuevo Registro" value="Nuevo" 
+									onclick="desmarcarRegistroSeleccionado('#frm-idParametro');irA('#{request.contextPath}/usuario/calcParametros.xhtml?', 'idCalculadora');"/>
+									
+								<b:button icon-awesome="fa-edit" title="Editar Seleccionado" value="Editar"
+									onclick="if(marcarRegistroSeleccionado('#frm-idParametro', tablaMaestro)) {irA('#{request.contextPath}/usuario/calcParametros.xhtml?', 'idCalculadora', 'idParametro');}" />
+							    	
+								<b:button icon-awesome="fa-trash" title="Eliminar Seleccionado" value="Eliminar" 
+									onclick="mostrarConfirmacionEliminar('#frm-confirmacionEliminar','#frm-idParametro',tablaMaestro)" />
+							</b:buttonGroup>
+						</b:buttonToolbar>
+						<table id="calcParametros" class="display responsive table table-bordered table-striped"></table>
+					</b:tab>
+				</b:tabView>
+	         </div>
+         </b:row>
+         
+         	<script type="text/javascript">
+			//<![CDATA[
+				$(document).ready(function() {
+					initTabs();
+				});
+			//]]>
+			</script>
+			
+			<script type="text/javascript">
+	//<![CDATA[
+	var tablaMaestro;
+	$(document).ready(function() {
+		
+		tablaMaestro = $('#calcParametros').DataTable( {
+		    "language": {
+	            "url": "#{request.contextPath}/js/DataTables/Spanish.json"
+	        },
+	        "processing": true,
+	        "serverSide": true,
+	        "ajax": {
+	            url: "#{request.contextPath}/usuario/parametros.json?idCalculadora=" + $("#frm-idCalculadora").val(),
+	            type: "POST"
+	        },
+	        "responsive": true,
+	        "pageLength": 100,
+	        "autoWidth": false,
+	        "order": [[ 1, 'asc' ]],
+	        "columnDefs": [ {
+	            "orderable": false,
+	            "className": 'select-checkbox',
+	            "targets":   0
+	        } ],
+	        "select": {
+	            "style": 'single',
+	        },
+	        "rowId": "identificador",
+	        "columns": [
+	        	{ "title": "", "defaultContent": ""	},
+				{ "title": "Nombre Parametro", "data": "nombreParametro.nombre"},
+				{ "title": "Valor",	"data": "valor"},
+				{ "title": "Tipo Cálculo", "data": "tipoCalculo" },
+				{ "title": "Aplicar Cuota", "data": "aplicaCuota" }
+	        ]
+	    } );
+	} );
+	//]]>
+	</script>
+			
+		
+		
+	</ui:define>
+</ui:composition>

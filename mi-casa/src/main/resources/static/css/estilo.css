@@ -1,0 +1,75 @@
+.col-enlace {
+	cursor: pointer;
+}
+
+.navbar-brand, .navbar-nav > li > a{
+	text-shadow: none !important;
+}
+
+.sui-fileupload-content {
+	display: none;
+}
+
+.ui-fileupload-row > div:nth-child(1),
+.ui-fileupload-row > div:nth-child(2),
+.ui-fileupload-row > div:nth-child(3),
+.ui-fileupload-row > div:nth-child(5) {
+	display: none;
+}
+
+.ui-autocomplete-multiple,
+.ui-autocomplete-multiple-container {
+	width: 90% !important;
+}
+
+table#carpetas tbody tr,
+table#archivos tbody tr {
+	cursor: pointer;
+}
+
+.colorPrincipal {
+	color: #00AFD7;
+}
+
+.nav>li>a {
+	padding: 12px 10px !important;
+}
+
+@media (max-width: 992px) {
+	.row-spacer {
+		height: 7px;
+	}
+}
+
+@media (min-width: 992px) {
+	.row-spacer {
+	  height: 20px;
+	}
+}
+
+.label.miPerfil {
+	font-size: 13px;
+}
+
+.col-menu-portada {
+	margin-bottom: 5px;
+}
+	
+@media (min-width: 992px) {
+	.col-menu-portada {
+		padding-left: 45px;
+		padding-right: 45px;
+	}
+}
+
+@media (min-width: 1200px) {
+	.col-video-portada {
+		margin-top: 25px;	
+	}
+}
+
+.list-group .list-group-item {
+	font-size: 16px;
+	padding: 15px 15px;
+}
+

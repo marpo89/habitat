@@ -1,0 +1,125 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+	<header class="main-header">
+		<nav class="navbar navbar-static-top">
+			<div class="container">
+		        <div class="navbar-header">
+		          <a href="#{request.contextPath}/index.xhtml" class="navbar-brand">
+		          	  	<i class="icon-habitat" aria-hidden="true"></i>
+		          </a>
+	          		<div class="logo-habitat">
+						<a href="#{request.contextPath}/index.xhtml"><img
+							src="#{request.contextPath}/img/icon/logohabitat.svg" alt="Inicio" width="30px" height="auto"
+							class="img-responsive center-block" /></a>
+					</div>
+		          
+			      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse">
+		            <i class="fa fa-bars"></i>
+		          </button>
+		        </div>
+		        
+				<!-- Collect the nav links, forms, and other content for toggling -->
+		        <div class="collapse navbar-collapse pull-left" id="navbar-collapse">
+					<ul class="nav navbar-nav">
+
+						<f:verbatim rendered="#{menuVista.menuVisible['mi_perfil']}">
+							<li class="dropdown">
+								<a href="#" class="dropdown-toggle" data-toggle="dropdown">Mi perfil <span class="caret"></span></a>
+								<ul class="dropdown-menu" role="menu">
+									<li><a href="#{request.contextPath}/usuario/miPerfil.xhtml">Actualizar</a></li>
+									<li><a href="#{request.contextPath}/publico/mapa.xhtml?u=#{menuVista.usuarioActual.idUsuario}">Direcciones</a></li>
+									<li><a href="#{request.contextPath}/usuario/misDirecciones.xhtml">Gestionar direcciones</a></li>
+									<li><a href="#{request.contextPath}/usuario/muro.xhtml?u=#{menuVista.usuarioActual.idUsuario}">Mi muro</a></li>
+									<li><a href="#{request.contextPath}/usuario/contenidoN2.xhtml">Nuevo contenido</a></li>
+								</ul>
+							</li>
+						</f:verbatim>
+						
+						<f:verbatim rendered="#{menuVista.menuVisible['validar_oferta']}">
+							<li><a href="#{request.contextPath}/gestion/validarOfertas.xhtml">Validar Oferta</a></li>
+						</f:verbatim>
+						
+						<f:verbatim rendered="#{menuVista.menuVisible['ofertas']}">
+							<li class="dropdown">
+								<a href="#" class="dropdown-toggle" data-toggle="dropdown">Admin Ofertas <span class="caret"></span></a>
+								<ul class="dropdown-menu" role="menu">
+									<li><a href="#{request.contextPath}/gestion/ofertas.xhtml">Ofertas</a></li>
+									<li><a href="#{request.contextPath}/gestion/validarOfertas.xhtml">Validar</a></li>
+								</ul>
+							</li>
+						</f:verbatim>
+						
+						<f:verbatim rendered="#{menuVista.menuVisible['biblioteca']}">
+							<li><a href="#{request.contextPath}/publico/biblioteca.xhtml">Biblioteca</a></li>
+						</f:verbatim>
+						
+						<f:verbatim rendered="#{menuVista.menuVisible['gestionar']}">
+							<li class="dropdown">
+								<a href="#" class="dropdown-toggle" data-toggle="dropdown">Gestionar <span class="caret"></span></a>
+								<ul class="dropdown-menu" role="menu">
+									<li><a href="#{request.contextPath}/gestion/proyectos.xhtml">Proyectos</a></li>
+								</ul>
+							</li>
+						</f:verbatim>
+						
+						<f:verbatim rendered="#{menuVista.menuVisible['administracion']}">
+							<li class="dropdown">
+								<a href="#" class="dropdown-toggle" data-toggle="dropdown">Admin <span class="caret"></span></a>
+								<ul class="dropdown-menu" role="menu">
+									<li><a href="#{request.contextPath}/admin/catalogos.xhtml">Cat&#225;logos</a></li>
+									<li><a href="#{request.contextPath}/admin/usuarios.xhtml">Usuarios</a></li>
+									<li><a href="#{request.contextPath}/admin/loginListado.xhtml">Bit&#225;cora de login</a></li>
+									<li><a href="#{request.contextPath}/admin/actividadUsrN2Listado.xhtml">Actividad usuarios nivel 2</a></li>
+									<li><a href="#{request.contextPath}/admin/contenidos.xhtml">Contenidos</a></li>
+									<li><a href="#{request.contextPath}/admin/publicidad.xhtml">Publicidad</a></li>
+									<li><a href="#{request.contextPath}/admin/usuariosOnLine.xhtml">Usuarios en l&#237;nea</a></li>
+									<li><a href="https://analytics.google.com/analytics/web" target="_blank">Google analytics</a></li>
+								</ul>
+							</li>
+						</f:verbatim>
+					</ul>
+				</div>
+
+				<h:panelGroup layout="block" styleClass="navbar-custom-menu" rendered="#{menuVista.menuVisible['mi_perfil_anonimo']}">
+		          <ul class="nav navbar-nav">
+					<f:verbatim rendered="#{menuVista.menuVisible['mi_perfil_anonimo']}">
+						<li class="dropdown">
+							<a href="#" class="dropdown-toggle" data-toggle="dropdown">Ingresar <span class="caret"></span></a>
+							<ul class="dropdown-menu" role="menu">
+								<li><a class="right" href="#{request.contextPath}/login.xhtml">Iniciar sesi&#243;n</a></li>
+								<li><a class="right" href="#{request.contextPath}/publico/registro.xhtml">Crear cuenta</a></li>
+							</ul>
+						</li>
+					</f:verbatim>
+		          </ul>
+			    </h:panelGroup>
+				
+				<h:panelGroup layout="block" styleClass="navbar-custom-menu" rendered="#{menuVista.menuVisible['salir']}">
+		          <ul class="nav navbar-nav">
+		          
+		            <li class="dropdown">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown">
+							#{menuVista.usuarioActualUI} <span class="caret"></span>
+						</a>
+						<ul class="dropdown-menu" role="menu">
+							<f:verbatim rendered="#{menuVista.menuVisible['mi_perfil_simple']}">
+								<li><a class="right" href="#{request.contextPath}/usuario/miPerfil.xhtml">Mi perfil</a></li>
+							</f:verbatim>
+							<f:verbatim rendered="#{menuVista.menuVisible['mis_proyectos']}">
+								<li><a class="right" href="#{request.contextPath}/proyecto/misProyectos.xhtml">Mis proyectos</a></li>
+							</f:verbatim>						
+							<li><a class="right" href="#{request.contextPath}/logout">Salir</a></li>
+						</ul>
+		            </li>
+		          </ul>
+		        </h:panelGroup>
+
+	        </div>
+
+		</nav>  
+	</header>
+</ui:composition>

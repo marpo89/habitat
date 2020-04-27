@@ -1,0 +1,81 @@
+package org.habitatnicaragua.micasa.seguridad;
+
+import java.io.IOException;
+import java.util.Base64;
+
+import javax.servlet.Filter;
+import javax.servlet.FilterChain;
+import javax.servlet.FilterConfig;
+import javax.servlet.ServletException;
+import javax.servlet.ServletRequest;
+import javax.servlet.ServletResponse;
+import javax.servlet.annotation.WebFilter;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.apache.commons.lang3.StringUtils;
+import org.habitatnicaragua.micasa.servicio.ServicioComun;
+import org.springframework.context.ApplicationContext;
+import org.springframework.web.context.support.WebApplicationContextUtils;
+
+@WebFilter({"*.xhtml"})
+public class BasicAuthenticationFilter implements Filter {
+	
+	private ServicioComun servicioComun;
+	
+	@Override
+	public void init(FilterConfig filterConfig) throws ServletException {
+		ApplicationContext ctx = WebApplicationContextUtils.getRequiredWebApplicationContext(filterConfig.getServletContext());
+		this.servicioComun = ctx.getBean(ServicioComun.class);
+	}
+
+	@Override
+	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
+			throws IOException, ServletException {
+
+		String modoMantenimiento = servicioComun.getValorParametro("MODO_MANTENIMIENTO","No");
+		
+		if(StringUtils.trimToEmpty(modoMantenimiento).equalsIgnoreCase("si") || StringUtils.trimToEmpty(modoMantenimiento).equalsIgnoreCase("s")) {
+			HttpServletRequest req = (HttpServletRequest) request;
+			HttpServletResponse res = (HttpServletResponse) response;
+
+			boolean authorized = false;
+
+			String authHeader = req.getHeader("Authorization");
+			if (authHeader != null) {
+
+				String[] authHeaderSplit = authHeader.split("\\s");
+
+				for (int i = 0; i < authHeaderSplit.length; i++) {
+					String token = authHeaderSplit[i];
+					if (token.equalsIgnoreCase("Basic")) {
+
+						String credentials = new String(Base64.getDecoder().decode(authHeaderSplit[i + 1]));
+						int index = credentials.indexOf(":");
+						if (index != -1) {
+							String username = credentials.substring(0, index).trim();
+							String password = credentials.substring(index + 1).trim();
+							
+							String modoMantenimientoContrasenia = servicioComun.getValorParametro("MODO_MANTENIMIENTO_CONTRASENIA","invitado");
+							
+							authorized = username.equals(modoMantenimientoContrasenia) && password.equals(modoMantenimientoContrasenia);
+						}
+					}
+				}
+			}
+
+			if (!authorized) {
+				res.setHeader("WWW-Authenticate", "Basic realm=\"Insert credentials\"");
+				res.sendError(HttpServletResponse.SC_UNAUTHORIZED);
+			} else {
+				chain.doFilter(req, res);
+			}
+		} else {
+			chain.doFilter(request, response);
+		}
+	}
+
+	@Override
+	public void destroy() {
+	}
+}

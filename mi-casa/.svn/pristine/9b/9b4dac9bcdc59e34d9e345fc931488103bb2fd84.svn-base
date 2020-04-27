@@ -1,0 +1,66 @@
+https://wiki.centos.org/es/HowTos/Https
+https://www.liquidweb.com/kb/generating-certificate-signing-request-csr/
+
+[root@t620 ~]# mv csr-micasa-2019/ csr-borrar-prueba1
+
+[root@t620 ~]# yum install mod_ssl openssl
+[root@t620 ~]# mkdir csr-www-micasa-2019
+[root@t620 ~]# cd csr-www-micasa-2019/
+
+[root@t620 csr-www-micasa-2019]#  openssl req -new -newkey rsa:2048 -nodes -keyout www_micasa_com_ni.key -out www_micasa_com_ni.csr
+
+Generating a 2048 bit RSA private key
+........................................................................................................................+++
+..................................................................+++
+writing new private key to 'www_micasa_com_ni.key'
+-----
+You are about to be asked to enter information that will be incorporated
+into your certificate request.
+What you are about to enter is what is called a Distinguished Name or a DN.
+There are quite a few fields but you can leave some blank
+For some fields there will be a default value,
+If you enter '.', the field will be left blank.
+-----
+Country Name (2 letter code) [XX]:NI
+State or Province Name (full name) []:Managua
+Locality Name (eg, city) [Default City]:Managua
+Organization Name (eg, company) [Default Company Ltd]:Habitat para la Humanidad Nicaragua
+Organizational Unit Name (eg, section) []:Habitat para la Humanidad Nicaragua
+Common Name (eg, your name or your server's hostname) []:www.micasa.com.ni
+Email Address []:jrosales@habitatnicaragua.org
+
+Please enter the following 'extra' attributes
+to be sent with your certificate request
+A challenge password []:M1C$Z$2019
+An optional company name []:micasa.com.ni
+
+
+[root@t620 csr-www-micasa-2019]# ls
+www_micasa_com_ni.csr  www_micasa_com_ni.key
+
+[root@t620 csr-micasa-2019]# sh-4.2# cat www_micasa_com_ni.csr 
+-----BEGIN CERTIFICATE REQUEST-----
+MIIDVjCCAj4CAQAwgdcxCzAJBgNVBAYTAk5JMRAwDgYDVQQIDAdNYW5hZ3VhMRAw
+DgYDVQQHDAdNYW5hZ3VhMSwwKgYDVQQKDCNIYWJpdGF0IHBhcmEgbGEgSHVtYW5p
+ZGFkIE5pY2FyYWd1YTEsMCoGA1UECwwjSGFiaXRhdCBwYXJhIGxhIEh1bWFuaWRh
+ZCBOaWNhcmFndWExGjAYBgNVBAMMEXd3dy5taWNhc2EuY29tLm5pMSwwKgYJKoZI
+hvcNAQkBFh1qcm9zYWxlc0BoYWJpdGF0bmljYXJhZ3VhLm9yZzCCASIwDQYJKoZI
+hvcNAQEBBQADggEPADCCAQoCggEBAKnvxzzn7lfLbgaLsMOFcVRPo9K+GQamOJ7+
+XVYAUwMRqCU/IgETg3kpQW1aQhezfpOgmEA4ixAydJWixEanFn818yjiRbnRt3MK
+YD0iaH5ion4nmVZBnlR6P7525EbJMkKUwnNBcbU+fjzoFuaW7J27kKS4eKzMCiGR
+NdP8QYU7X1snbaSyJ1nubTsMhdqbn46ekNtJhMMDScLyHcUJlOXkmqaB4Qtukw5q
+gnSBRDDRigxn+L70/LWdub11+0LczyIBOfY5LCY+6uj7zrfCo1GL9KCWC/73EFpG
+jiLs781UWxPi+UkzOdRy5jwzGd+oeD7TMsgvr74vQ0Z8D29MmZsCAwEAAaA5MBkG
+CSqGSIb3DQEJBzEMDApNMUMkWiQyMDE5MBwGCSqGSIb3DQEJAjEPDA1taWNhc2Eu
+Y29tLm5pMA0GCSqGSIb3DQEBCwUAA4IBAQBo+Plm8BXKcIRp4Fm7LfNYuymTfCHy
+IE/1LbBjjWk6F/UMS9qWe+OViH++4Qh5jUdxP1I9CtLG6+4hITW7yKrDvvBqOxM9
+bbUvykWXpy371iubcMPhFWCY+eXfsTknLYoPPiHeGs4Gv22A2JS5c6n7ayLOrHMZ
+Rg+GGe7DHlhSeP3tr++uPnnJOUnEIDh3JUg9IlvRKV7EvARHCTbcpjc1z+uZNnbb
+BfFU/rF8nLv0yYrdzMxsZTnPYayQx7gQWVwesqxvc7pJpxwOHRqApzMBo2LD8LNa
+9D3B8Dl3n++S1yzLd5IVSBly/aDnkv5iWYRvFBzGiLVEx57eo7KOQaI2
+-----END CERTIFICATE REQUEST-----
+
+
+
+
+
