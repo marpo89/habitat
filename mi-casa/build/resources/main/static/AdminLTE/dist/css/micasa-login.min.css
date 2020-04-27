@@ -1,0 +1,84 @@
+/*!
+ *   Mi Casa | Habitat Nicaragua
+ *   Author: Eleazar Porta
+ *   License: Open source
+ */
+
+
+/*//----- WEB FONT -----//*/
+
+@font-face {
+    font-family: 'Neue Haas Grotesk Display Pro';
+    src: url('../fonts/NeueHaasDisplay-Roman.woff2') format('woff2'), url('../fonts/NeueHaasDisplay-Roman.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Neue Haas Grotesk Display Pro';
+    src: url('../fonts/NeueHaasDisplay-Mediu.woff2') format('woff2'), url('../fonts/NeueHaasDisplay-Mediu.woff') format('woff');
+    font-weight: 500;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Neue Haas Grotesk Display Pro';
+    src: url('../fonts/NeueHaasDisplay-Bold.woff2') format('woff2'), url('../fonts/NeueHaasDisplay-Bold.woff') format('woff');
+    font-weight: bold;
+    font-style: normal;
+}
+
+
+/*
+ * General Layout Style
+ * -------------------------
+ */
+
+html,
+body {
+    font-family: 'Neue Haas Grotesk Display Pro', sans-serif;
+    font-weight: normal;
+    width: 100%;
+    height: auto;
+}
+
+.login-page,
+.register-page {
+    background-color: #f3f3f3;
+}
+
+.btn-flat {
+    border: 0;
+    padding: 10px 12px;
+    font-weight: 500;
+    background-color: #00A2E0 !important;
+}
+
+.login-box,
+.register-box {
+    border: 1px solid rgba(204, 204, 204, 0.5);
+    border-radius: 8px;
+    padding: 15px;
+    background-color: #fff;
+}
+
+.login-logo,
+.register-logo {
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+
+.login-box-msg {
+    padding-bottom: 15px;
+    font-size: 16px;
+    color: #222;
+}
+
+.mc-links-login>.btn-link {
+    color: #00A2E0;
+}
+
+.mc-links-login>.btn-link:active {
+    box-shadow: none;
+    color: #002F6C;
+}

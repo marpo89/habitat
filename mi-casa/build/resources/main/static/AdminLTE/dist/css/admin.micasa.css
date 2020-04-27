@@ -1,0 +1,96 @@
+/*!
+ *   Mi Casa | Habitat Nicaragua
+ *   Author: Eleazar Porta
+ *   License: Open source
+ */
+
+
+/*//----- WEB FONT -----//*/
+
+@font-face {
+    font-family: 'Neue Haas Grotesk Display Pro';
+    src: url('../fonts/NeueHaasDisplay-Roman.woff2') format('woff2'), url('../fonts/NeueHaasDisplay-Roman.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Neue Haas Grotesk Display Pro';
+    src: url('../fonts/NeueHaasDisplay-Mediu.woff2') format('woff2'), url('../fonts/NeueHaasDisplay-Mediu.woff') format('woff');
+    font-weight: 500;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Neue Haas Grotesk Display Pro';
+    src: url('../fonts/NeueHaasDisplay-Bold.woff2') format('woff2'), url('../fonts/NeueHaasDisplay-Bold.woff') format('woff');
+    font-weight: bold;
+    font-style: normal;
+}
+
+
+/*
+ * General Layout Style
+ * -------------------------
+ */
+
+html,
+body {
+    font-family: 'Neue Haas Grotesk Display Pro', sans-serif;
+    font-weight: normal;
+}
+
+
+/*
+ * Navbar Top
+ * -------------------------
+ */
+
+.skin-blue .main-header .navbar,
+.skin-blue .main-header li.user-header {
+    background-color: #00A2E0;
+}
+
+.skin-blue .main-header .logo,
+.skin-blue .main-header .navbar .sidebar-toggle:hover,
+.skin-blue .wrapper,
+.skin-blue .main-sidebar,
+.skin-blue .left-side {
+    background-color: #002F6C !important;
+}
+
+.navbar-custom-menu>.navbar-nav>li>.dropdown-menu {
+    border: transparent;
+}
+
+.skin-blue .main-header .navbar .nav>li>a:hover,
+.skin-blue .main-header .navbar .nav>li>a:active,
+.skin-blue .main-header .navbar .nav>li>a:focus,
+.skin-blue .main-header .navbar .nav .open>a,
+.skin-blue .main-header .navbar .nav .open>a:hover,
+.skin-blue .main-header .navbar .nav .open>a:focus,
+.skin-blue .main-header .navbar .nav>.active>a {
+    background-color: #002F6C;
+}
+
+.skin-blue .sidebar-menu>li:hover>a,
+.skin-blue .sidebar-menu>li.active>a,
+.skin-blue .sidebar-menu>li.menu-open>a,
+.skin-blue .sidebar-menu>li>.treeview-menu {
+    background-color: #001939;
+}
+
+.skin-blue .sidebar a {
+    color: #00A2E0;
+}
+
+.skin-blue .sidebar-menu .treeview-menu>li>a {
+    color: #66C7EC;
+}
+
+@media (min-width: 768px) {
+    .navbar-nav>li>a {
+        padding-top: 16px;
+        padding-bottom: 34px;
+    }
+}
